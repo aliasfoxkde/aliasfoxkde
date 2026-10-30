@@ -17,4 +17,8 @@ I build practical software and infrastructure for AI-assisted development, relia
 
 Rust · AI systems · developer experience · automation · DevOps · technical writing
 
-More projects are available in my [repositories](https://github.com/aliasfoxkde?tab=repositories).
+## Elsewhere
+
+- [OpenPortfolio](https://openportfolio.pages.dev/) — work in progress.
+- [GitHub Pages site](https://aliasfoxkde.github.io/).
+- [GitHub repositories](https://github.com/aliasfoxkde?tab=repositories).

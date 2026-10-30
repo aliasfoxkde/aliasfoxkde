@@ -15,6 +15,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
     steps:
       - name: Check out the profile README
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -72,6 +73,47 @@ jobs:
           else
             git push --set-upstream origin "$branch"
           fi
+
+          expected_sha="$(git rev-parse HEAD)"
+          gh workflow run validate-profile.yml --ref "$branch"
+
+          validation_run=""
+          for attempt in $(seq 1 60); do
+            validation_run="$(gh run list \
+              --workflow validate-profile.yml \
+              --branch "$branch" \
+              --limit 10 \
+              --json databaseId,event,headSha \
+              --jq "[.[] | select(.event == \"workflow_dispatch\" and .headSha == \"$expected_sha\")] | sort_by(.databaseId) | last | .databaseId // empty")"
+            if [[ -n "$validation_run" ]]; then
+              break
+            fi
+            sleep 2
+          done
+
+          if [[ -z "$validation_run" ]]; then
+            echo "Profile validation workflow was not created for $expected_sha" >&2
+            exit 1
+          fi
+
+          for attempt in $(seq 1 90); do
+            validation="$(gh run view "$validation_run" --json status,conclusion)"
+            status="$(jq -r '.status' <<<"$validation")"
+            conclusion="$(jq -r '.conclusion // empty' <<<"$validation")"
+            if [[ "$status" == "completed" ]]; then
+              if [[ "$conclusion" != "success" ]]; then
+                echo "Profile validation failed for $expected_sha ($conclusion)" >&2
+                gh run view "$validation_run" --log-failed >&2 || true
+                exit 1
+              fi
+              break
+            fi
+            if [[ "$attempt" == "90" ]]; then
+              echo "Profile validation timed out for $expected_sha" >&2
+              exit 1
+            fi
+            sleep 2
+          done
 
           if [[ -n "$pr_number" ]]; then
             gh pr edit "$pr_number" \

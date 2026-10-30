@@ -5,6 +5,13 @@
   development workflows, automation, and technical communication.
 </p>
 
+## Highlights
+
+- **AI infrastructure:** [Amortyx](https://github.com/aliasfoxkde/Amortyx) combines request optimization, enforcement, and model routing for AI coding workflows.
+- **Fast code intelligence:** [OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier) focuses on local-first classification and analysis.
+- **Self-hosted delivery:** [GitForge](https://github.com/aliasfoxkde/GitForge) brings Git hosting and CI/CD closer to the hardware.
+- **More experiments:** Browse the [interactive profile demos](https://aliasfoxkde.github.io/examples/) for charts, SVGs, games, and layout ideas.
+
 ## Live projects & demos
 
 <table>
@@ -118,6 +125,7 @@
   <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
   <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
   <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
+  <a href="https://github.com/sponsors/aliasfoxkde">Support open-source work</a> ·
   <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
 
@@ -169,6 +177,17 @@
     </tr>
   </tbody>
 </table>
+
+## Organizations
+
+<p>
+  <a href="https://github.com/Cyopsys">Cyopsys</a> ·
+  <a href="https://github.com/stackblitz-labs">StackBlitz Labs</a> ·
+  <a href="https://github.com/WizerAI">WizerAI</a> ·
+  <a href="https://github.com/AI-CRUD-Sandbox">AI-CRUD-Sandbox</a> ·
+  <a href="https://github.com/TaskWizer">TaskWizer</a> ·
+  <a href="https://github.com/MiniDevPlatform">MiniDevPlatform</a>
+</p>
 
 ## Interests
 

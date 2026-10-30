@@ -13,7 +13,7 @@
   <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-133-informational?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-31-success?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-33-yellow?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-35-yellow?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
   <!-- profile-stats:end -->
 </p>

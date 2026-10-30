@@ -75,7 +75,7 @@
       </a>
       <br />
       <strong><a href="https://bolt-main.pages.dev/">Bolt</a></strong><br />
-      Browser-based AI app prototyping interface; provider credentials may be needed.
+      Browser-based AI app prototyping interface; a provider API key is required.
     </td>
     <td width="33.33%" align="center">
       <a href="https://onnx-chat.pages.dev/">

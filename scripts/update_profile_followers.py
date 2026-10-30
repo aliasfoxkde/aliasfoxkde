@@ -16,6 +16,8 @@ OWNER = "aliasfoxkde"
 README = Path(__file__).resolve().parents[1] / "README.md"
 START = "<!-- profile-followers:start -->"
 END = "<!-- profile-followers:end -->"
+STATS_START = "<!-- profile-stats:start -->"
+STATS_END = "<!-- profile-stats:end -->"
 PER_PAGE = 100
 LOGIN_RE = re.compile(r"^[A-Za-z0-9-]{1,39}$")
 
@@ -55,6 +57,45 @@ def fetch_followers() -> list[str]:
     return sorted(followers.values(), key=str.casefold)
 
 
+def fetch_public_repositories() -> list[dict[str, object]]:
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "aliasfoxkde-profile-stats-refresh",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    repositories: list[dict[str, object]] = []
+    page = 1
+    while True:
+        request = Request(
+            f"https://api.github.com/users/{OWNER}/repos?type=owner&per_page={PER_PAGE}&page={page}",
+            headers=headers,
+        )
+        try:
+            with urlopen(request, timeout=30) as response:
+                records = json.load(response)
+        except (HTTPError, URLError, TimeoutError) as error:
+            raise RuntimeError(f"GitHub repository API request failed on page {page}: {error}") from error
+        if not isinstance(records, list):
+            raise RuntimeError(f"GitHub returned an unexpected repository response on page {page}")
+        for record in records:
+            if not isinstance(record, dict) or not isinstance(record.get("fork"), bool):
+                raise RuntimeError(f"GitHub returned an invalid repository record on page {page}")
+            if record.get("private") is True or record.get("archived") is True:
+                continue
+            for key in ("stargazers_count", "forks_count"):
+                if not isinstance(record.get(key), int) or record[key] < 0:
+                    raise RuntimeError(f"GitHub returned an invalid {key} value on page {page}")
+            repositories.append(record)
+        if len(records) < PER_PAGE:
+            break
+        page += 1
+    return repositories
+
+
 def render_followers(followers: list[str]) -> str:
     if not followers:
         return "No public followers yet."
@@ -63,6 +104,23 @@ def render_followers(followers: list[str]) -> str:
         for login in followers
     ]
     return ",\n".join(", ".join(tags[start : start + 8]) for start in range(0, len(tags), 8))
+
+
+def render_stats(followers: list[str], repositories: list[dict[str, object]]) -> str:
+    originals = [repository for repository in repositories if repository["fork"] is False]
+    stats = [
+        ("Followers", len(followers), "blue"),
+        ("Public%20repos", len(repositories), "informational"),
+        ("Original%20repos", len(originals), "success"),
+        ("Project%20stars", sum(int(repository["stargazers_count"]) for repository in originals), "yellow"),
+        ("Project%20forks", sum(int(repository["forks_count"]) for repository in originals), "lightgrey"),
+    ]
+    return "\n  ".join(
+        f'<a href="https://github.com/{OWNER}?tab={"followers" if label == "Followers" else "repositories"}">'
+        f'<img alt="{html.escape(label.replace("%20", " "))}" '
+        f'src="https://img.shields.io/badge/{label}-{value}-{color}?style=flat-square" /></a>'
+        for label, value, color in stats
+    )
 
 
 def update_readme() -> bool:
@@ -75,13 +133,28 @@ def update_readme() -> bool:
         raise RuntimeError("README follower markers are in the wrong order")
 
     followers = fetch_followers()
+    repositories = fetch_public_repositories()
     generated = f"\n{render_followers(followers)}\n"
     updated = content[:start] + generated + content[end:]
+    if updated.count(STATS_START) != 1 or updated.count(STATS_END) != 1:
+        raise RuntimeError("README must contain exactly one start and end stats marker")
+    stats_start = updated.index(STATS_START) + len(STATS_START)
+    stats_end = updated.index(STATS_END)
+    if stats_start > stats_end:
+        raise RuntimeError("README stats markers are in the wrong order")
+    stats = f"\n  {render_stats(followers, repositories)}\n  "
+    updated = updated[:stats_start] + stats + updated[stats_end:]
     if updated == content:
-        print(f"Follower list already current ({len(followers)} public followers).")
+        print(
+            f"Profile data already current ({len(followers)} public followers, "
+            f"{len(repositories)} public repositories)."
+        )
         return False
     README.write_text(updated, encoding="utf-8")
-    print(f"Updated README with {len(followers)} public followers.")
+    print(
+        f"Updated README with {len(followers)} public followers and "
+        f"{len(repositories)} public repositories."
+    )
     return True
 
 

@@ -1,4 +1,4 @@
-name: Refresh profile followers
+name: Refresh profile stats and followers
 
 on:
   schedule:
@@ -27,7 +27,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          branch="automation/profile-followers"
+          branch="automation/profile-metrics"
           git fetch origin main
           if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
             git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
@@ -37,7 +37,7 @@ jobs:
           fi
           git checkout -B "$branch" origin/main
 
-      - name: Refresh public follower tags
+      - name: Refresh public follower and repository stats
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/update_profile_followers.py
@@ -48,21 +48,21 @@ jobs:
           BRANCH_EXISTS: ${{ steps.branch.outputs.exists }}
         run: |
           set -euo pipefail
-          branch="automation/profile-followers"
+          branch="automation/profile-metrics"
           pr_number="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
 
           if git diff --quiet -- README.md; then
             if [[ -n "$pr_number" ]]; then
               gh pr merge "$pr_number" --auto --squash --delete-branch
             fi
-            echo "Follower list is unchanged."
+            echo "Profile metrics are unchanged."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore(profile): refresh follower tags"
+          git commit -m "chore(profile): refresh dynamic metrics"
 
           if [[ "$BRANCH_EXISTS" == "true" ]]; then
             git push --force-with-lease origin "$branch"
@@ -72,14 +72,14 @@ jobs:
 
           if [[ -n "$pr_number" ]]; then
             gh pr edit "$pr_number" \
-              --title "chore(profile): refresh follower tags" \
-              --body "Refresh the generated public GitHub follower list."
+              --title "chore(profile): refresh dynamic metrics" \
+              --body "Refresh generated public GitHub follower and repository metrics."
           else
             gh pr create \
               --base main \
               --head "$branch" \
-              --title "chore(profile): refresh follower tags" \
-              --body "Refresh the generated public GitHub follower list."
+              --title "chore(profile): refresh dynamic metrics" \
+              --body "Refresh generated public GitHub follower and repository metrics."
           fi
 
           pr_number="$(gh pr view "$branch" --json number --jq .number)"

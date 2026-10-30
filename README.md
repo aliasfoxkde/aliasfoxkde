@@ -96,9 +96,12 @@
       Property records intelligence system; the demo requires sign-in.
     </td>
     <td width="33.33%" align="center">
+      <a href="https://siliconrank.pages.dev/">
+        <img src="assets/screenshots/siliconrank-home.png" width="100%" alt="SiliconRank hardware intelligence dashboard" />
+      </a>
       <br />
-      <strong>More projects coming soon</strong><br />
-      A third project for this row is TBD.
+      <strong><a href="https://siliconrank.pages.dev/">SiliconRank</a></strong><br />
+      Open hardware intelligence for browsing and comparing CPUs, GPUs, and AI accelerators.
     </td>
     <td width="33.33%" align="center">
       <a href="https://opencodifier.pages.dev/">
@@ -192,10 +195,19 @@
   <img alt="Cloudflare" src="https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
 </p>
 
+## GitHub at a glance
+
+The repository, follower, star, and fork totals below refresh daily from GitHub's public API. Star and fork totals cover original public repositories owned by this account; profile views use an external counter.
+
 <p align="center">
   <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="GitHub followers" src="https://img.shields.io/github/followers/aliasfoxkde?label=Followers&style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repositories" src="https://img.shields.io/github/repos/aliasfoxkde?label=Public%20repos&style=flat-square" /></a>
+  <!-- profile-stats:start -->
+  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-133-informational?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-31-success?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-33-yellow?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
+  <!-- profile-stats:end -->
 </p>
 
 ## Followers

@@ -106,6 +106,29 @@
       Browser chat for ONNX models, with tools and notes.
     </td>
   </tr>
+  <tr>
+    <td width="33.33%" align="center">
+      <a href="https://prisai-cha.pages.dev/">
+        <img src="assets/screenshots/prisai-cha-login.png" width="100%" alt="PRISAI property records intelligence system sign-in screen" />
+      </a>
+      <br />
+      <strong><a href="https://prisai-cha.pages.dev/">PRISAI</a></strong><br />
+      Property records intelligence system; the demo requires sign-in.
+    </td>
+    <td width="33.33%" align="center">
+      <br />
+      <strong>More projects coming soon</strong><br />
+      A third project for this row is TBD.
+    </td>
+    <td width="33.33%" align="center">
+      <a href="https://opencodifier.pages.dev/">
+        <img src="assets/screenshots/opencodifier-home.png" width="100%" alt="OpenCodifier landing page showing typed machine-actionable decisions" />
+      </a>
+      <br />
+      <strong><a href="https://opencodifier.pages.dev/">OpenCodifier</a></strong><br />
+      Fast, local-first code intelligence and deterministic decision engine.
+    </td>
+  </tr>
 </table>
 
 <p align="center">

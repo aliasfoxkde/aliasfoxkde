@@ -1,4 +1,4 @@
-name: Refresh profile stats and followers
+name: Refresh profile stats, followers, and public sponsors
 
 on:
   schedule:
@@ -37,7 +37,7 @@ jobs:
           fi
           git checkout -B "$branch" origin/main
 
-      - name: Refresh public follower and repository stats
+      - name: Refresh public follower, repository, and sponsor data
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/update_profile_followers.py
@@ -73,13 +73,13 @@ jobs:
           if [[ -n "$pr_number" ]]; then
             gh pr edit "$pr_number" \
               --title "chore(profile): refresh dynamic metrics" \
-              --body "Refresh generated public GitHub follower and repository metrics."
+              --body "Refresh generated public GitHub metrics and public sponsor acknowledgments."
           else
             gh pr create \
               --base main \
               --head "$branch" \
               --title "chore(profile): refresh dynamic metrics" \
-              --body "Refresh generated public GitHub follower and repository metrics."
+              --body "Refresh generated public GitHub metrics and public sponsor acknowledgments."
           fi
 
           pr_number="$(gh pr view "$branch" --json number --jq .number)"

@@ -60,6 +60,44 @@
       Browser workspace for building AI-powered applications.
     </td>
   </tr>
+  <tr>
+    <td width="33.33%" align="center">
+      <a href="https://scratch-optimizer.pages.dev/">
+        <img src="assets/screenshots/scratch-optimizer.png" width="100%" alt="Scratch Optimizer project upload and optimization options" />
+      </a>
+      <br />
+      <strong><a href="https://scratch-optimizer.pages.dev/">Scratch Optimizer</a></strong><br />
+      Clean and optimize Scratch projects before sharing or packaging.
+    </td>
+    <td width="33.33%" align="center">
+      <a href="https://prisai-cha.pages.dev/">
+        <img src="assets/screenshots/prisai-cha-login.png" width="100%" alt="PRISAI property records intelligence sign-in page" />
+      </a>
+      <br />
+      <strong><a href="https://prisai-cha.pages.dev">PRISAI</a></strong><br />
+      Property records intelligence workspace (sign-in required).
+    </td>
+    <td width="33.33%" align="center">
+      <a href="https://bolt-main.pages.dev/">
+        <img src="assets/screenshots/bolt-main.png" width="100%" alt="Bolt browser-based AI application prototyping interface" />
+      </a>
+      <br />
+      <strong><a href="https://bolt-main.pages.dev/">Bolt</a></strong><br />
+      Browser-based AI app prototyping interface; provider credentials may be needed.
+    </td>
+  </tr>
+  <tr>
+    <td width="33.33%"></td>
+    <td width="33.33%" align="center">
+      <a href="https://onnx-chat.pages.dev/">
+        <img src="assets/screenshots/onnx-chat.png" width="100%" alt="ONNX Chat browser app with local model selector and chat interface" />
+      </a>
+      <br />
+      <strong><a href="https://onnx-chat.pages.dev/">ONNX Chat</a></strong><br />
+      Browser chat for ONNX models, with tools and notes.
+    </td>
+    <td width="33.33%"></td>
+  </tr>
 </table>
 
 <p align="center">

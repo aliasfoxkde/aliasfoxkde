@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Flip through project screenshots to see short descriptions and live/source links.">
+  <meta name="theme-color" content="#f7f6ff">
+  <link rel="icon" href="data:,">
+  <title>Project Cards | Aliasfoxkde</title>
+  <style>
+    :root{color-scheme:light;--ink:#211b37;--muted:#625c75;--paper:#f7f6ff;--surface:#fff;--line:#ded9ef;--accent:#6748c7;--soft:#eee9ff;--shadow:0 14px 36px rgb(0 0 0 / 9%)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent);text-underline-offset:.18em}button{font:inherit}.shell{width:min(1200px,calc(100% - 36px));margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0}.brand{color:var(--ink);font-weight:820;text-decoration:none;letter-spacing:-.03em}.top nav{display:flex;flex-wrap:wrap;gap:15px}.top nav a{font-size:.9rem;font-weight:650}main{padding:30px 0 70px}.intro{display:grid;grid-template-columns:1fr auto;align-items:end;gap:28px;margin:10px 0 28px}.intro h1{max-width:800px;margin:0 0 12px;font-size:clamp(2.5rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.035em}.intro p{max-width:68ch;margin:0;color:var(--muted);font-size:1.05rem}.tip{max-width:260px;padding:13px 15px;border:1px solid #d8d1ec;border-radius:12px;background:#fff;color:#514477;font-size:.85rem}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.flip-card{min-width:0;min-height:310px;perspective:1100px}.card-inner{position:relative;width:100%;height:100%;min-height:310px;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.2,.75,.25,1)}.flip-card.is-flipped .card-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:15px;background:var(--surface);box-shadow:var(--shadow);backface-visibility:hidden;-webkit-backface-visibility:hidden}.front{padding:12px}.front img{display:block;width:100%;height:205px;object-fit:cover;border-radius:9px;background:#eeeaf5}.front h2{margin:12px 2px 2px;font-size:1.07rem;letter-spacing:-.02em}.flip-button{display:inline-flex;align-items:center;gap:7px;min-height:38px;margin:0 2px 2px auto;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--accent);font-size:.8rem;font-weight:720;cursor:pointer}.flip-button:hover{border-color:var(--accent);background:var(--soft)}.flip-button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.back{padding:20px;transform:rotateY(180deg);background:#211b37;color:#f7f4ff}.back h2{margin:0 0 9px;font-size:1.22rem;letter-spacing:-.025em}.back p{margin:0;color:#d0c9e1;font-size:.93rem}.back-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto;padding-top:20px}.back-links a{display:inline-flex;align-items:center;min-height:37px;padding:6px 10px;border:1px solid #746699;border-radius:8px;color:#fff;font-size:.83rem;font-weight:700;text-decoration:none}.back-links a:hover{background:#392f52}.back .flip-button{margin:17px 0 0 auto;border-color:#746699;background:transparent;color:#f7f4ff}.status{min-height:1.5em;margin:20px 0 0;color:var(--muted);font-size:.9rem;text-align:center}.reduced{display:none}.note{margin-top:42px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}footer{padding:22px 0 34px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+    :focus-visible{outline:3px solid #d34c93;outline-offset:3px}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.intro{grid-template-columns:1fr;gap:17px}.tip{max-width:unset}}
+    @media(max-width:590px){.shell{width:calc(100% - 24px)}.top{align-items:flex-start}.top nav{justify-content:flex-end;gap:7px 12px}.top nav a{font-size:.81rem}.cards{grid-template-columns:1fr;gap:14px}.flip-card,.card-inner{min-height:290px}.front img{height:190px}.intro h1{font-size:clamp(2.25rem,11vw,3.3rem)}}
+    @media(prefers-reduced-motion:reduce){.card-inner,.flip-card.is-flipped .card-inner{transition:none;transform:none}.front{display:flex}.back{display:none;transform:none}.flip-card.is-flipped .front{display:none}.flip-card.is-flipped .back{display:flex}.reduced{display:inline}.motion{display:none}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top"><a class="brand" href="https://aliasfoxkde.github.io/">ALIASFOXKDE / PROJECTS</a><nav aria-label="Page navigation"><a href="index.html">Widget Lab</a><a href="creative.html">Profile ideas</a><a href="svg-library/">SVG Library</a><a href="about.html">Design notes</a></nav></header>
+    <main>
+      <section class="intro"><div><h1>Flip through the work.</h1><p>Each card opens into a short description and project links. Hover with a mouse, or use the flip button with touch, keyboard, or assistive technology.</p></div><aside class="tip"><strong>Small interaction, clear content.</strong><br>Reduced-motion settings replace the 3D turn with a simple front/back switch.</aside></section>
+      <section class="cards" aria-label="Project and demo cards">
+        <article class="flip-card" data-card id="amortyx"><div class="card-inner"><div class="face front"><img src="assets/screenshots/amortyx-home.webp" alt="Amortyx landing page and routing demo"><h2>Amortyx</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-amortyx"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-amortyx" aria-hidden="true" inert><h2>Amortyx</h2><p>Local-first AI harness and request optimization layer, including context management, enforcement, and model routing.</p><div class="back-links"><a href="https://www.amortyx.com/" target="_blank" rel="noopener">Live site</a><a href="https://github.com/aliasfoxkde/Amortyx" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Back</button></div></div></article>
+        <article class="flip-card" data-card id="openzenith"><div class="card-inner"><div class="face front"><img src="assets/screenshots/openzenith-home.webp" alt="OpenZenith geospatial API and interactive map"><h2>OpenZenith</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-openzenith"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-openzenith" aria-hidden="true" inert><h2>OpenZenith</h2><p>Open elevation data, global coverage, geospatial APIs, and map tools.</p><div class="back-links"><a href="https://openzenith.org/" target="_blank" rel="noopener">Live site</a><a href="https://github.com/aliasfoxkde/OpenZenith" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="artcraft-webos"><div class="card-inner"><div class="face front"><img src="assets/screenshots/artcraft-webos-home.webp" alt="ArtCraft WebOS browser desktop"><h2>ArtCraft WebOS</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-artcraft"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-artcraft" aria-hidden="true" inert><h2>ArtCraft WebOS</h2><p>A rough live demo of a browser desktop built around creative apps and interactive tools.</p><div class="back-links"><a href="https://artcraft-webos.pages.dev/" target="_blank" rel="noopener">Try the demo</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="station-awareness"><div class="card-inner"><div class="face front"><img src="assets/screenshots/station-awareness-login.webp" alt="Station Awareness facility inspection app"><h2>Station Awareness</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-station"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-station" aria-hidden="true" inert><h2>Station Awareness</h2><p>Offline-first facility inspection and monitoring application.</p><div class="back-links"><a href="https://stationawareness.pages.dev/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/aliasfoxkde/StationAware" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="taskwizer"><div class="card-inner"><div class="face front"><img src="assets/screenshots/taskwizer-landing.webp" alt="TaskWizer AI development platform"><h2>TaskWizer</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-taskwizer"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-taskwizer" aria-hidden="true" inert><h2>TaskWizer</h2><p>An AI development platform for planning, building, and shipping software.</p><div class="back-links"><a href="https://taskwizer-landing.pages.dev/" target="_blank" rel="noopener">Live site</a><a href="https://github.com/aliasfoxkde/TaskWizerOS" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="taskwizer-studio"><div class="card-inner"><div class="face front"><img src="assets/screenshots/studio-taskwizer.webp" alt="TaskWizer Studio browser development workspace"><h2>TaskWizer Studio</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-studio"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-studio" aria-hidden="true" inert><h2>TaskWizer Studio</h2><p>A browser workspace for assembling AI-powered applications and workflows.</p><div class="back-links"><a href="https://studio-taskwizer.pages.dev/" target="_blank" rel="noopener">Open the studio</a><a href="https://github.com/aliasfoxkde/TaskWizerOS" target="_blank" rel="noopener">Related source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="scratch-optimizer"><div class="card-inner"><div class="face front"><img src="assets/screenshots/scratch-optimizer.webp" alt="Scratch Optimizer project optimization interface"><h2>Scratch Optimizer</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-scratch"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-scratch" aria-hidden="true" inert><h2>Scratch Optimizer</h2><p>Clean and optimize Scratch projects before sharing or packaging them.</p><div class="back-links"><a href="https://scratch-optimizer.pages.dev/" target="_blank" rel="noopener">Try the demo</a><a href="https://github.com/aliasfoxkde/scratch-optimizer" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="bolt"><div class="card-inner"><div class="face front"><img src="assets/screenshots/bolt-main.webp" alt="Bolt browser-based AI application prototyping"><h2>Bolt</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-bolt"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-bolt" aria-hidden="true" inert><h2>Bolt</h2><p>Browser-based AI app prototyping interface. A provider API key is required.</p><div class="back-links"><a href="https://bolt-main.pages.dev/" target="_blank" rel="noopener">Open the app</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="onnx-chat"><div class="card-inner"><div class="face front"><img src="assets/screenshots/onnx-chat.webp" alt="ONNX Chat model selector and conversation view"><h2>ONNX Chat</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-onnx"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-onnx" aria-hidden="true" inert><h2>ONNX Chat</h2><p>Browser chat for ONNX models with tools and notes.</p><div class="back-links"><a href="https://onnx-chat.pages.dev/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/aliasfoxkde/onnx-chat" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="prisai"><div class="card-inner"><div class="face front"><img src="assets/screenshots/prisai-cha-login.webp" alt="PRISAI property records system sign-in"><h2>PRISAI</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-prisai"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-prisai" aria-hidden="true" inert><h2>PRISAI</h2><p>Property-records intelligence system. The public demo requires sign-in.</p><div class="back-links"><a href="https://prisai-cha.pages.dev/" target="_blank" rel="noopener">Open demo</a><a href="https://github.com/aliasfoxkde/PRISAI" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="siliconrank"><div class="card-inner"><div class="face front"><img src="assets/screenshots/siliconrank-home.webp" alt="SiliconRank hardware intelligence dashboard"><h2>SiliconRank</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-siliconrank"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-siliconrank" aria-hidden="true" inert><h2>SiliconRank</h2><p>Open hardware intelligence for comparing CPUs, GPUs, and AI accelerators.</p><div class="back-links"><a href="https://siliconrank.pages.dev/" target="_blank" rel="noopener">Live site</a><a href="https://github.com/aliasfoxkde/SiliconRank" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+        <article class="flip-card" data-card id="opencodifier"><div class="card-inner"><div class="face front"><img src="assets/screenshots/opencodifier-home.webp" alt="OpenCodifier typed code-intelligence overview"><h2>OpenCodifier</h2><button class="flip-button" type="button" aria-expanded="false" aria-controls="back-opencodifier"><svg class="motion" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg><span class="reduced">↕</span>Details</button></div><div class="face back" id="back-opencodifier" aria-hidden="true" inert><h2>OpenCodifier</h2><p>Fast, local-first code intelligence and deterministic decision engine.</p><div class="back-links"><a href="https://opencodifier.pages.dev/" target="_blank" rel="noopener">Live site</a><a href="https://github.com/aliasfoxkde/OpenCodifier" target="_blank" rel="noopener">Source</a></div><button class="flip-button" type="button" aria-expanded="true">Back</button></div></div></article>
+      </section>
+      <p class="status" id="card-status" role="status" aria-live="polite">Select a card to flip it. Press Escape to return to the front.</p>
+      <p class="note">This page is a static, cloneable gallery. The screenshots live in <code>examples/assets/screenshots/</code>; no external image service, profile API, analytics, or credentials are required.</p>
+    </main>
+    <footer>Project Cards · Cloneable examples · <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">Browse and clone the examples source</a></footer>
+  </div>
+  <script>
+    (() => {
+      const cards = [...document.querySelectorAll('[data-card]')];
+      const status = document.querySelector('#card-status');
+      const canHover = matchMedia('(hover: hover) and (pointer: fine)');
+
+      function setFlipped(card, open, { focus = false, announce = true } = {}) {
+        const front = card.querySelector('.front');
+        const back = card.querySelector('.back');
+        const frontButton = front.querySelector('.flip-button');
+        const backButton = back.querySelector('.flip-button');
+        card.classList.toggle('is-flipped', open);
+        front.setAttribute('aria-hidden', String(open));
+        front.toggleAttribute('inert', open);
+        back.setAttribute('aria-hidden', String(!open));
+        back.toggleAttribute('inert', !open);
+        frontButton.setAttribute('aria-expanded', String(open));
+        if (announce) {
+          const name = front.querySelector('h2').textContent;
+          status.textContent = open ? `${name} details shown.` : `${name} card front shown.`;
+        }
+        if (focus) (open ? backButton : frontButton).focus({ preventScroll: true });
+      }
+
+      cards.forEach((card) => {
+        card.pinnedOpen = false;
+        const frontButton = card.querySelector('.front .flip-button');
+        const backButton = card.querySelector('.back .flip-button');
+        frontButton.addEventListener('click', () => {
+          card.pinnedOpen = true;
+          setFlipped(card, true, { focus: true });
+        });
+        backButton.addEventListener('click', () => {
+          card.pinnedOpen = false;
+          setFlipped(card, false, { focus: true });
+        });
+        card.addEventListener('mouseenter', () => {
+          if (canHover.matches && !card.classList.contains('is-flipped')) {
+            setFlipped(card, true, { announce: false });
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          if (canHover.matches && !card.pinnedOpen && !card.contains(document.activeElement)) {
+            setFlipped(card, false, { announce: false });
+          }
+        });
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && card.classList.contains('is-flipped')) {
+            card.pinnedOpen = false;
+            setFlipped(card, false, { focus: true });
+          }
+        });
+      });
+
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target?.matches('[data-card]')) {
+        target.pinnedOpen = true;
+        setFlipped(target, true, { announce: false });
+        requestAnimationFrame(() => target.scrollIntoView({ block: 'center' }));
+      }
+    })();
+  </script>
+</body>
+</html>

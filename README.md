@@ -133,11 +133,14 @@
   <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
   <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
   <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
-  <a href="https://github.com/aliasfoxkde/aliasfoxkde.github.io/tree/main/examples">Examples source folder</a> ·
+  <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">Cloneable examples source</a> ·
+  <a href="https://github.com/aliasfoxkde/aliasfoxkde/blob/main/AGENTS.md">Agent guidance</a> ·
   <a href="https://aliasfoxkde.github.io/examples/projects.html">Flip-card project gallery</a> ·
   <a href="https://github.com/sponsors/aliasfoxkde">Support open-source work</a> ·
   <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
+
+The profile README source includes a cloneable [`examples/`](./examples/) gallery with local screenshots, interactive profile widgets, reusable SVG templates, and design notes. Clone the repository and follow its [local preview instructions](./examples/README.md); coding agents can use the repository guidance in [`AGENTS.md`](./AGENTS.md).
 
 ## Open-source projects
 

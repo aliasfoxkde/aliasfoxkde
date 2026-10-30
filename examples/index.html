@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive, privacy-conscious examples for profile stats, activity charts, embedded status cards, and a snake-style Aliasfoxkde wordmark.">
+  <meta name="theme-color" content="#f7f6ff">
+  <link rel="icon" href="data:,">
+  <title>Profile Widget Lab | Aliasfoxkde</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #211b37;
+      --muted: #625c75;
+      --paper: #f7f6ff;
+      --surface: #fff;
+      --line: #ded9ef;
+      --accent: #6748c7;
+      --accent-2: #287b68;
+      --accent-soft: #eee9ff;
+      --warning: #745312;
+      --shadow: 0 14px 38px rgb(0 0 0 / 8%);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: var(--accent); text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    button, select { font: inherit; }
+    button:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid #d34c93;
+      outline-offset: 3px;
+    }
+    .shell { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:22px 0; }
+    .brand { color:var(--ink); font-weight:800; text-decoration:none; letter-spacing:-.035em; }
+    .topbar nav { display:flex; gap:20px; flex-wrap:wrap; }
+    .topbar nav a { font-size:.94rem; font-weight:650; }
+    main { padding:24px 0 72px; }
+    .intro { display:grid; grid-template-columns:minmax(0, 1.4fr) minmax(220px, .6fr); gap:32px; align-items:end; margin:18px 0 34px; }
+    h1 { max-width:760px; margin:0 0 14px; font-size:clamp(2.5rem, 7vw, 5.25rem); line-height:.99; letter-spacing:-.035em; }
+    .intro p { max-width:68ch; margin:0; color:var(--muted); font-size:1.1rem; }
+    .sample-note { border:1px solid #e5d39b; background:#fff9e8; color:#5f4913; padding:16px 18px; border-radius:14px; font-size:.91rem; }
+    .sample-note strong { display:block; margin-bottom:4px; }
+    .toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:13px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-bottom:22px; }
+    .toolbar label { font-weight:700; }
+    .toolbar select, .toolbar button, .action-link { min-height:42px; padding:8px 13px; border:1px solid var(--line); border-radius:9px; background:var(--surface); color:var(--ink); }
+    .toolbar select { margin-left:8px; }
+    .toolbar button { cursor:pointer; font-weight:700; }
+    .toolbar button:hover, .action-link:hover { border-color:var(--accent); }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); }
+    .stat { min-height:126px; padding:21px; background:var(--surface); }
+    .stat strong { display:block; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.1; letter-spacing:-.045em; font-variant-numeric:tabular-nums; }
+    .stat span { display:block; margin-top:9px; color:var(--muted); font-size:.91rem; }
+    .focus-row { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin:19px 0 4px; }
+    .focus-row strong { margin-right:5px; font-size:.9rem; }
+    .focus-tag { padding:6px 11px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--muted); font-size:.83rem; }
+    .shipping { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:30px; padding:0; }
+    .shipping li { list-style:none; padding:15px 17px 15px 0; color:var(--muted); }
+    .shipping li + li { padding-left:17px; border-left:1px solid var(--line); }
+    .shipping strong { display:block; color:var(--ink); }
+    details.task-demo { margin-top:20px; border-bottom:1px solid var(--line); }
+    details.task-demo summary { width:max-content; max-width:100%; padding:12px 0; color:var(--accent); font-weight:750; cursor:pointer; text-underline-offset:4px; }
+    .task-list { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:0 0 16px; margin:0; list-style:none; }
+    .task-list label { display:flex; align-items:flex-start; gap:9px; padding:12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); font-size:.9rem; }
+    .task-list input { margin-top:4px; accent-color:var(--accent); }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin:53px 0 18px; }
+    h2 { margin:0; font-size:clamp(1.55rem,3.3vw,2.25rem); letter-spacing:-.04em; }
+    .section-head p { max-width:56ch; margin:0; color:var(--muted); }
+    .chart-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 26px; }
+    .chart-panel { min-width:0; padding:22px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:var(--shadow); }
+    .chart-panel h3 { margin:0 0 5px; font-size:1.16rem; letter-spacing:-.02em; }
+    .chart-panel > p { margin:0; color:var(--muted); font-size:.9rem; }
+    .chart-body { min-height:230px; display:grid; grid-template-columns:minmax(150px, .9fr) minmax(125px, 1.1fr); gap:12px; align-items:center; padding-top:14px; }
+    svg { width:100%; height:auto; overflow:visible; }
+    .legend { display:grid; gap:9px; padding:0; margin:0; list-style:none; font-size:.88rem; }
+    .legend li { display:flex; align-items:center; gap:9px; }
+    .swatch { width:11px; height:11px; flex:none; border-radius:3px; background:var(--swatch); }
+    .legend b { margin-left:auto; font-variant-numeric:tabular-nums; }
+    .radar-wrap { display:grid; grid-template-columns:1fr; place-items:center; padding-top:14px; }
+    .radar-wrap svg { max-width:300px; }
+    .rhythm { display:grid; grid-template-columns:repeat(7,1fr); align-items:end; gap:9px; min-height:178px; padding:24px 0 4px; }
+    .day { display:grid; grid-template-rows:1fr auto; gap:8px; height:152px; text-align:center; color:var(--muted); font-size:.75rem; }
+    .day-track { display:flex; align-items:end; height:100%; background:#f0eef6; border-radius:6px 6px 2px 2px; overflow:hidden; }
+    .day-fill { display:block; width:100%; height:var(--height); background:var(--accent); border-radius:6px 6px 2px 2px; }
+    .embed-preview { display:flex; align-items:center; gap:15px; margin-top:23px; padding:19px; border-radius:13px; color:#f2f5fa; background:#222631; }
+    .album { width:64px; height:64px; display:grid; place-items:center; flex:none; border-radius:8px; color:#d7f4b8; background:linear-gradient(145deg,#52695a,#263a35 54%,#b27c52); font-size:1.55rem; }
+    .track { min-width:0; }
+    .track strong, .track span { display:block; }
+    .track span { color:#c2c7d2; font-size:.87rem; }
+    .playing { margin-left:auto; color:#9edb85; font-size:.75rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+    .snake-stage { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(180px,.7fr); gap:20px; align-items:center; margin-top:20px; padding:20px; background:#101a20; border-radius:14px; color:#e5f2ea; }
+    .snake-stage svg { width:100%; }
+    .snake-stage p { margin:0; color:#b8c9bf; font-size:.91rem; }
+    .snake-stage strong { display:block; margin-bottom:7px; color:#a9efb6; }
+    .pixel { fill:#77c88a; }
+    .snake-head { fill:#e9ff89; stroke:#173a27; stroke-width:1.5; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:17px; }
+    .action-link { display:inline-flex; align-items:center; text-decoration:none; font-weight:750; }
+    .footnote { color:var(--muted); font-size:.84rem; }
+    footer { padding:22px 0 35px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+    body.dark { color-scheme:dark; --ink:#f2effb; --muted:#bcb6cd; --paper:#171421; --surface:#211e2e; --line:#393448; --accent:#c1aaff; --accent-2:#70d3b7; --accent-soft:#352d49; --shadow:0 14px 38px rgb(0 0 0 / 28%); }
+    body.dark .sample-note { color:#f1d890; background:#322b19; border-color:#695a2a; }
+    body.dark .day-track { background:#363143; }
+    @media (max-width:760px) {
+      .intro { grid-template-columns:1fr; gap:20px; }
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .stat { min-height:108px; padding:16px; }
+      .section-head { display:block; }
+      .section-head p { margin-top:8px; }
+      .chart-grid { grid-template-columns:1fr; }
+      .snake-stage { grid-template-columns:1fr; }
+      .shipping { grid-template-columns:1fr; }
+      .shipping li, .shipping li + li { padding:12px 0; border-left:0; }
+      .shipping li + li { border-top:1px solid var(--line); }
+      .task-list { grid-template-columns:1fr; }
+    }
+    @media (max-width:460px) {
+      .shell { width:min(100% - 24px,1160px); }
+      .topbar { align-items:flex-start; }
+      .topbar nav { justify-content:flex-end; gap:8px 13px; }
+      .topbar nav a { font-size:.84rem; }
+      .toolbar { align-items:flex-start; flex-direction:column; }
+      .toolbar select { max-width:100%; }
+      .chart-body { grid-template-columns:1fr; }
+      .chart-body svg { max-width:245px; margin:auto; }
+      .legend { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .legend b { margin-left:0; }
+      .rhythm { gap:5px; }
+      .playing { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="https://aliasfoxkde.github.io/">ALIASFOXKDE / LAB</a>
+      <nav aria-label="Example navigation"><a href="https://aliasfoxkde.github.io/">Portfolio</a><a href="projects.html">Flip-card projects</a><a href="creative.html">More profile ideas</a><a href="svg-library/">SVG library</a><a href="about.html">About this demo</a><a href="https://github.com/aliasfoxkde">GitHub profile</a></nav>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">A profile, in motion.</h1>
+          <p>Small, readable profile widgets built from public signals and clearly labeled examples. Explore the charts, switch the sample period, and see what belongs on a profile page versus a private analytics dashboard.</p>
+        </div>
+        <aside class="sample-note"><strong>Illustrative sample data</strong>These numbers are fictional and never fetched from your account. Replace them only with data you have permission to publish.</aside>
+      </section>
+
+      <div class="toolbar" aria-label="Demo controls">
+        <label for="period">Sample view
+          <select id="period"><option value="recent">Recent sample</option><option value="prior">Previous sample</option></select>
+        </label>
+        <button id="theme-toggle" type="button" aria-pressed="false">Switch to dark theme</button>
+      </div>
+
+      <section class="stats" aria-label="Example profile summary">
+        <div class="stat"><strong data-stat="followers">—</strong><span>Public followers</span></div>
+        <div class="stat"><strong data-stat="repos">—</strong><span>Public repositories</span></div>
+        <div class="stat"><strong data-stat="stars">—</strong><span>Stars on selected projects</span></div>
+        <div class="stat"><strong data-stat="forks">—</strong><span>Forks on selected projects</span></div>
+      </section>
+      <div class="focus-row" aria-label="Example focus areas"><strong>Profile intro / focus:</strong><span class="focus-tag">AI systems</span><span class="focus-tag">Developer infrastructure</span><span class="focus-tag">Security tooling</span><span class="focus-tag">Open source</span></div>
+      <ul class="shipping" aria-label="Example current build notes"><li><strong>Now building</strong>A small routing improvement <span class="footnote">· sample</span></li><li><strong>Recently shipped</strong>Docs and reliability fixes <span class="footnote">· sample</span></li><li><strong>Next up</strong>Measure before optimizing <span class="footnote">· sample</span></li></ul>
+      <details class="task-demo"><summary>Show a lightweight profile task list</summary><ul class="task-list"><li><label><input type="checkbox" data-task="research">Compare two implementation options</label></li><li><label><input type="checkbox" data-task="ship">Publish a small reliability fix</label></li><li><label><input type="checkbox" data-task="write">Document the result for users</label></li></ul><p class="footnote">Example checklist only. Checkmarks stay in this browser and are not sent anywhere.</p></details>
+
+      <div class="section-head">
+        <h2>Activity, without the noise</h2>
+        <p>Charts work best when their time range and source are visible. These examples show the kind of small, explainable summaries that can complement a profile README.</p>
+      </div>
+      <section class="chart-grid" aria-label="Profile chart examples">
+        <article class="chart-panel">
+          <h3>Languages in selected projects</h3>
+          <p>Repository language totals, not time spent or proficiency.</p>
+          <div class="chart-body">
+            <svg id="language-chart" viewBox="0 0 220 220" role="img" aria-label="Donut chart of language share"></svg>
+            <ul class="legend" id="language-legend"></ul>
+          </div>
+        </article>
+        <article class="chart-panel">
+          <h3>Project portfolio mix</h3>
+          <p>Illustrative category distribution, not a skill rating.</p>
+          <div class="radar-wrap"><svg id="radar-chart" viewBox="0 0 320 270" role="img" aria-label="Radar chart of example project categories"></svg></div>
+        </article>
+        <article class="chart-panel">
+          <h3>Commits by weekday</h3>
+          <p>One sample period. No work schedule is inferred.</p>
+          <div class="rhythm" id="weekday-chart" role="img" aria-label="Bar chart of example commits by weekday"></div>
+        </article>
+        <article class="chart-panel">
+          <h3>Embedded status card</h3>
+          <p>Inspired by now-playing profile embeds; this preview has no music account connection.</p>
+          <div class="embed-preview" aria-label="Mock now-playing card, disconnected from a music service">
+            <div class="album" aria-hidden="true">♫</div>
+            <div class="track"><strong>Sample Loop</strong><span>Demo Session · Widget Lab</span></div>
+            <span class="playing">Preview</span>
+          </div>
+          <p class="footnote">A real embed needs a maintained service, user-authorized API access, and a clear decision about what listening activity to publish.</p>
+        </article>
+      </section>
+
+      <div class="section-head">
+        <h2>Let the username become the game</h2>
+        <p>A tiny SVG experiment: pixel cells form the username while a moving head follows the letter path. It is decorative and does not encode contribution data.</p>
+      </div>
+      <section class="snake-stage" aria-label="Animated snake-style username graphic">
+        <svg id="snake-wordmark" viewBox="0 0 330 100" role="img" aria-label="Animated pixel snake spells aliasfoxkde"></svg>
+        <div><strong>aliasfoxkde</strong><p>The moving marker follows the pixels that draw the name. This is a playful alternative to a contribution snake, suitable as an optional profile graphic.</p></div>
+      </section>
+      <div class="actions"><a class="action-link" href="projects.html">Flip through project cards</a><a class="action-link" href="creative.html">Explore more profile ideas</a><a class="action-link" href="about.html">Read the design and data notes</a><a class="action-link" href="svg-library/">Build a reusable SVG</a><a class="action-link" href="https://github.com/aliasfoxkde/aliasfoxkde">Open profile README</a></div>
+      <p class="footnote">Profile README images can refresh dynamically, but they do not run page JavaScript. Interactive controls belong on a hosted page like this one.</p>
+    </main>
+    <footer>Profile Widget Lab · Demo only · <a href="https://aliasfoxkde.github.io/">Return to the portfolio</a></footer>
+  </div>
+  <script>
+    const samples = {
+      recent: { stats:{followers:42,repos:128,stars:36,forks:11}, languages:[['Rust',38,'#d97645'],['TypeScript',27,'#377cc8'],['Python',20,'#e2bb46'],['Go',15,'#55aaa8']], radar:[72,58,84,66,48], days:[4,7,5,9,6,3,2] },
+      prior: { stats:{followers:39,repos:121,stars:31,forks:9}, languages:[['Rust',34,'#d97645'],['TypeScript',31,'#377cc8'],['Python',19,'#e2bb46'],['Go',16,'#55aaa8']], radar:[65,71,69,54,61], days:[3,5,8,6,4,2,1] }
+    };
+    const ns = 'http://www.w3.org/2000/svg';
+    const make = (tag, attrs={}) => { const node=document.createElementNS(ns,tag); Object.entries(attrs).forEach(([key,value])=>node.setAttribute(key,value)); return node; };
+    function renderDonut(items) {
+      const svg=document.querySelector('#language-chart'); svg.replaceChildren();
+      const total=items.reduce((sum,item)=>sum+item[1],0); let offset=0;
+      const bg=make('circle',{cx:110,cy:110,r:76,fill:'none',stroke:'#ece9f4','stroke-width':30}); svg.append(bg);
+      items.forEach(([name,value,color])=>{ const circle=make('circle',{cx:110,cy:110,r:76,fill:'none',stroke:color,'stroke-width':30,'stroke-dasharray':`${2*Math.PI*76*value/total} ${2*Math.PI*76}`,'stroke-dashoffset':-offset,transform:'rotate(-90 110 110)'}); svg.append(circle); offset+=2*Math.PI*76*value/total; });
+      const center=make('text',{x:110,y:106,'text-anchor':'middle',fill:'currentColor','font-size':25,'font-weight':800}); center.textContent='100%'; svg.append(center);
+      const label=make('text',{x:110,y:130,'text-anchor':'middle',fill:'currentColor','font-size':11}); label.textContent='project code'; svg.append(label);
+      const legend=document.querySelector('#language-legend'); legend.replaceChildren();
+      items.forEach(([name,value,color])=>{ const li=document.createElement('li'); li.innerHTML=`<span class="swatch" style="--swatch:${color}"></span><span>${name}</span><b>${value}%</b>`; legend.append(li); });
+    }
+    function renderRadar(values) {
+      const svg=document.querySelector('#radar-chart'); svg.replaceChildren();
+      const labels=['Developer tools','AI systems','Security','Web apps','Research']; const cx=160,cy=128,r=78;
+      const point=(scale,index)=>{const a=(-Math.PI/2)+(2*Math.PI*index/labels.length); return [cx+Math.cos(a)*r*scale,cy+Math.sin(a)*r*scale];};
+      [0.25,.5,.75,1].forEach(scale=>{ const poly=make('polygon',{points:labels.map((_,i)=>point(scale,i).join(',')).join(' '),fill:'none',stroke:'#d9d4e5','stroke-width':1}); svg.append(poly); });
+      labels.forEach((label,i)=>{const [x,y]=point(1,i);svg.append(make('line',{x1:cx,y1:cy,x2:x,y2:y,stroke:'#d9d4e5'}));const [lx,ly]=point(1.23,i);const text=make('text',{x:lx,y:ly,'text-anchor':lx<cx-10?'end':lx>cx+10?'start':'middle','dominant-baseline':'middle',fill:'currentColor','font-size':10});text.textContent=label;svg.append(text);});
+      const poly=make('polygon',{points:values.map((v,i)=>point(v/100,i).join(',')).join(' '),fill:'#8a6be1','fill-opacity':.29,stroke:'#6748c7','stroke-width':2.5});svg.append(poly);
+      values.forEach((v,i)=>{const [x,y]=point(v/100,i);svg.append(make('circle',{cx:x,cy:y,r:3.5,fill:'#6748c7'}));});
+    }
+    function renderDays(days) {
+      const host=document.querySelector('#weekday-chart');host.replaceChildren();const max=Math.max(...days);const names=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+      days.forEach((value,i)=>{const day=document.createElement('div');day.className='day';day.setAttribute('aria-label',`${names[i]}: ${value} sample commits`);day.innerHTML=`<span class="day-track"><span class="day-fill" style="--height:${Math.max(7,value/max*100)}%"></span></span><span>${names[i]}</span>`;host.append(day);});
+    }
+    function render(period) { const data=samples[period]; document.querySelectorAll('[data-stat]').forEach(el=>el.textContent=data.stats[el.dataset.stat]);renderDonut(data.languages);renderRadar(data.radar);renderDays(data.days); }
+    document.querySelector('#period').addEventListener('change',event=>render(event.target.value));
+    document.querySelector('#theme-toggle').addEventListener('click',event=>{const dark=document.body.classList.toggle('dark');event.currentTarget.setAttribute('aria-pressed',String(dark));event.currentTarget.textContent=dark?'Switch to light theme':'Switch to dark theme';});
+    document.querySelectorAll('[data-task]').forEach(input=>{const key=`widget-lab-task-${input.dataset.task}`;input.checked=localStorage.getItem(key)==='true';input.addEventListener('change',()=>localStorage.setItem(key,String(input.checked)));});
+    render('recent');
+    // Pixel font keeps the wordmark in SVG geometry with no external image dependency.
+    const glyphs={a:['01110','10001','10001','11111','10001','10001','10001'],l:['100','100','100','100','100','100','111'],i:['1','0','1','1','1','1','1'],s:['0111','1000','1000','0110','0001','0001','1110'],f:['0111','1000','1000','1110','1000','1000','1000'],o:['01110','10001','10001','10001','10001','10001','01110'],x:['10001','01010','00100','00100','00100','01010','10001'],k:['10001','10010','10100','11000','10100','10010','10001'],d:['0001','0001','0111','1001','1001','1001','0111'],e:['01110','10001','10000','11110','10000','10001','01110']};
+    const word='aliasfoxkde', wordSvg=document.querySelector('#snake-wordmark'), cell=5,gap=1,charGap=2; let x=0,points=[];
+    word.split('').forEach(letter=>{const rows=glyphs[letter];rows.forEach((row,ry)=>[...row].forEach((bit,rx)=>{if(bit==='1'){const px=x+rx*(cell+gap),py=ry*(cell+gap);wordSvg.append(make('rect',{x:px,y:py,width:cell,height:cell,rx:1,class:'pixel'}));points.push([px+cell/2,py+cell/2]);}}));x+=Math.max(...rows.map(row=>row.length))*(cell+gap)+charGap;});
+    wordSvg.setAttribute('viewBox',`0 0 ${x} 55`); const head=make('circle',{cx:points[0][0],cy:points[0][1],r:4,class:'snake-head'});wordSvg.append(head);
+    let index=0; const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduced) window.setInterval(()=>{index=(index+1)%points.length;head.setAttribute('cx',points[index][0]);head.setAttribute('cy',points[index][1]);},110);
+  </script>
+</body>
+</html>

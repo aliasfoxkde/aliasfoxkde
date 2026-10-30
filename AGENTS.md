@@ -1,6 +1,6 @@
 # Agent guidance
 
-This repository contains the public profile README, its screenshots, and a scheduled updater for public GitHub metrics. Changes are visible to anyone who views the profile.
+This repository contains the public profile README, its screenshots, cloneable examples, and a scheduled updater for public GitHub metrics. Changes are visible to anyone who views the profile.
 
 ## Public data and secrets
 
@@ -15,6 +15,8 @@ This repository contains the public profile README, its screenshots, and a sched
 - Stats and charts count public repository records. The language charts count primary-language labels per repository; they are not measures of code volume, proficiency, or time spent.
 - Preserve explicit sample/live labels and keep chart SVG output escaped, deterministic, and valid XML.
 - Keep screenshot alt text descriptive. Do not treat the root MIT license as overriding the separate licenses of project screenshots.
+- Keep `examples/` self-contained and runnable from a clone with browser-native HTML, CSS, JavaScript, and SVG. Keep its local assets in the folder, label illustrative data, and preserve the separate `examples/LICENSE` scope, which does not cover project screenshots.
+- Keep this root `AGENTS.md` useful to contributors and coding agents. Link it from the README so people discovering the repository know the guidance is included in a clone.
 
 ## Validation
 

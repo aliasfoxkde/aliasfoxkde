@@ -55,9 +55,63 @@ jobs:
           branch="automation/profile-metrics"
           pr_number="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
 
+          run_profile_validation() {
+            local ref="$1"
+            local expected_sha="$2"
+            local validation_run=""
+            local runs_json=""
+            local validation=""
+            local status=""
+            local conclusion=""
+            local attempt
+
+            gh workflow run validate-profile.yml --ref "$ref"
+            for attempt in $(seq 1 60); do
+              runs_json="$(gh run list \
+                --workflow validate-profile.yml \
+                --branch "$ref" \
+                --limit 10 \
+                --json databaseId,event,headSha)"
+              validation_run="$(jq -r --arg expected_sha "$expected_sha" \
+                '[.[] | select(.event == "workflow_dispatch" and .headSha == $expected_sha)] | sort_by(.databaseId) | last | .databaseId // empty' \
+                <<<"$runs_json")"
+              if [[ -n "$validation_run" ]]; then
+                break
+              fi
+              sleep 2
+            done
+
+            if [[ -z "$validation_run" ]]; then
+              echo "Profile validation workflow was not created for $expected_sha" >&2
+              return 1
+            fi
+
+            for attempt in $(seq 1 90); do
+              validation="$(gh run view "$validation_run" --json status,conclusion)"
+              status="$(jq -r '.status' <<<"$validation")"
+              conclusion="$(jq -r '.conclusion // empty' <<<"$validation")"
+              if [[ "$status" == "completed" ]]; then
+                if [[ "$conclusion" != "success" ]]; then
+                  echo "Profile validation failed for $expected_sha ($conclusion)" >&2
+                  gh run view "$validation_run" --log-failed >&2 || true
+                  return 1
+                fi
+                return 0
+              fi
+              sleep 2
+            done
+
+            echo "Profile validation timed out for $expected_sha" >&2
+            return 1
+          }
+
           if git diff --quiet -- README.md assets/profile-language-mix.svg assets/profile-language-radar.svg; then
             if [[ -n "$pr_number" ]]; then
+              pr_sha="$(gh pr view "$pr_number" --json headRefOid --jq .headRefOid)"
+              run_profile_validation "$branch" "$pr_sha"
               gh pr merge "$pr_number" --auto --squash --delete-branch
+            else
+              run_profile_validation main "$(git rev-parse HEAD)"
             fi
             echo "Profile metrics are unchanged."
             exit 0
@@ -75,45 +129,7 @@ jobs:
           fi
 
           expected_sha="$(git rev-parse HEAD)"
-          gh workflow run validate-profile.yml --ref "$branch"
-
-          validation_run=""
-          for attempt in $(seq 1 60); do
-            validation_run="$(gh run list \
-              --workflow validate-profile.yml \
-              --branch "$branch" \
-              --limit 10 \
-              --json databaseId,event,headSha \
-              --jq "[.[] | select(.event == \"workflow_dispatch\" and .headSha == \"$expected_sha\")] | sort_by(.databaseId) | last | .databaseId // empty")"
-            if [[ -n "$validation_run" ]]; then
-              break
-            fi
-            sleep 2
-          done
-
-          if [[ -z "$validation_run" ]]; then
-            echo "Profile validation workflow was not created for $expected_sha" >&2
-            exit 1
-          fi
-
-          for attempt in $(seq 1 90); do
-            validation="$(gh run view "$validation_run" --json status,conclusion)"
-            status="$(jq -r '.status' <<<"$validation")"
-            conclusion="$(jq -r '.conclusion // empty' <<<"$validation")"
-            if [[ "$status" == "completed" ]]; then
-              if [[ "$conclusion" != "success" ]]; then
-                echo "Profile validation failed for $expected_sha ($conclusion)" >&2
-                gh run view "$validation_run" --log-failed >&2 || true
-                exit 1
-              fi
-              break
-            fi
-            if [[ "$attempt" == "90" ]]; then
-              echo "Profile validation timed out for $expected_sha" >&2
-              exit 1
-            fi
-            sleep 2
-          done
+          run_profile_validation "$branch" "$expected_sha"
 
           if [[ -n "$pr_number" ]]; then
             gh pr edit "$pr_number" \

@@ -117,6 +117,7 @@
 <p align="center">
   <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
   <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
+  <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
   <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
 

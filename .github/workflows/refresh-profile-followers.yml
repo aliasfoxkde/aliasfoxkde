@@ -42,6 +42,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/update_profile_followers.py
 
+      - name: Validate metrics and generated SVGs
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+
       - name: Commit and open or update the pull request
         env:
           GH_TOKEN: ${{ github.token }}
@@ -51,7 +54,7 @@ jobs:
           branch="automation/profile-metrics"
           pr_number="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
 
-          if git diff --quiet -- README.md; then
+          if git diff --quiet -- README.md assets/profile-language-mix.svg assets/profile-language-radar.svg; then
             if [[ -n "$pr_number" ]]; then
               gh pr merge "$pr_number" --auto --squash --delete-branch
             fi
@@ -61,7 +64,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md assets/profile-language-mix.svg assets/profile-language-radar.svg
           git commit -m "chore(profile): refresh dynamic metrics"
 
           if [[ "$BRANCH_EXISTS" == "true" ]]; then

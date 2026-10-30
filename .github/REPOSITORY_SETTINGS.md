@@ -7,17 +7,17 @@ Applied 2026-10-30 to the public `aliasfoxkde/aliasfoxkde` profile repository.
 - Release immutability is enabled for future releases.
 - The active `Safeguards` branch ruleset protects the default, `stable/*`, and
   `release/*` branches against deletion and force-push, requires pull requests
-  and linear history, and requests Copilot review where the account has access.
+  and linear history, requests Copilot review, requires the `validate` status,
+  and applies CodeQL scanning at all alert thresholds.
 - GitHub's auto-close setting for linked issues defaults to enabled. The
-  repository REST and GraphQL settings APIs do not expose a control for this
-  setting; GitHub documents that merged linked pull requests close issues by
-  default.
-- CodeQL scanning, code quality, and coverage rules from the Safeguards
-  template are deferred because this repository contains profile content and
-  assets plus a small metadata-refresh script, but no product code or code
-  validation pipeline. The scheduled follower workflow only updates the
-  generated README list. Add those protections if executable product source
-  is introduced.
+  repository REST and GraphQL settings APIs do not expose a way to read or set
+  the override. GitHub documents that linked issues close by default, but the
+  setting itself could not be verified through the available API.
+- Code Quality and coverage rules from the Safeguards template are omitted.
+  This repository has a small metrics updater and contract tests, but its
+  workflow does not publish a coverage report or a Code Quality signal for
+  GitHub to enforce. Add those gates when the necessary reports and a suitable
+  baseline are in place; do not claim these two rules are active today.
 
 GitHub's Sponsorships repository feature is enabled. The account does not
 currently expose a Sponsors listing, so there is no active sponsorship page

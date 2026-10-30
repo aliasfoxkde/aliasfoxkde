@@ -1,0 +1,86 @@
+name: Refresh profile followers
+
+on:
+  schedule:
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-profile-followers
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out the profile README
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Prepare the managed update branch
+        id: branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch="automation/profile-followers"
+          git fetch origin main
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+          git checkout -B "$branch" origin/main
+
+      - name: Refresh public follower tags
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/update_profile_followers.py
+
+      - name: Commit and open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_EXISTS: ${{ steps.branch.outputs.exists }}
+        run: |
+          set -euo pipefail
+          branch="automation/profile-followers"
+          pr_number="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
+
+          if git diff --quiet -- README.md; then
+            if [[ -n "$pr_number" ]]; then
+              gh pr merge "$pr_number" --auto --squash --delete-branch
+            fi
+            echo "Follower list is unchanged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore(profile): refresh follower tags"
+
+          if [[ "$BRANCH_EXISTS" == "true" ]]; then
+            git push --force-with-lease origin "$branch"
+          else
+            git push --set-upstream origin "$branch"
+          fi
+
+          if [[ -n "$pr_number" ]]; then
+            gh pr edit "$pr_number" \
+              --title "chore(profile): refresh follower tags" \
+              --body "Refresh the generated public GitHub follower list."
+          else
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "chore(profile): refresh follower tags" \
+              --body "Refresh the generated public GitHub follower list."
+          fi
+
+          pr_number="$(gh pr view "$branch" --json number --jq .number)"
+          gh pr merge "$pr_number" --auto --squash --delete-branch

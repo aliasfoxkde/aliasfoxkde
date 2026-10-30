@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="About the Profile Widget Lab examples: sources, privacy, limitations, and how to adapt them responsibly.">
+  <link rel="icon" href="data:,">
+  <title>About the Widget Lab | Aliasfoxkde</title>
+  <style>
+    :root{color-scheme:light;--ink:#211b37;--muted:#625c75;--paper:#f7f6ff;--surface:#fff;--line:#ded9ef;--accent:#6748c7;--soft:#eee9ff}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent);text-underline-offset:.18em}a:focus-visible{outline:3px solid #d34c93;outline-offset:3px}.shell{width:min(880px,calc(100% - 36px));margin:auto}.top{display:flex;justify-content:space-between;gap:20px;padding:24px 0}.top a:first-child{color:var(--ink);font-weight:800;text-decoration:none}.top nav{display:flex;gap:18px}main{padding:35px 0 72px}h1{font-size:clamp(2.6rem,8vw,5rem);line-height:1;letter-spacing:-.055em;margin:0 0 18px}h2{margin:38px 0 10px;font-size:1.55rem;letter-spacing:-.035em}p,li{color:var(--muted)}.lead{font-size:1.15rem;max-width:68ch}.callout{margin:26px 0;padding:18px 20px;border:1px solid #e5d39b;border-radius:12px;background:#fff9e8;color:#5f4913}.list{padding-left:1.25rem}.list li{margin:8px 0}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;background:var(--surface)}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink)}footer{border-top:1px solid var(--line);padding:22px 0 35px;color:var(--muted);font-size:.9rem}@media(max-width:520px){.top{align-items:flex-start}.top nav{gap:10px;flex-direction:column}.shell{width:calc(100% - 24px)}}
+  </style>
+</head>
+<body><div class="shell">
+  <header class="top"><a href="https://aliasfoxkde.github.io/">ALIASFOXKDE / LAB</a><nav aria-label="Page navigation"><a href="index.html">Widget demos</a><a href="https://github.com/aliasfoxkde">GitHub profile</a></nav></header>
+  <main>
+    <h1>About the widget lab</h1>
+    <p class="lead">A working notebook for profile graphics: what they show, where the data comes from, and what should stay private. The examples borrow broad ideas from public profile projects; the implementation and data on this page are original demo material.</p>
+    <aside class="callout"><strong>Every number on the demo page is fictional.</strong> No GitHub, music, editor, or AI-provider API is called. The controls only change local sample data in your browser.</aside>
+
+    <h2>What the examples demonstrate</h2>
+    <div class="table-wrap"><table><thead><tr><th>Widget</th><th>Useful for</th><th>Important limit</th></tr></thead><tbody>
+      <tr><td>Summary strip</td><td>Public followers, repositories, selected-project stars and forks.</td><td>Counts are snapshots; state the source and refresh cadence.</td></tr>
+      <tr><td>Profile intro and focus tags</td><td>A concise, human-readable overview of interests and technology areas.</td><td>Curate labels that reflect actual work; avoid treating a list of tools as measured expertise.</td></tr>
+      <tr><td>Now building / shipping notes</td><td>A short, editorial update that gives profile visitors current context.</td><td>Keep it maintained and factual; the entries on the demo page are examples only.</td></tr>
+      <tr><td>Task checklist</td><td>An optional, small view of current priorities.</td><td>Demo checkmarks stay in this browser's local storage; a public profile should not expose private project or personal tasks.</td></tr>
+      <tr><td>Language donut</td><td>Comparing repository language proportions.</td><td>GitHub language bytes are not time spent or skill level.</td></tr>
+      <tr><td>Radar chart</td><td>Showing a defined collection of project categories.</td><td>In this demo it is invented sample data; avoid presenting it as a personal capability score.</td></tr>
+      <tr><td>Weekday activity</td><td>A compact view of commit distribution across a stated period.</td><td>Do not infer productivity, availability, or a person’s work schedule.</td></tr>
+      <tr><td>Now-playing embed</td><td>A preview of a service-backed profile card.</td><td>A real version needs OAuth/API credentials, hosting, uptime, and an explicit choice to share listening activity.</td></tr>
+      <tr><td>Snake wordmark</td><td>A playful animated name graphic inspired by contribution-snake profiles.</td><td>It spells the username; it does not represent contribution activity.</td></tr>
+      <tr><td>SVG Profile Library</td><td>Generate editable profile headers, compact summary cards, and a pixel snake wordmark; download SVG or copy a Markdown embed.</td><td>Exports are static snapshots. They make no API calls and do not auto-refresh metrics.</td></tr>
+      <tr><td>Profile Ideas Gallery</td><td>Original examples of tags, tables, icons, banners, text art, and a small browser-only game.</td><td>All data is illustrative; the game runs locally in the page.</td></tr>
+      <tr><td>Interactive Project Cards</td><td>Flip between a local screenshot and its project summary plus live/source links.</td><td>CSS and JavaScript run only on the hosted page; README images remain static and link into the corresponding card.</td></tr>
+      <tr><td>AI/editor activity</td><td>Potentially useful private workflow analytics when an instrumented source exists.</td><td>Sessions, tokens, cost, generated lines, and model attribution need precise definitions and opt-in collection; none are measured here.</td></tr>
+    </tbody></table></div>
+
+    <h2>How this relates to the references</h2>
+    <ul class="list">
+      <li><a href="https://github.com/cxyfreedom/cxyfreedom">cxyfreedom</a> demonstrates a wide profile activity view, including language and time-distribution charts. This page borrows the idea of compact, varied summaries.</li>
+      <li><a href="https://github.com/minoveaz/minoveaz">minoveaz</a> explores broader coding-activity and AI-tool metrics. Those are shown here as future considerations, not fabricated as real measurements.</li>
+      <li><a href="https://github.com/trinib/trinib">trinib</a> demonstrates a generated snake-style contribution animation. This demo instead uses pixel glyphs to make a name graphic independent of contribution history.</li>
+      <li><a href="https://github.com/anmol098/anmol098">anmol098</a> combines a personal introduction, categorized interests and technology stack, generated repository/activity summaries, and AI-work metrics. The demo borrows the idea of a structured intro and leaves sensitive or weakly defined telemetry out of the public profile by default.</li>
+      <li><a href="https://github.com/itgoyo/itgoyo">itgoyo</a> mixes current-building notes, a weekly shipping log, music/video embeds, and optional hardware lists. The demo adopts the short “now building / shipped / next” format; any gear list should be reviewed for privacy before publishing.</li>
+      <li><a href="https://github.com/theabbie/theabbie">theabbie</a> organizes a profile around an introduction, external profile links, quick facts, skills, and a personal task list. This page shows a generic, browser-local checklist as an optional interaction; it does not use any personal facts from that profile.</li>
+      <li><a href="https://github.com/novatorem/novatorem">novatorem</a> demonstrates service-backed now-playing embeds. The preview here is disconnected and requires no music account.</li>
+      <li><a href="https://github.com/SuperSupeng/SuperSupeng">SuperSupeng</a> uses an expressive profile footer/banner, <a href="https://github.com/mmphego/mmphego">mmphego</a> combines profile summaries with generated visuals, and <a href="https://github.com/CyrisXD/CyrisXD">CyrisXD</a> uses a custom animated header. The new library recreates these broad patterns with original, editable SVG templates.</li>
+      <li><a href="https://github.com/char-al/char-al">char-al</a> uses native collapsible sections for skills, tools, and stats; <a href="https://github.com/Coordinate-Cat/Coordinate-Cat">Coordinate-Cat</a> demonstrates large animated artwork built with the external lowlighter/metrics tool. The new examples include a no-script disclosure pattern and explain the maintenance and permission tradeoffs of third-party metric generators.</li>
+      <li><a href="https://github.com/abhisheknaiidu/awesome-github-profile-readme">awesome-github-profile-readme</a> is a broad discovery catalog covering dynamic stats, GitHub Actions, games, badges, icons, text styles, and examples. Its listing is a starting point rather than a guarantee that each third-party service is still maintained, available, safe, or suitable for a particular profile.</li>
+      <li><a href="https://github.com/rahul-jha98/github-stats-transparent">github-stats-transparent</a> and <a href="https://github.com/nisarg1212">nisarg1212</a> show generated image widgets that can be embedded in a profile README.</li>
+    </ul>
+
+    <h2 id="inspiration-catalog">Using the profile inspiration catalog</h2>
+    <p><a href="https://github.com/abhisheknaiidu/awesome-github-profile-readme">awesome-github-profile-readme</a> is a large, useful discovery index. Its README groups examples into categories such as GitHub Actions, games, dynamic/realtime profiles, simple or descriptive layouts, badges, icons, retro styles, and generated tools. The repository lists a CC0 dedication for the catalog itself; that does not grant rights to the separate code, artwork, services, or images linked from it. Follow each linked project's own license and attribution terms. Checked 2026-10-30: GitHub reports the catalog under CC0-1.0, with 31,485 stars, 736 open issues, and a latest commit dated 2026-09-11. Its breadth is valuable, but the large issue backlog and age of the latest commit reinforce that individual entries need independent validation.</p>
+    <ul class="list">
+      <li><strong>Useful patterns:</strong> the collection demonstrates multiple ways to organize introductions, stats, interests, projects, games, and visual themes. Our examples adapt those broad ideas with original assets.</li>
+      <li><strong>External dependencies:</strong> dynamic image hosts and hosted generators can change, rate-limit, go offline, or receive requests from profile visitors. For important visuals, prefer generated assets stored in your own repository or a service you operate.</li>
+      <li><strong>Workflow permissions:</strong> a scheduled GitHub Action may need a token to read data or write generated files. Grant only required scopes, keep secrets in Actions secrets, and avoid committing credentials or private activity.</li>
+      <li><strong>Truth and freshness:</strong> label samples, snapshots, time ranges, and refresh times. Use a last-known-good image or static fallback when data retrieval fails instead of breaking the whole README.</li>
+      <li><strong>Keep it scannable:</strong> collapse optional details with native <code>&lt;details&gt;</code> where useful, and keep profile content understandable when images or animation do not load.</li>
+    </ul>
+
+    <h2>README versus hosted demo</h2>
+    <p>GitHub profile README content is rendered as Markdown. It can display generated images and badges, but it does not run custom page JavaScript. Keep the README fast and scannable; host interactive controls and richer visualizations on a separate page and link to them.</p>
+    <p>When replacing sample data, prefer public GitHub API fields, cache results, document the refresh workflow, and avoid requesting broad permissions when public data is enough. Keep private repository names, listening history, editor telemetry, AI prompts, and inferred work patterns off public pages unless there is a specific reason and informed consent. External stat-image hosts can rate-limit, change, disappear, or receive visitor requests; prefer static generated assets or a service you operate when reliability and privacy matter. Clearly label snapshots and generated values. The <a href="svg-library/">SVG Profile Library</a> runs only in your browser. Its source code is covered by the <a href="LICENSE">examples MIT license</a>; generated files contain only your chosen text, values, colors, and vector shapes. The <a href="creative.html">Profile Ideas Gallery</a> shows original, local examples of tags, tables, icons, banners, text art, and interactive play.</p>
+    <p><a href="index.html">← Back to the interactive examples</a></p>
+  </main>
+  <footer>Widget Lab notes · Demo source is maintained in this repository's <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">examples folder</a>.</footer>
+</div></body></html>

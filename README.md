@@ -19,6 +19,12 @@
   <img alt="Cloudflare" src="https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
 </p>
 
+<p align="center">
+  <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="GitHub followers" src="https://img.shields.io/github/followers/aliasfoxkde?label=Followers&style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repositories" src="https://img.shields.io/github/repos/aliasfoxkde?label=Public%20repos&style=flat-square" /></a>
+</p>
+
 ## Live projects & demos
 
 <table>
@@ -120,37 +126,37 @@
   </thead>
   <tbody>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/Amortyx">Amortyx</a></td>
+      <td><a href="https://github.com/aliasfoxkde/Amortyx">Amortyx</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FAmortyx%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>AI infrastructure</td>
       <td>Local-first Rust routing and request optimization for coding agents.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/GitForge">GitForge</a></td>
+      <td><a href="https://github.com/aliasfoxkde/GitForge">GitForge</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FGitForge%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Developer infrastructure</td>
       <td>Self-hosted Git and CI/CD with local execution and GitHub synchronization.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/OpenCodifier">OpenCodifier</a></td>
+      <td><a href="https://github.com/aliasfoxkde/OpenCodifier">OpenCodifier</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FOpenCodifier%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Code intelligence</td>
       <td>Local, open-source code classification and analysis tools.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/AgentVerify">AgentVerify</a></td>
+      <td><a href="https://github.com/aliasfoxkde/AgentVerify">AgentVerify</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FAgentVerify%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Agent reliability</td>
       <td>Checks action-taking agent outcomes and records verification evidence.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/OpenZenith">OpenZenith</a></td>
+      <td><a href="https://github.com/aliasfoxkde/OpenZenith">OpenZenith</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FOpenZenith%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Geospatial data</td>
       <td>Open elevation data and geospatial API tools.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/FireCraft">FireCraft</a></td>
+      <td><a href="https://github.com/aliasfoxkde/FireCraft">FireCraft</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252FFireCraft%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Creative software</td>
       <td>A graphics editor reimplementation built in Rust.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/aliasfoxkde/py7zip">Py7zip</a></td>
+      <td><a href="https://github.com/aliasfoxkde/py7zip">Py7zip</a> · <a href="https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fsession%2Fnew%3Frepo%3Daliasfoxkde%252Fpy7zip%26mode%3Dinteractive%26prompt%3DGive%2Bme%2Ba%2Bconcise%2Boverview%2Bof%2Bthis%2Brepository%253A%2Bits%2Bpurpose%252C%2Bkey%2Bcomponents%252C%2Btechnologies%252C%2Band%2Bhow%2Bto%2Bget%2Bstarted.">Ask Copilot</a></td>
       <td>Developer tools</td>
       <td>A cross-platform Python interface to 7-Zip command-line binaries.</td>
     </tr>

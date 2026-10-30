@@ -55,9 +55,10 @@ jobs:
           branch="automation/profile-metrics"
           pr_number="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
 
-          run_profile_validation() {
-            local ref="$1"
-            local expected_sha="$2"
+          run_required_workflow() {
+            local workflow="$1"
+            local ref="$2"
+            local expected_sha="$3"
             local validation_run=""
             local runs_json=""
             local validation=""
@@ -65,10 +66,10 @@ jobs:
             local conclusion=""
             local attempt
 
-            gh workflow run validate-profile.yml --ref "$ref"
+            gh workflow run "$workflow" --ref "$ref"
             for attempt in $(seq 1 60); do
               runs_json="$(gh run list \
-                --workflow validate-profile.yml \
+                --workflow "$workflow" \
                 --branch "$ref" \
                 --limit 10 \
                 --json databaseId,event,headSha)"
@@ -82,7 +83,7 @@ jobs:
             done
 
             if [[ -z "$validation_run" ]]; then
-              echo "Profile validation workflow was not created for $expected_sha" >&2
+              echo "$workflow was not dispatched for $expected_sha" >&2
               return 1
             fi
 
@@ -92,7 +93,7 @@ jobs:
               conclusion="$(jq -r '.conclusion // empty' <<<"$validation")"
               if [[ "$status" == "completed" ]]; then
                 if [[ "$conclusion" != "success" ]]; then
-                  echo "Profile validation failed for $expected_sha ($conclusion)" >&2
+                  echo "$workflow failed for $expected_sha ($conclusion)" >&2
                   gh run view "$validation_run" --log-failed >&2 || true
                   return 1
                 fi
@@ -101,17 +102,20 @@ jobs:
               sleep 2
             done
 
-            echo "Profile validation timed out for $expected_sha" >&2
+            echo "$workflow timed out for $expected_sha" >&2
             return 1
           }
 
           if git diff --quiet -- README.md assets/profile-language-mix.svg assets/profile-language-radar.svg; then
             if [[ -n "$pr_number" ]]; then
               pr_sha="$(gh pr view "$pr_number" --json headRefOid --jq .headRefOid)"
-              run_profile_validation "$branch" "$pr_sha"
+              run_required_workflow validate-profile.yml "$branch" "$pr_sha"
+              run_required_workflow codeql.yml "$branch" "$pr_sha"
               gh pr merge "$pr_number" --auto --squash --delete-branch
             else
-              run_profile_validation main "$(git rev-parse HEAD)"
+              main_sha="$(git rev-parse HEAD)"
+              run_required_workflow validate-profile.yml main "$main_sha"
+              run_required_workflow codeql.yml main "$main_sha"
             fi
             echo "Profile metrics are unchanged."
             exit 0
@@ -129,7 +133,8 @@ jobs:
           fi
 
           expected_sha="$(git rev-parse HEAD)"
-          run_profile_validation "$branch" "$expected_sha"
+          run_required_workflow validate-profile.yml "$branch" "$expected_sha"
+          run_required_workflow codeql.yml "$branch" "$expected_sha"
 
           if [[ -n "$pr_number" ]]; then
             gh pr edit "$pr_number" \

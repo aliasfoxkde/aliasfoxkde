@@ -1,8 +1,8 @@
-<h1 align="center">Software, AI &amp; developer infrastructure</h1>
+<h1 align="center">AI, software &amp; developer infrastructure</h1>
 
 <p align="center">
-  Software developer and DevOps engineer focused on process improvement,
-  automation, and technical writing.
+  Software developer and DevOps engineer exploring practical tools for better
+  development workflows, automation, and technical communication.
 </p>
 
 ## Live projects & demos
@@ -48,12 +48,61 @@
 
 ## Open-source projects
 
-- [GitForge](https://github.com/aliasfoxkde/GitForge) — self-hosted Git and CI/CD platform.
-- [OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier) — local, open-source code classification and analysis.
-- [AgentVerify](https://github.com/aliasfoxkde/AgentVerify) — verifies AI agent outcomes and records evidence.
-- [FireCraft](https://github.com/aliasfoxkde/FireCraft) — graphics editor reimplementation written in Rust.
-- [Py7zip](https://github.com/aliasfoxkde/py7zip) — cross-platform Python interface to 7-Zip binaries.
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Focus</th>
+      <th>What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/Amortyx">Amortyx</a></td>
+      <td>AI infrastructure</td>
+      <td>Local-first Rust routing and request optimization for coding agents.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/GitForge">GitForge</a></td>
+      <td>Developer infrastructure</td>
+      <td>Self-hosted Git and CI/CD with local execution and GitHub synchronization.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/OpenCodifier">OpenCodifier</a></td>
+      <td>Code intelligence</td>
+      <td>Local, open-source code classification and analysis tools.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/AgentVerify">AgentVerify</a></td>
+      <td>Agent reliability</td>
+      <td>Checks action-taking agent outcomes and records verification evidence.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/OpenZenith">OpenZenith</a></td>
+      <td>Geospatial data</td>
+      <td>Open elevation data and geospatial API tools.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/FireCraft">FireCraft</a></td>
+      <td>Creative software</td>
+      <td>A graphics editor reimplementation built in Rust.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/aliasfoxkde/py7zip">Py7zip</a></td>
+      <td>Developer tools</td>
+      <td>A cross-platform Python interface to 7-Zip command-line binaries.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Interests
 
-Rust · AI systems · developer experience · automation · DevOps · technical writing
+- **AI and machine learning:** agent systems, model routing, local inference,
+  and making AI workflows more capable and efficient.
+- **Software and infrastructure:** Rust, APIs, developer tools, CI/CD,
+  self-hosted services, and local-first systems.
+- **Data and connected systems:** geospatial computing, elevation data,
+  mapping, and IoT.
+- **Creative computing:** design tools and browser-based creative applications.
+- **Engineering practice:** process improvement, automation, reproducible
+  workflows, and technical writing.

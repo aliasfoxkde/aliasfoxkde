@@ -9,7 +9,7 @@
 
 <table>
   <tr>
-    <td width="50%" align="center">
+    <td width="33.33%" align="center">
       <a href="https://www.amortyx.com/">
         <img src="assets/screenshots/amortyx-home.png" width="100%" alt="Amortyx landing page and live routing demo" />
       </a>
@@ -17,7 +17,7 @@
       <strong><a href="https://www.amortyx.com/">Amortyx</a></strong><br />
       Local-first Rust AI router for coding agents.
     </td>
-    <td width="50%" align="center">
+    <td width="33.33%" align="center">
       <a href="https://openzenith.org/">
         <img src="assets/screenshots/openzenith-home.png" width="100%" alt="OpenZenith global geospatial API and interactive map" />
       </a>
@@ -25,9 +25,7 @@
       <strong><a href="https://openzenith.org/">OpenZenith</a></strong><br />
       Global elevation data, geospatial APIs, and map tools.
     </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
+    <td width="33.33%" align="center">
       <a href="https://artcraft-webos.pages.dev/">
         <img src="assets/screenshots/artcraft-webos-home.png" width="100%" alt="ArtCraft WebOS browser desktop with creative apps" />
       </a>
@@ -35,16 +33,40 @@
       <strong><a href="https://artcraft-webos.pages.dev/">ArtCraft WebOS</a></strong><br />
       Rough live demo: a browser desktop for creative apps.
     </td>
-    <td width="50%" align="center">
-      <h3>More links</h3>
-      <p>
-        <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a><br />
-        <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a><br />
-        <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
-      </p>
+  </tr>
+  <tr>
+    <td width="33.33%" align="center">
+      <a href="https://stationawareness.pages.dev/">
+        <img src="assets/screenshots/station-awareness-login.png" width="100%" alt="Station Awareness facility inspection and monitoring sign-in page" />
+      </a>
+      <br />
+      <strong><a href="https://stationawareness.pages.dev/">Station Awareness</a></strong><br />
+      Offline-first PWA for facility inspections and monitoring.
+    </td>
+    <td width="33.33%" align="center">
+      <a href="https://taskwizer-landing.pages.dev/">
+        <img src="assets/screenshots/taskwizer-landing.png" width="100%" alt="TaskWizer AI development platform landing page" />
+      </a>
+      <br />
+      <strong><a href="https://taskwizer-landing.pages.dev/">TaskWizer</a></strong><br />
+      AI platform for building and shipping software.
+    </td>
+    <td width="33.33%" align="center">
+      <a href="https://studio-taskwizer.pages.dev/">
+        <img src="assets/screenshots/studio-taskwizer.png" width="100%" alt="TaskWizer Studio browser-based AI development workspace" />
+      </a>
+      <br />
+      <strong><a href="https://studio-taskwizer.pages.dev/">TaskWizer Studio</a></strong><br />
+      Browser workspace for building AI-powered applications.
     </td>
   </tr>
 </table>
+
+<p align="center">
+  <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
+  <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
+  <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
+</p>
 
 ## Open-source projects
 

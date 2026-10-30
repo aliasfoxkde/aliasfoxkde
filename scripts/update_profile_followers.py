@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the public follower list in the profile README."""
+"""Refresh public profile followers, repository metrics, and sponsors."""
 
 from __future__ import annotations
 
@@ -16,6 +16,8 @@ OWNER = "aliasfoxkde"
 README = Path(__file__).resolve().parents[1] / "README.md"
 START = "<!-- profile-followers:start -->"
 END = "<!-- profile-followers:end -->"
+SPONSORS_START = "<!-- profile-sponsors:start -->"
+SPONSORS_END = "<!-- profile-sponsors:end -->"
 STATS_START = "<!-- profile-stats:start -->"
 STATS_END = "<!-- profile-stats:end -->"
 PER_PAGE = 100
@@ -96,6 +98,71 @@ def fetch_public_repositories() -> list[dict[str, object]]:
     return repositories
 
 
+def fetch_public_sponsors() -> list[str]:
+    """Return active public sponsors only; private sponsorships are excluded."""
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if not token:
+        raise RuntimeError("GITHUB_TOKEN is required to query the public Sponsors GraphQL connection")
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token}",
+        "User-Agent": "aliasfoxkde-profile-sponsors-refresh",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    query = """
+    query($cursor: String) {
+      user(login: "aliasfoxkde") {
+        sponsorshipsAsMaintainer(first: 100, after: $cursor, activeOnly: true, includePrivate: false) {
+          nodes {
+            sponsorEntity {
+              __typename
+              ... on User { login }
+              ... on Organization { login }
+            }
+          }
+          pageInfo { hasNextPage endCursor }
+        }
+      }
+    }
+    """
+    sponsors: dict[str, str] = {}
+    cursor: str | None = None
+    while True:
+        payload = json.dumps({"query": query, "variables": {"cursor": cursor}}).encode()
+        request = Request(
+            "https://api.github.com/graphql",
+            data=payload,
+            headers=headers,
+            method="POST",
+        )
+        try:
+            with urlopen(request, timeout=30) as response:
+                result = json.load(response)
+        except (HTTPError, URLError, TimeoutError) as error:
+            raise RuntimeError(f"GitHub Sponsors API request failed: {error}") from error
+        if not isinstance(result, dict) or result.get("errors"):
+            raise RuntimeError("GitHub Sponsors API returned an error response")
+        user = result.get("data", {}).get("user") if isinstance(result.get("data"), dict) else None
+        connection = user.get("sponsorshipsAsMaintainer") if isinstance(user, dict) else None
+        if not isinstance(connection, dict) or not isinstance(connection.get("nodes"), list):
+            raise RuntimeError("GitHub returned an unexpected Sponsors response")
+        for node in connection["nodes"]:
+            entity = node.get("sponsorEntity") if isinstance(node, dict) else None
+            login = entity.get("login") if isinstance(entity, dict) else None
+            if not isinstance(login, str) or not LOGIN_RE.fullmatch(login):
+                raise RuntimeError("GitHub returned an invalid public sponsor record")
+            sponsors.setdefault(login.casefold(), login)
+        page_info = connection.get("pageInfo")
+        if not isinstance(page_info, dict) or not isinstance(page_info.get("hasNextPage"), bool):
+            raise RuntimeError("GitHub returned invalid Sponsors pagination data")
+        if not page_info["hasNextPage"]:
+            break
+        cursor = page_info.get("endCursor")
+        if not isinstance(cursor, str):
+            raise RuntimeError("GitHub returned a missing Sponsors pagination cursor")
+    return sorted(sponsors.values(), key=str.casefold)
+
+
 def render_followers(followers: list[str]) -> str:
     if not followers:
         return "No public followers yet."
@@ -123,6 +190,21 @@ def render_stats(followers: list[str], repositories: list[dict[str, object]]) ->
     )
 
 
+def render_sponsors(sponsors: list[str]) -> str:
+    if not sponsors:
+        return (
+            "**0 public sponsors so far.** If you find my open-source work useful, "
+            "[sponsor me on GitHub](https://github.com/sponsors/aliasfoxkde). "
+            "Thank you for considering it."
+        )
+    names = ", ".join(
+        f'<a href="https://github.com/{html.escape(login, quote=True)}">'
+        f"<code>@{html.escape(login)}</code></a>"
+        for login in sponsors
+    )
+    return f"**{len(sponsors)} public sponsor{'s' if len(sponsors) != 1 else ''}** · {names}"
+
+
 def update_readme() -> bool:
     content = README.read_text(encoding="utf-8")
     if content.count(START) != 1 or content.count(END) != 1:
@@ -134,6 +216,7 @@ def update_readme() -> bool:
 
     followers = fetch_followers()
     repositories = fetch_public_repositories()
+    sponsors = fetch_public_sponsors()
     generated = f"\n{render_followers(followers)}\n"
     updated = content[:start] + generated + content[end:]
     if updated.count(STATS_START) != 1 or updated.count(STATS_END) != 1:
@@ -144,16 +227,25 @@ def update_readme() -> bool:
         raise RuntimeError("README stats markers are in the wrong order")
     stats = f"\n  {render_stats(followers, repositories)}\n  "
     updated = updated[:stats_start] + stats + updated[stats_end:]
+    if updated.count(SPONSORS_START) != 1 or updated.count(SPONSORS_END) != 1:
+        raise RuntimeError("README must contain exactly one start and end sponsor marker")
+    sponsors_start = updated.index(SPONSORS_START) + len(SPONSORS_START)
+    sponsors_end = updated.index(SPONSORS_END)
+    if sponsors_start > sponsors_end:
+        raise RuntimeError("README sponsor markers are in the wrong order")
+    generated_sponsors = f"\n{render_sponsors(sponsors)}\n"
+    updated = updated[:sponsors_start] + generated_sponsors + updated[sponsors_end:]
     if updated == content:
         print(
             f"Profile data already current ({len(followers)} public followers, "
-            f"{len(repositories)} public repositories)."
+            f"{len(repositories)} public repositories, {len(sponsors)} public sponsors)."
         )
         return False
     README.write_text(updated, encoding="utf-8")
     print(
         f"Updated README with {len(followers)} public followers and "
         f"{len(repositories)} public repositories."
+        f" Listed {len(sponsors)} public sponsors."
     )
     return True
 

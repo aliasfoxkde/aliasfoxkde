@@ -211,6 +211,14 @@ The repository, follower, star, and fork totals below refresh daily from GitHub'
   <!-- profile-stats:end -->
 </p>
 
+## Special thanks
+
+I’m grateful to everyone who supports my open-source work. This list refreshes daily and includes only active sponsorships that sponsors have chosen to make public; private sponsorships and contribution amounts are never shown.
+
+<!-- profile-sponsors:start -->
+**0 public sponsors so far.** If you find my open-source work useful, [sponsor me on GitHub](https://github.com/sponsors/aliasfoxkde). Thank you for considering it.
+<!-- profile-sponsors:end -->
+
 ## Followers
 
 These are public GitHub accounts that follow this profile. The list refreshes daily.

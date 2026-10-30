@@ -5,6 +5,26 @@
   development workflows, automation, and technical communication.
 </p>
 
+## GitHub at a glance
+
+<p align="center">
+  <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
+  <!-- profile-stats:start -->
+  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-133-informational?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-31-success?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-33-yellow?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
+  <!-- profile-stats:end -->
+</p>
+
+<p align="center">
+  <img width="49%" src="assets/profile-language-mix.svg" alt="Dynamic donut chart showing repository counts by primary language" />
+  <img width="49%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart showing repository counts by primary language category" />
+</p>
+
+<p align="center"><sub>Stats and charts refresh daily from public GitHub data. Language charts count each public repository once by its primary language label; they do not measure code volume, skill, or time spent.</sub></p>
+
 ## Highlights
 
 - **AI infrastructure:** [Amortyx](https://github.com/aliasfoxkde/Amortyx) combines request optimization, enforcement, and model routing for AI coding workflows.
@@ -17,106 +37,94 @@
 <table>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://www.amortyx.com/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#amortyx">
         <img src="assets/screenshots/amortyx-home.png" width="100%" alt="Amortyx landing page and live routing demo" />
       </a>
       <br />
-      <strong><a href="https://www.amortyx.com/">Amortyx</a></strong><br />
-      Local-first Rust AI router for coding agents.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#amortyx">Amortyx</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://openzenith.org/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#openzenith">
         <img src="assets/screenshots/openzenith-home.png" width="100%" alt="OpenZenith global geospatial API and interactive map" />
       </a>
       <br />
-      <strong><a href="https://openzenith.org/">OpenZenith</a></strong><br />
-      Global elevation data, geospatial APIs, and map tools.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#openzenith">OpenZenith</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://artcraft-webos.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#artcraft-webos">
         <img src="assets/screenshots/artcraft-webos-home.png" width="100%" alt="ArtCraft WebOS browser desktop with creative apps" />
       </a>
       <br />
-      <strong><a href="https://artcraft-webos.pages.dev/">ArtCraft WebOS</a></strong><br />
-      Rough live demo: a browser desktop for creative apps.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#artcraft-webos">ArtCraft WebOS</a></strong><br />
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://stationawareness.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#station-awareness">
         <img src="assets/screenshots/station-awareness-login.png" width="100%" alt="Station Awareness facility inspection and monitoring sign-in page" />
       </a>
       <br />
-      <strong><a href="https://stationawareness.pages.dev/">Station Awareness</a></strong><br />
-      Offline-first PWA for facility inspections and monitoring.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#station-awareness">Station Awareness</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://taskwizer-landing.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer">
         <img src="assets/screenshots/taskwizer-landing.png" width="100%" alt="TaskWizer AI development platform landing page" />
       </a>
       <br />
-      <strong><a href="https://taskwizer-landing.pages.dev/">TaskWizer</a></strong><br />
-      AI platform for building and shipping software.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer">TaskWizer</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://studio-taskwizer.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer-studio">
         <img src="assets/screenshots/studio-taskwizer.png" width="100%" alt="TaskWizer Studio browser-based AI development workspace" />
       </a>
       <br />
-      <strong><a href="https://studio-taskwizer.pages.dev/">TaskWizer Studio</a></strong><br />
-      Browser workspace for building AI-powered applications.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer-studio">TaskWizer Studio</a></strong><br />
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://scratch-optimizer.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#scratch-optimizer">
         <img src="assets/screenshots/scratch-optimizer.png" width="100%" alt="Scratch Optimizer project upload and optimization options" />
       </a>
       <br />
-      <strong><a href="https://scratch-optimizer.pages.dev/">Scratch Optimizer</a></strong><br />
-      Clean and optimize Scratch projects before sharing or packaging.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#scratch-optimizer">Scratch Optimizer</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://bolt-main.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#bolt">
         <img src="assets/screenshots/bolt-main.png" width="100%" alt="Bolt browser-based AI application prototyping interface" />
       </a>
       <br />
-      <strong><a href="https://bolt-main.pages.dev/">Bolt</a></strong><br />
-      Browser-based AI app prototyping interface; a provider API key is required.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#bolt">Bolt</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://onnx-chat.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#onnx-chat">
         <img src="assets/screenshots/onnx-chat.png" width="100%" alt="ONNX Chat browser app with local model selector and chat interface" />
       </a>
       <br />
-      <strong><a href="https://onnx-chat.pages.dev/">ONNX Chat</a></strong><br />
-      Browser chat for ONNX models, with tools and notes.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#onnx-chat">ONNX Chat</a></strong><br />
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://prisai-cha.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#prisai">
         <img src="assets/screenshots/prisai-cha-login.png" width="100%" alt="PRISAI property records intelligence system sign-in screen" />
       </a>
       <br />
-      <strong><a href="https://prisai-cha.pages.dev/">PRISAI</a></strong><br />
-      Property records intelligence system; the demo requires sign-in.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#prisai">PRISAI</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://siliconrank.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#siliconrank">
         <img src="assets/screenshots/siliconrank-home.png" width="100%" alt="SiliconRank hardware intelligence dashboard" />
       </a>
       <br />
-      <strong><a href="https://siliconrank.pages.dev/">SiliconRank</a></strong><br />
-      Open hardware intelligence for browsing and comparing CPUs, GPUs, and AI accelerators.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#siliconrank">SiliconRank</a></strong><br />
     </td>
     <td width="33.33%" align="center">
-      <a href="https://opencodifier.pages.dev/">
+      <a href="https://aliasfoxkde.github.io/examples/projects.html#opencodifier">
         <img src="assets/screenshots/opencodifier-home.png" width="100%" alt="OpenCodifier landing page showing typed machine-actionable decisions" />
       </a>
       <br />
-      <strong><a href="https://opencodifier.pages.dev/">OpenCodifier</a></strong><br />
-      Fast, local-first code intelligence and deterministic decision engine.
+      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#opencodifier">OpenCodifier</a></strong><br />
     </td>
   </tr>
 </table>
@@ -125,6 +133,8 @@
   <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
   <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
   <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
+  <a href="https://github.com/aliasfoxkde/aliasfoxkde.github.io/tree/main/examples">Examples source folder</a> ·
+  <a href="https://aliasfoxkde.github.io/examples/projects.html">Flip-card project gallery</a> ·
   <a href="https://github.com/sponsors/aliasfoxkde">Support open-source work</a> ·
   <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
@@ -213,21 +223,6 @@
   <img alt="Git" src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" />
   <img alt="Docker" src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white" />
   <img alt="Cloudflare" src="https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
-</p>
-
-## GitHub at a glance
-
-The repository, follower, star, and fork totals below refresh daily from GitHub's public API. Star and fork totals cover original public repositories owned by this account; profile views use an external counter.
-
-<p align="center">
-  <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
-  <!-- profile-stats:start -->
-  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-133-informational?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-31-success?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-33-yellow?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
-  <!-- profile-stats:end -->
 </p>
 
 ## Special thanks

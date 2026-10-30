@@ -5,26 +5,6 @@
   development workflows, automation, and technical communication.
 </p>
 
-### Things I code with
-
-<p>
-  <img alt="Rust" src="https://img.shields.io/badge/-Rust-000000?style=flat-square&logo=rust&logoColor=white" />
-  <img alt="Python" src="https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
-  <img alt="JavaScript" src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
-  <img alt="Shell" src="https://img.shields.io/badge/-Shell-4EAA25?style=flat-square&logo=gnubash&logoColor=white" />
-  <img alt="HTML5" src="https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
-  <img alt="Git" src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" />
-  <img alt="Docker" src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white" />
-  <img alt="Cloudflare" src="https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
-</p>
-
-<p align="center">
-  <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="GitHub followers" src="https://img.shields.io/github/followers/aliasfoxkde?label=Followers&style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repositories" src="https://img.shields.io/github/repos/aliasfoxkde?label=Public%20repos&style=flat-square" /></a>
-</p>
-
 ## Live projects & demos
 
 <table>
@@ -197,3 +177,35 @@
 - **Creative computing:** design tools and browser-based creative applications.
 - **Engineering practice:** process improvement, automation, reproducible
   workflows, and technical writing.
+
+## Things I code with
+
+<p align="center">
+  <img alt="Rust" src="https://img.shields.io/badge/-Rust-000000?style=flat-square&logo=rust&logoColor=white" />
+  <img alt="Python" src="https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+  <img alt="JavaScript" src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+  <img alt="Shell" src="https://img.shields.io/badge/-Shell-4EAA25?style=flat-square&logo=gnubash&logoColor=white" />
+  <img alt="HTML5" src="https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
+  <img alt="Git" src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" />
+  <img alt="Docker" src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white" />
+  <img alt="Cloudflare" src="https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="GitHub followers" src="https://img.shields.io/github/followers/aliasfoxkde?label=Followers&style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repositories" src="https://img.shields.io/github/repos/aliasfoxkde?label=Public%20repos&style=flat-square" /></a>
+</p>
+
+## Followers
+
+These are public GitHub accounts that follow this profile. The list refreshes daily.
+
+<!-- profile-followers:start -->
+<a href="https://github.com/agent7744"><code>@agent7744</code></a>, <a href="https://github.com/anurag-garg01"><code>@anurag-garg01</code></a>, <a href="https://github.com/ask0ldd"><code>@ask0ldd</code></a>, <a href="https://github.com/bludnic"><code>@bludnic</code></a>, <a href="https://github.com/CoreyLeath-code"><code>@CoreyLeath-code</code></a>, <a href="https://github.com/dustinwloring1988"><code>@dustinwloring1988</code></a>, <a href="https://github.com/Dvurechensky"><code>@Dvurechensky</code></a>, <a href="https://github.com/Focus-andmore"><code>@Focus-andmore</code></a>,
+<a href="https://github.com/Garhiou"><code>@Garhiou</code></a>, <a href="https://github.com/GoMightyAlgorythmGo"><code>@GoMightyAlgorythmGo</code></a>, <a href="https://github.com/hafiznega4-boo"><code>@hafiznega4-boo</code></a>, <a href="https://github.com/ipqwery"><code>@ipqwery</code></a>, <a href="https://github.com/ishandutta2007"><code>@ishandutta2007</code></a>, <a href="https://github.com/Jawuilp"><code>@Jawuilp</code></a>, <a href="https://github.com/jelspace"><code>@jelspace</code></a>, <a href="https://github.com/JustVugg"><code>@JustVugg</code></a>,
+<a href="https://github.com/Kirachon"><code>@Kirachon</code></a>, <a href="https://github.com/kpopdev"><code>@kpopdev</code></a>, <a href="https://github.com/lecanact"><code>@lecanact</code></a>, <a href="https://github.com/lukisch"><code>@lukisch</code></a>, <a href="https://github.com/lvs0"><code>@lvs0</code></a>, <a href="https://github.com/Lxcardoza993"><code>@Lxcardoza993</code></a>, <a href="https://github.com/mbelalhossain718-cpu"><code>@mbelalhossain718-cpu</code></a>, <a href="https://github.com/micasa96"><code>@micasa96</code></a>,
+<a href="https://github.com/Murplugg"><code>@Murplugg</code></a>, <a href="https://github.com/OriNachum"><code>@OriNachum</code></a>, <a href="https://github.com/peytondsay"><code>@peytondsay</code></a>, <a href="https://github.com/poormikey80-create"><code>@poormikey80-create</code></a>, <a href="https://github.com/pwnedroot"><code>@pwnedroot</code></a>, <a href="https://github.com/RaduNG"><code>@RaduNG</code></a>, <a href="https://github.com/RemoteBrowser01"><code>@RemoteBrowser01</code></a>, <a href="https://github.com/ssoad"><code>@ssoad</code></a>,
+<a href="https://github.com/standardgalactic"><code>@standardgalactic</code></a>, <a href="https://github.com/takumi-sato0209"><code>@takumi-sato0209</code></a>, <a href="https://github.com/tysoncung"><code>@tysoncung</code></a>, <a href="https://github.com/UtkarshSaini2006"><code>@UtkarshSaini2006</code></a>, <a href="https://github.com/vatsalnaresh555"><code>@vatsalnaresh555</code></a>, <a href="https://github.com/vinodkumar99000"><code>@vinodkumar99000</code></a>, <a href="https://github.com/xiscoding"><code>@xiscoding</code></a>, <a href="https://github.com/zyadhajaji"><code>@zyadhajaji</code></a>
+<!-- profile-followers:end -->

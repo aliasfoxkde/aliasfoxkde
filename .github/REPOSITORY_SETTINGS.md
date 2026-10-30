@@ -13,9 +13,11 @@ Applied 2026-10-30 to the public `aliasfoxkde/aliasfoxkde` profile repository.
   setting; GitHub documents that merged linked pull requests close issues by
   default.
 - CodeQL scanning, code quality, and coverage rules from the Safeguards
-  template are deferred because this repository currently contains only
-  Markdown and screenshots, with no source code or analysis workflow. Add
-  these protections when executable source is introduced.
+  template are deferred because this repository contains profile content and
+  assets plus a small metadata-refresh script, but no product code or code
+  validation pipeline. The scheduled follower workflow only updates the
+  generated README list. Add those protections if executable product source
+  is introduced.
 
 GitHub's Sponsorships repository feature is enabled. The account does not
 currently expose a Sponsors listing, so there is no active sponsorship page

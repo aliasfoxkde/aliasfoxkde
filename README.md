@@ -101,7 +101,7 @@
       </a>
       <br />
       <strong><a href="https://siliconrank.pages.dev/">SiliconRank</a></strong><br />
-      Open hardware intelligence for comparing CPUs, GPUs, and AI accelerators. The live demo currently reports a failed dynamic module load.
+      Open hardware intelligence for browsing and comparing CPUs, GPUs, and AI accelerators.
     </td>
     <td width="33.33%" align="center">
       <a href="https://opencodifier.pages.dev/">

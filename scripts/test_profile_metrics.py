@@ -14,6 +14,21 @@ import update_profile_followers as profile
 
 
 class LanguageChartTests(unittest.TestCase):
+    def test_generated_chart_paths_match_readme_and_workflows(self) -> None:
+        repository = profile.README.parent
+        readme = profile.README.read_text(encoding="utf-8")
+        validate_workflow = (repository / ".github/workflows/validate-profile.yml").read_text(encoding="utf-8")
+        refresh_workflow = (repository / ".github/workflows/refresh-profile-followers.yml").read_text(encoding="utf-8")
+
+        for chart_path in profile.CHART_FILES:
+            relative_path = chart_path.relative_to(repository).as_posix()
+            with self.subTest(chart=relative_path):
+                self.assertIn(relative_path, readme)
+                self.assertIn(relative_path, validate_workflow)
+                self.assertIn(relative_path, refresh_workflow)
+
+        self.assertNotIn("assets/profile-language-mix.svg", readme + validate_workflow + refresh_workflow)
+
     def test_public_projects_are_complete_sorted_and_escaped(self) -> None:
         repositories = [
             {"name": "zeta", "fork": False, "archived": False, "language": "Rust", "description": "<script>"},

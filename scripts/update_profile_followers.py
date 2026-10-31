@@ -11,6 +11,7 @@ import re
 import sys
 from pathlib import Path
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 OWNER = "aliasfoxkde"
@@ -21,8 +22,11 @@ SPONSORS_START = "<!-- profile-sponsors:start -->"
 SPONSORS_END = "<!-- profile-sponsors:end -->"
 STATS_START = "<!-- profile-stats:start -->"
 STATS_END = "<!-- profile-stats:end -->"
+PROJECTS_START = "<!-- profile-projects:start -->"
+PROJECTS_END = "<!-- profile-projects:end -->"
 PER_PAGE = 100
 LOGIN_RE = re.compile(r"^[A-Za-z0-9-]{1,39}$")
+REPOSITORY_NAME_RE = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
 LANGUAGE_COLORS = {
     "Rust": "#d97645",
     "TypeScript": "#377cc8",
@@ -41,6 +45,7 @@ CHART_COLORS = ("#6748c7", "#287b68", "#d97645", "#377cc8", "#d3a81e", "#8b849c"
 CHART_FILES = (
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-mix.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
+    Path(__file__).resolve().parents[1] / "assets" / "profile-language-bars.svg",
 )
 
 
@@ -104,9 +109,13 @@ def fetch_public_repositories() -> list[dict[str, object]]:
         if not isinstance(records, list):
             raise RuntimeError(f"GitHub returned an unexpected repository response on page {page}")
         for record in records:
-            if not isinstance(record, dict) or not isinstance(record.get("fork"), bool):
+            if (
+                not isinstance(record, dict)
+                or not isinstance(record.get("fork"), bool)
+                or not isinstance(record.get("archived"), bool)
+            ):
                 raise RuntimeError(f"GitHub returned an invalid repository record on page {page}")
-            if record.get("private") is True or record.get("archived") is True:
+            if record.get("private") is True:
                 continue
             language = record.get("language")
             if language is not None and not isinstance(language, str):
@@ -210,6 +219,58 @@ def render_stats(followers: list[str], repositories: list[dict[str, object]]) ->
         f'<img alt="{html.escape(label.replace("%20", " "))}" '
         f'src="https://img.shields.io/badge/{label}-{value}-{color}?style=flat-square" /></a>'
         for label, value, color in stats
+    )
+
+
+def render_public_projects(repositories: list[dict[str, object]]) -> str:
+    """Render every public original repository, including archived projects."""
+    projects = sorted(
+        (
+            repository
+            for repository in repositories
+            if repository.get("fork") is False
+        ),
+        key=lambda repository: str(repository.get("name", "")).casefold(),
+    )
+    rows: list[str] = []
+    prompt = "Give me a concise overview of this repository: its purpose, key components, technologies, and how to get started."
+    for repository in projects:
+        name = repository.get("name")
+        if not isinstance(name, str) or not REPOSITORY_NAME_RE.fullmatch(name):
+            raise RuntimeError("GitHub returned an invalid public repository name")
+        description = repository.get("description")
+        if description is not None and not isinstance(description, str):
+            raise RuntimeError(f"GitHub returned an invalid description for {name}")
+        language = repository.get("language")
+        if language is not None and not isinstance(language, str):
+            raise RuntimeError(f"GitHub returned an invalid language for {name}")
+        copilot_open = (
+            f"ghapp://session/new?repo={quote(f'{OWNER}/{name}', safe='')}"
+            f"&mode=interactive&prompt={quote(prompt, safe='')}"
+        )
+        copilot_url = quote(copilot_open, safe="")
+        safe_name = html.escape(name, quote=True)
+        safe_language = html.escape(language or "—")
+        safe_description = html.escape(description or "No description provided.")
+        status = "Archived" if repository.get("archived") is True else "Active"
+        rows.append(
+            "    <tr>"
+            f'<td><a href="https://github.com/{OWNER}/{safe_name}">{safe_name}</a> · '
+            f'<a href="https://github.com/copilot/app/launch?open={copilot_url}">Ask Copilot</a></td>'
+            f"<td>{safe_language}</td><td>{status}</td><td>{safe_description}</td></tr>"
+        )
+    if not rows:
+        rows.append('    <tr><td colspan="4">No public project repositories found.</td></tr>')
+    summary = f"Show all {len(projects)} public project repositories"
+    return (
+        "<details>\n"
+        f"  <summary>{summary}</summary>\n\n"
+        "<p>Refreshed daily from public GitHub data. Lists original repositories (not forks), including archived projects; licensing and maintenance status are defined per repository.</p>\n\n"
+        "<table>\n"
+        "  <thead><tr><th>Project</th><th>Primary language</th><th>Status</th><th>About</th></tr></thead>\n"
+        "  <tbody>\n"
+        + "\n".join(rows)
+        + "\n  </tbody>\n</table>\n</details>"
     )
 
 
@@ -333,8 +394,42 @@ def render_language_radar(repositories: list[dict[str, object]]) -> str:
     )
 
 
+def render_language_bars(repositories: list[dict[str, object]]) -> str:
+    """Render the five most common named repository languages as ranked bars."""
+    items = [item for item in language_distribution(repositories) if item[0] != "Other / none"]
+    maximum = max((count for _, count, _ in items), default=0)
+    left, top, bar_width, row_height = 112.0, 67.0, 272.0, 32.0
+    rows: list[str] = []
+    for index, (name, count, color) in enumerate(items):
+        y = top + index * row_height
+        width = bar_width * count / maximum if maximum else 0
+        rows.append(
+            f'<text x="100" y="{y + 15:.1f}" text-anchor="end" font-size="11" fill="#433d51">'
+            f'{html.escape(name)}</text>'
+            f'<rect x="{left:.1f}" y="{y:.1f}" width="{bar_width:.1f}" height="19" rx="5" fill="#e5e1ed"/>'
+            f'<rect x="{left:.1f}" y="{y:.1f}" width="{width:.1f}" height="19" rx="5" fill="{color}"/>'
+            f'<text x="{left + bar_width + 8:.1f}" y="{y + 15:.1f}" font-size="11" font-weight="700" fill="#433d51">{count}</text>'
+        )
+    if not items:
+        rows.append('<text x="220" y="145" text-anchor="middle" font-size="12" fill="#625c75">No data</text>')
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 260" role="img" aria-labelledby="title desc">'
+        '<title id="title">Most common named primary languages</title>'
+        '<desc id="desc">Ranked horizontal bars show the repository count for each of up to five most common named primary languages. Other and unlabeled repositories are excluded.</desc>'
+        '<rect width="440" height="260" rx="16" fill="#f7f6ff" stroke="#ded9ef"/>'
+        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Top languages by repository count</text>'
+        f'{"".join(rows)}'
+        '<text x="22" y="242" font-size="10" fill="#625c75">One count per public repository · top five named languages</text>'
+        '</svg>'
+    )
+
+
 def write_language_charts(repositories: list[dict[str, object]]) -> bool:
-    charts = (render_language_mix(repositories), render_language_radar(repositories))
+    charts = (
+        render_language_mix(repositories),
+        render_language_radar(repositories),
+        render_language_bars(repositories),
+    )
     changed = False
     for path, content in zip(CHART_FILES, charts):
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -390,10 +485,18 @@ def update_readme() -> bool:
         raise RuntimeError("README sponsor markers are in the wrong order")
     generated_sponsors = f"\n{render_sponsors(sponsors)}\n"
     updated = updated[:sponsors_start] + generated_sponsors + updated[sponsors_end:]
+    if updated.count(PROJECTS_START) != 1 or updated.count(PROJECTS_END) != 1:
+        raise RuntimeError("README must contain exactly one start and end project marker")
+    projects_start = updated.index(PROJECTS_START) + len(PROJECTS_START)
+    projects_end = updated.index(PROJECTS_END)
+    if projects_start > projects_end:
+        raise RuntimeError("README project markers are in the wrong order")
+    projects = f"\n{render_public_projects(repositories)}\n"
+    updated = updated[:projects_start] + projects + updated[projects_end:]
     readme_changed = updated != content
     if not readme_changed and not charts_changed:
         print(
-            f"Profile data already current ({len(followers)} public followers, "
+        f"Profile data already current ({len(followers)} public followers, "
             f"{len(repositories)} public repositories, {len(sponsors)} public sponsors)."
         )
         return False
@@ -402,6 +505,7 @@ def update_readme() -> bool:
     print(
         f"Updated README with {len(followers)} public followers and "
         f"{len(repositories)} public repositories."
+        f" Listed {sum(repository.get('fork') is False for repository in repositories)} public project repositories."
         f" Listed {len(sponsors)} public sponsors."
         f" Language charts {'updated' if charts_changed else 'already current'}."
     )

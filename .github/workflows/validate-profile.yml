@@ -32,6 +32,7 @@ jobs:
               "profile-stats",
               "profile-followers",
               "profile-sponsors",
+              "profile-projects",
           ):
               if readme.count(f"<!-- {marker}:start -->") != 1:
                   raise SystemExit(f"expected exactly one {marker} start marker")
@@ -41,6 +42,7 @@ jobs:
           for chart in (
               "assets/profile-language-mix.svg",
               "assets/profile-language-radar.svg",
+              "assets/profile-language-bars.svg",
           ):
               root = ET.parse(chart).getroot()
               if not root.tag.endswith("svg"):

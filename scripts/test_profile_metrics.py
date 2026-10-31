@@ -12,6 +12,25 @@ import update_profile_followers as profile
 
 
 class LanguageChartTests(unittest.TestCase):
+    def test_public_projects_are_complete_sorted_and_escaped(self) -> None:
+        repositories = [
+            {"name": "zeta", "fork": False, "archived": False, "language": "Rust", "description": "<script>"},
+            {"name": "forked", "fork": True, "archived": False, "language": "Python", "description": "Fork"},
+            {"name": "archived", "fork": False, "archived": True, "language": "Go", "description": "Old"},
+            {"name": "alpha", "fork": False, "archived": False, "language": None, "description": None},
+        ]
+
+        rendered = profile.render_public_projects(repositories)
+
+        self.assertIn("Show all 3 public project repositories", rendered)
+        self.assertLess(rendered.index("/alpha\""), rendered.index("/zeta\""))
+        self.assertIn("No description provided.", rendered)
+        self.assertIn("&lt;script&gt;", rendered)
+        self.assertNotIn("/forked\"", rendered)
+        self.assertIn("/archived\"", rendered)
+        self.assertIn("<td>Archived</td>", rendered)
+        self.assertIn("Ask Copilot", rendered)
+
     def test_distribution_counts_repositories_and_groups_remainder(self) -> None:
         repositories = [
             {"language": "Rust"},

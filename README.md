@@ -13,7 +13,7 @@
   <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-135-informational?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-33-success?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-35-yellow?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-36-yellow?style=flat-square" /></a>
   <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
   <!-- profile-stats:end -->
 </p>
@@ -158,7 +158,7 @@ The profile README source includes a cloneable [`examples/`](./examples/) galler
 ## Open-source projects
 
 <!-- profile-projects:start -->
-  <details>
+<details>
   <summary>Show all 33 public project repositories</summary>
 
 <p>Refreshed daily from public GitHub data. Lists original repositories (not forks), including archived projects; licensing and maintenance status are defined per repository.</p>
@@ -202,7 +202,7 @@ The profile README source includes a cloneable [`examples/`](./examples/) galler
   </tbody>
 </table>
 </details>
-  <!-- profile-projects:end -->
+<!-- profile-projects:end -->
 
 ## Organizations
 

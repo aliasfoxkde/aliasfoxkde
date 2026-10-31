@@ -276,11 +276,13 @@ def render_language_mix(repositories: list[dict[str, object]]) -> str:
 
 
 def render_language_radar(repositories: list[dict[str, object]]) -> str:
-    """Render the same repository-count categories on a shared-scale radar chart."""
-    items = language_distribution(repositories)
+    """Render named language counts normalized to the largest named category."""
+    # "Other / none" combines unrelated data and can dwarf named languages, so
+    # keep that aggregate in the donut but omit it from the comparative radar.
+    items = [item for item in language_distribution(repositories) if item[0] != "Other / none"]
     if len(items) < 3:
         items = items + [(f"Category {i + 1}", 0, CHART_COLORS[i % len(CHART_COLORS)]) for i in range(3 - len(items))]
-    cx, cy, radius = 220.0, 151.0, 82.0
+    cx, cy, radius = 220.0, 143.0, 67.0
     maximum = max((count for _, count, _ in items), default=0) or 1
     angles = [(-math.pi / 2) + 2 * math.pi * index / len(items) for index in range(len(items))]
 
@@ -305,13 +307,14 @@ def render_language_radar(repositories: list[dict[str, object]]) -> str:
     )
     labels: list[str] = []
     for angle, (name, count, _) in zip(angles, items):
-        x = cx + math.cos(angle) * (radius + 25)
-        y = cy + math.sin(angle) * (radius + 25) + 4
+        x = cx + math.cos(angle) * (radius + 22)
+        y = cy + math.sin(angle) * (radius + 22) + 4
         anchor = "start" if math.cos(angle) > 0.35 else "end" if math.cos(angle) < -0.35 else "middle"
         short_name = name if len(name) <= 14 else f"{name[:12]}…"
+        relative = round(count * 100 / maximum) if count else 0
         labels.append(
-            f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" font-size="10" fill="#433d51">'
-            f'{html.escape(short_name)} · {count}</text>'
+            f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" font-size="9" fill="#433d51">'
+            f'{html.escape(short_name)} · {count} ({relative}%)</text>'
         )
     dots = "".join(
         f'<circle cx="{cx + math.cos(angle) * radius * count / maximum:.1f}" '
@@ -321,11 +324,11 @@ def render_language_radar(repositories: list[dict[str, object]]) -> str:
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 260" role="img" aria-labelledby="title desc">'
         '<title id="title">Repository primary-language breadth</title>'
-        '<desc id="desc">Radar chart of repository counts by primary language category on one shared scale. It does not represent skill or code volume.</desc>'
+        '<desc id="desc">Named language repository counts normalized from zero to 100 percent of the largest named language count. Other and unlabeled repositories are excluded. This does not represent skill or code volume.</desc>'
         '<rect width="440" height="260" rx="16" fill="#f7f6ff" stroke="#ded9ef"/>'
-        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Language breadth by repositories</text>'
+        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Named language counts · normalized</text>'
         f'{grid}{axes}<polygon points="{values}" fill="#6748c7" fill-opacity=".17" stroke="#6748c7" stroke-width="2"/>{dots}{"".join(labels)}'
-        f'<text x="220" y="247" text-anchor="middle" font-size="10" fill="#625c75">Shared scale: 0–{maximum} repositories</text>'
+        '<text x="220" y="250" text-anchor="middle" font-size="10" fill="#625c75">Relative to largest named language · 100% = max</text>'
         '</svg>'
     )
 

@@ -20,7 +20,7 @@
 
 <p align="center">
   <img width="49%" src="assets/profile-language-mix.svg" alt="Dynamic donut chart showing repository counts by primary language" />
-  <img width="49%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart showing repository counts by primary language category" />
+  <img width="49%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart comparing named language repository counts relative to the largest category" />
 </p>
 
 <p align="center"><sub>Stats and charts refresh daily from public GitHub data. Language charts count each public repository once by its primary language label; they do not measure code volume, skill, or time spent.</sub></p>
@@ -37,94 +37,106 @@
 <table>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#amortyx">
+      <a href="https://amortyx.com/">
         <img src="assets/screenshots/amortyx-home.png" width="100%" alt="Amortyx landing page and live routing demo" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#amortyx">Amortyx</a></strong><br />
+      <strong><a href="https://amortyx.com/">Amortyx</a></strong><br />
+      AI request optimization, enforcement, and model routing.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#openzenith">
+      <a href="https://openzenith.org/">
         <img src="assets/screenshots/openzenith-home.png" width="100%" alt="OpenZenith global geospatial API and interactive map" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#openzenith">OpenZenith</a></strong><br />
+      <strong><a href="https://openzenith.org/">OpenZenith</a></strong><br />
+      Open elevation data, geospatial APIs, and mapping tools.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#artcraft-webos">
+      <a href="https://artcraft-webos.pages.dev/">
         <img src="assets/screenshots/artcraft-webos-home.png" width="100%" alt="ArtCraft WebOS browser desktop with creative apps" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#artcraft-webos">ArtCraft WebOS</a></strong><br />
+      <strong><a href="https://artcraft-webos.pages.dev/">ArtCraft WebOS</a></strong><br />
+      A browser desktop concept for creative applications.
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#station-awareness">
+      <a href="https://stationawareness.pages.dev/">
         <img src="assets/screenshots/station-awareness-login.png" width="100%" alt="Station Awareness facility inspection and monitoring sign-in page" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#station-awareness">Station Awareness</a></strong><br />
+      <strong><a href="https://stationawareness.pages.dev/">Station Awareness</a></strong><br />
+      Offline-first facility inspection and monitoring.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer">
+      <a href="https://taskwizer-landing.pages.dev/">
         <img src="assets/screenshots/taskwizer-landing.png" width="100%" alt="TaskWizer AI development platform landing page" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer">TaskWizer</a></strong><br />
+      <strong><a href="https://taskwizer-landing.pages.dev/">TaskWizer</a></strong><br />
+      An AI development platform for planning and shipping software.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer-studio">
+      <a href="https://studio-taskwizer.pages.dev/">
         <img src="assets/screenshots/studio-taskwizer.png" width="100%" alt="TaskWizer Studio browser-based AI development workspace" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#taskwizer-studio">TaskWizer Studio</a></strong><br />
+      <strong><a href="https://studio-taskwizer.pages.dev/">TaskWizer Studio</a></strong><br />
+      A browser workspace for AI-powered applications and workflows.
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#scratch-optimizer">
+      <a href="https://scratch-optimizer.pages.dev/">
         <img src="assets/screenshots/scratch-optimizer.png" width="100%" alt="Scratch Optimizer project upload and optimization options" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#scratch-optimizer">Scratch Optimizer</a></strong><br />
+      <strong><a href="https://scratch-optimizer.pages.dev/">Scratch Optimizer</a></strong><br />
+      Clean and optimize Scratch projects before sharing.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#bolt">
+      <a href="https://bolt-main.pages.dev/">
         <img src="assets/screenshots/bolt-main.png" width="100%" alt="Bolt browser-based AI application prototyping interface" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#bolt">Bolt</a></strong><br />
+      <strong><a href="https://bolt-main.pages.dev/">Bolt</a></strong><br />
+      Browser-based AI app prototyping; a provider API key is required.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#onnx-chat">
+      <a href="https://onnx-chat.pages.dev/">
         <img src="assets/screenshots/onnx-chat.png" width="100%" alt="ONNX Chat browser app with local model selector and chat interface" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#onnx-chat">ONNX Chat</a></strong><br />
+      <strong><a href="https://onnx-chat.pages.dev/">ONNX Chat</a></strong><br />
+      Browser chat for ONNX models with tools and notes.
     </td>
   </tr>
   <tr>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#prisai">
+      <a href="https://prisai-cha.pages.dev/">
         <img src="assets/screenshots/prisai-cha-login.png" width="100%" alt="PRISAI property records intelligence system sign-in screen" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#prisai">PRISAI</a></strong><br />
+      <strong><a href="https://prisai-cha.pages.dev/">PRISAI</a></strong><br />
+      Property-records intelligence system; public demo sign-in required.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#siliconrank">
+      <a href="https://siliconrank.pages.dev/">
         <img src="assets/screenshots/siliconrank-home.png" width="100%" alt="SiliconRank hardware intelligence dashboard" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#siliconrank">SiliconRank</a></strong><br />
+      <strong><a href="https://siliconrank.pages.dev/">SiliconRank</a></strong><br />
+      Compare CPUs, GPUs, and AI accelerators with open hardware data.
     </td>
     <td width="33.33%" align="center">
-      <a href="https://aliasfoxkde.github.io/examples/projects.html#opencodifier">
+      <a href="https://opencodifier.pages.dev/">
         <img src="assets/screenshots/opencodifier-home.png" width="100%" alt="OpenCodifier landing page showing typed machine-actionable decisions" />
       </a>
       <br />
-      <strong><a href="https://aliasfoxkde.github.io/examples/projects.html#opencodifier">OpenCodifier</a></strong><br />
+      <strong><a href="https://opencodifier.pages.dev/">OpenCodifier</a></strong><br />
+      Fast, local-first code intelligence and decision tooling.
     </td>
   </tr>
 </table>
@@ -135,7 +147,7 @@
   <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
   <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">Cloneable examples source</a> ·
   <a href="https://github.com/aliasfoxkde/aliasfoxkde/blob/main/AGENTS.md">Agent guidance</a> ·
-  <a href="https://aliasfoxkde.github.io/examples/projects.html">Flip-card project gallery</a> ·
+  <a href="https://aliasfoxkde.github.io/examples/projects.html">Project gallery demo</a> ·
   <a href="https://github.com/sponsors/aliasfoxkde">Support open-source work</a> ·
   <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
@@ -143,6 +155,9 @@
 The profile README source includes a cloneable [`examples/`](./examples/) gallery with local screenshots, interactive profile widgets, reusable SVG templates, and design notes. Clone the repository and follow its [local preview instructions](./examples/README.md); coding agents can use the repository guidance in [`AGENTS.md`](./AGENTS.md).
 
 ## Open-source projects
+
+<details>
+  <summary>Show 7 selected repositories</summary>
 
 <table>
   <thead>
@@ -190,6 +205,7 @@ The profile README source includes a cloneable [`examples/`](./examples/) galler
     </tr>
   </tbody>
 </table>
+</details>
 
 ## Organizations
 

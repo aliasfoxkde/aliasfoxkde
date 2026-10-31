@@ -6,10 +6,10 @@ This folder contains small, original examples for a GitHub profile README and ho
 
 - [`index.html`](./index.html) — sample profile stats, donut/radar/bar charts, and a pixel snake wordmark. Its numbers are fictional and stay in the browser.
 - [`creative.html`](./creative.html) — tags, a project table, original inline SVG icons, text art, a banner concept, a browser-only tic-tac-toe game, and a native collapsible disclosure.
-- [`projects.html`](./projects.html) — responsive screenshot cards. Mouse hover flips a card; buttons provide the same interaction to touch and keyboard users. Descriptions and links live on each card's back.
+- [`projects.html`](./projects.html) — a responsive static project gallery with screenshots, descriptions, and direct live/source links.
 - [`svg-library/`](./svg-library/) — customize a profile header, repository-summary card, or pixel wordmark and download the result as SVG.
 - [`about.html`](./about.html) — design references, data definitions, privacy, licensing, and operational caveats.
-- [`assets/screenshots/`](./assets/screenshots/) — optimized WebP copies used by the flip-card gallery. These illustrate separate projects and are not automatically covered by this repository's MIT license.
+- [`assets/screenshots/`](./assets/screenshots/) — optimized WebP copies used by the project gallery. These illustrate separate projects and are not automatically covered by this repository's MIT license.
 
 ## Run locally
 

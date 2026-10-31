@@ -40,7 +40,7 @@ jobs:
                   raise SystemExit(f"expected exactly one {marker} end marker")
 
           for chart in (
-              "assets/profile-language-mix.svg",
+              "assets/profile-activity-mix.svg",
               "assets/profile-language-radar.svg",
               "assets/profile-language-bars.svg",
           ):

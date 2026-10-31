@@ -1,10 +1,12 @@
-"""Contract tests for self-hosted language charts in the profile README."""
+"""Contract tests for self-hosted profile metrics and charts."""
 
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
 
@@ -52,15 +54,24 @@ class LanguageChartTests(unittest.TestCase):
     def test_chart_svg_is_well_formed_and_escapes_api_text(self) -> None:
         repositories = [{"language": "<script>"}, {"language": "Rust"}]
 
-        pie = ET.fromstring(profile.render_language_mix(repositories))
+        pie = ET.fromstring(
+            profile.render_activity_mix(
+                {"Commits": 4, "Pull requests": 2, "Issues": 1, "PR reviews": 1, "Repositories created": 1},
+                135,
+            )
+        )
         radar = ET.fromstring(profile.render_language_radar(repositories))
         bars = ET.fromstring(profile.render_language_bars(repositories))
 
         self.assertEqual(pie.tag, "{http://www.w3.org/2000/svg}svg")
         self.assertEqual(radar.tag, "{http://www.w3.org/2000/svg}svg")
         self.assertEqual(bars.tag, "{http://www.w3.org/2000/svg}svg")
-        self.assertIn("<script>", "".join(pie.itertext()))
-        self.assertEqual(pie.findall(".//{http://www.w3.org/2000/svg}script"), [])
+        pie_text = "".join(pie.itertext())
+        self.assertIn("135", pie_text)
+        self.assertIn("Pull requests · 2", pie_text)
+        self.assertIn("Issues · 1", pie_text)
+        self.assertIn("Repositories created · 1", pie_text)
+        self.assertIn("last 12 months", pie_text)
         self.assertIn("repositories", "".join(radar.itertext()))
         self.assertIn("<script>", "".join(bars.itertext()))
 
@@ -94,12 +105,35 @@ class LanguageChartTests(unittest.TestCase):
         self.assertNotIn("Other / none", text)
         self.assertIn("100% = max", text)
 
+    def test_public_contribution_fetch_validates_graphql_counts(self) -> None:
+        collection = {
+            "totalCommitContributions": 12,
+            "totalPullRequestContributions": 4,
+            "totalIssueContributions": 3,
+            "totalPullRequestReviewContributions": 2,
+            "totalRepositoryContributions": 1,
+        }
+        response = BytesIO(json.dumps({"data": {"user": {"contributionsCollection": collection}}}).encode())
+
+        with (
+            patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}),
+            patch.object(profile, "urlopen", return_value=response) as open_request,
+        ):
+            contributions = profile.fetch_public_contributions()
+
+        request = open_request.call_args.args[0]
+        payload = json.loads(request.data.decode())
+        self.assertEqual(contributions["Commits"], 12)
+        self.assertEqual(contributions["Pull requests"], 4)
+        self.assertIn("totalPullRequestReviewContributions", payload["query"])
+        self.assertEqual(request.full_url, "https://api.github.com/graphql")
+
     def test_empty_data_renders_without_division_errors(self) -> None:
-        pie = ET.fromstring(profile.render_language_mix([]))
+        pie = ET.fromstring(profile.render_activity_mix({}, 0))
         radar = ET.fromstring(profile.render_language_radar([]))
         bars = ET.fromstring(profile.render_language_bars([]))
 
-        self.assertIn("No data", "".join(pie.itertext()))
+        self.assertIn("0 public contributions", "".join(pie.itertext()))
         self.assertIn("Relative to largest named language", "".join(radar.itertext()))
         self.assertIn("No data", "".join(bars.itertext()))
 
@@ -111,9 +145,10 @@ class LanguageChartTests(unittest.TestCase):
                 Path(directory) / "bars.svg",
             )
             with patch.object(profile, "CHART_FILES", files):
-                self.assertTrue(profile.write_language_charts([{"language": "Rust"}]))
+                contributions = {"Commits": 1}
+                self.assertTrue(profile.write_profile_charts([{"language": "Rust"}], contributions))
                 self.assertTrue(all(path.is_file() for path in files))
-                self.assertFalse(profile.write_language_charts([{"language": "Rust"}]))
+                self.assertFalse(profile.write_profile_charts([{"language": "Rust"}], contributions))
 
 
 if __name__ == "__main__":

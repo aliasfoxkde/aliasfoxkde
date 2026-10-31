@@ -11,8 +11,8 @@ This repository contains the public profile README, its screenshots, cloneable e
 
 ## Generated content
 
-- `scripts/update_profile_followers.py` owns the `profile-followers`, `profile-stats`, `profile-sponsors`, and `profile-projects` marker regions and the language-chart SVG files in `assets/`.
-- Stats and charts count public repository records. The language charts count primary-language labels per repository; they are not measures of code volume, proficiency, or time spent.
+- `scripts/update_profile_followers.py` owns the `profile-followers`, `profile-stats`, `profile-sponsors`, and `profile-projects` marker regions plus the contribution-mix and language-chart SVG files in `assets/`.
+- Stats count public repository records; the donut shows public contribution types over the rolling 12-month window, while the radar and bars count primary-language labels per repository. None of these charts measure code volume, proficiency, or time spent.
 - Preserve explicit sample/live labels and keep chart SVG output escaped, deterministic, and valid XML.
 - Keep screenshot alt text descriptive. Do not treat the root MIT license as overriding the separate licenses of project screenshots.
 - Keep `examples/` self-contained and runnable from a clone with browser-native HTML, CSS, JavaScript, and SVG. Keep its local assets in the folder, label illustrative data, and preserve the separate `examples/LICENSE` scope, which does not cover project screenshots.

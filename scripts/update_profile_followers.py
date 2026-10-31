@@ -41,6 +41,7 @@ CHART_COLORS = ("#6748c7", "#287b68", "#d97645", "#377cc8", "#d3a81e", "#8b849c"
 CHART_FILES = (
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-mix.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
+    Path(__file__).resolve().parents[1] / "assets" / "profile-language-bars.svg",
 )
 
 
@@ -333,8 +334,42 @@ def render_language_radar(repositories: list[dict[str, object]]) -> str:
     )
 
 
+def render_language_bars(repositories: list[dict[str, object]]) -> str:
+    """Render the five most common named repository languages as ranked bars."""
+    items = [item for item in language_distribution(repositories) if item[0] != "Other / none"]
+    maximum = max((count for _, count, _ in items), default=0)
+    left, top, bar_width, row_height = 112.0, 67.0, 272.0, 32.0
+    rows: list[str] = []
+    for index, (name, count, color) in enumerate(items):
+        y = top + index * row_height
+        width = bar_width * count / maximum if maximum else 0
+        rows.append(
+            f'<text x="100" y="{y + 15:.1f}" text-anchor="end" font-size="11" fill="#433d51">'
+            f'{html.escape(name)}</text>'
+            f'<rect x="{left:.1f}" y="{y:.1f}" width="{bar_width:.1f}" height="19" rx="5" fill="#e5e1ed"/>'
+            f'<rect x="{left:.1f}" y="{y:.1f}" width="{width:.1f}" height="19" rx="5" fill="{color}"/>'
+            f'<text x="{left + bar_width + 8:.1f}" y="{y + 15:.1f}" font-size="11" font-weight="700" fill="#433d51">{count}</text>'
+        )
+    if not items:
+        rows.append('<text x="220" y="145" text-anchor="middle" font-size="12" fill="#625c75">No data</text>')
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 260" role="img" aria-labelledby="title desc">'
+        '<title id="title">Most common named primary languages</title>'
+        '<desc id="desc">Ranked horizontal bars show the repository count for each of up to five most common named primary languages. Other and unlabeled repositories are excluded.</desc>'
+        '<rect width="440" height="260" rx="16" fill="#f7f6ff" stroke="#ded9ef"/>'
+        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Top languages by repository count</text>'
+        f'{"".join(rows)}'
+        '<text x="22" y="242" font-size="10" fill="#625c75">One count per public repository · top five named languages</text>'
+        '</svg>'
+    )
+
+
 def write_language_charts(repositories: list[dict[str, object]]) -> bool:
-    charts = (render_language_mix(repositories), render_language_radar(repositories))
+    charts = (
+        render_language_mix(repositories),
+        render_language_radar(repositories),
+        render_language_bars(repositories),
+    )
     changed = False
     for path, content in zip(CHART_FILES, charts):
         path.parent.mkdir(parents=True, exist_ok=True)

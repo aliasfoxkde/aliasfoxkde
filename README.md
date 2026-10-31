@@ -19,8 +19,9 @@
 </p>
 
 <p align="center">
-  <img width="49%" src="assets/profile-language-mix.svg" alt="Dynamic donut chart showing repository counts by primary language" />
-  <img width="49%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart comparing named language repository counts relative to the largest category" />
+  <img width="32%" src="assets/profile-language-mix.svg" alt="Dynamic donut chart showing repository counts by primary language" />
+  <img width="32%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart comparing named language repository counts relative to the largest category" />
+  <img width="32%" src="assets/profile-language-bars.svg" alt="Dynamic ranked bar chart showing counts for the top named repository languages" />
 </p>
 
 <p align="center"><sub>Stats and charts refresh daily from public GitHub data. Language charts count each public repository once by its primary language label; they do not measure code volume, skill, or time spent.</sub></p>

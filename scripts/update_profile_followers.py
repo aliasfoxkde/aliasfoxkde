@@ -9,6 +9,7 @@ import math
 import os
 import re
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
@@ -43,7 +44,7 @@ LANGUAGE_COLORS = {
 }
 CHART_COLORS = ("#6748c7", "#287b68", "#d97645", "#377cc8", "#d3a81e", "#8b849c")
 CHART_FILES = (
-    Path(__file__).resolve().parents[1] / "assets" / "profile-language-mix.svg",
+    Path(__file__).resolve().parents[1] / "assets" / "profile-activity-mix.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-bars.svg",
 )
@@ -195,6 +196,67 @@ def fetch_public_sponsors() -> list[str]:
     return sorted(sponsors.values(), key=str.casefold)
 
 
+def fetch_public_contributions() -> dict[str, int]:
+    """Fetch public contribution totals over the rolling 12-month window."""
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if not token:
+        raise RuntimeError("GITHUB_TOKEN is required to query public contribution totals")
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=365)
+    query = """
+    query($from: DateTime!, $to: DateTime!) {
+      user(login: "aliasfoxkde") {
+        contributionsCollection(from: $from, to: $to) {
+          totalCommitContributions
+          totalPullRequestContributions
+          totalIssueContributions
+          totalPullRequestReviewContributions
+          totalRepositoryContributions
+        }
+      }
+    }
+    """
+    payload = json.dumps(
+        {"query": query, "variables": {"from": start.isoformat(), "to": end.isoformat()}}
+    ).encode()
+    request = Request(
+        "https://api.github.com/graphql",
+        data=payload,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "User-Agent": "aliasfoxkde-profile-contribution-refresh",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=30) as response:
+            result = json.load(response)
+    except (HTTPError, URLError, TimeoutError) as error:
+        raise RuntimeError(f"GitHub contribution API request failed: {error}") from error
+    if not isinstance(result, dict) or result.get("errors"):
+        raise RuntimeError("GitHub contribution API returned an error response")
+    user = result.get("data", {}).get("user") if isinstance(result.get("data"), dict) else None
+    collection = user.get("contributionsCollection") if isinstance(user, dict) else None
+    if not isinstance(collection, dict):
+        raise RuntimeError("GitHub returned an unexpected contribution response")
+    fields = {
+        "Commits": "totalCommitContributions",
+        "Pull requests": "totalPullRequestContributions",
+        "Issues": "totalIssueContributions",
+        "PR reviews": "totalPullRequestReviewContributions",
+        "Repositories created": "totalRepositoryContributions",
+    }
+    contributions: dict[str, int] = {}
+    for label, key in fields.items():
+        value = collection.get(key)
+        if not isinstance(value, int) or value < 0:
+            raise RuntimeError(f"GitHub returned an invalid {key} contribution count")
+        contributions[label] = value
+    return contributions
+
+
 def render_followers(followers: list[str]) -> str:
     if not followers:
         return "No public followers yet."
@@ -297,9 +359,16 @@ def language_distribution(repositories: list[dict[str, object]]) -> list[tuple[s
     return items
 
 
-def render_language_mix(repositories: list[dict[str, object]]) -> str:
-    """Render repository primary-language counts as a self-contained SVG donut."""
-    items = language_distribution(repositories)
+def render_activity_mix(contributions: dict[str, int], public_repository_total: int) -> str:
+    """Render public contribution activity by type, with the public repo total at center."""
+    colors = {
+        "Commits": "#6748c7",
+        "Pull requests": "#287b68",
+        "Issues": "#d97645",
+        "PR reviews": "#377cc8",
+        "Repositories created": "#d3a81e",
+    }
+    items = [(name, contributions.get(name, 0), color) for name, color in colors.items()]
     total = sum(count for _, count, _ in items)
     circumference = 2 * math.pi * 69
     segments: list[str] = []
@@ -317,21 +386,19 @@ def render_language_mix(repositories: list[dict[str, object]]) -> str:
         offset += length
         legend.append(
             f'<circle cx="250" cy="{69 + index * 27}" r="5" fill="{color}"/>'
-            f'<text x="263" y="{73 + index * 27}" font-size="12" fill="#433d51">'
+            f'<text x="263" y="{69 + index * 27}" font-size="11" fill="#433d51">'
             f'{html.escape(name)} · {count}</text>'
         )
-    center = f'<text x="112" y="122" text-anchor="middle" font-size="25" font-weight="750" fill="#211b37">{total}</text><text x="112" y="143" text-anchor="middle" font-size="11" fill="#625c75">repositories</text>'
-    if not total:
-        center = '<text x="112" y="130" text-anchor="middle" font-size="12" fill="#625c75">No data</text>'
+    center = f'<text x="112" y="122" text-anchor="middle" font-size="24" font-weight="750" fill="#211b37">{public_repository_total}</text><text x="112" y="143" text-anchor="middle" font-size="10" fill="#625c75">public repos</text>'
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 260" role="img" aria-labelledby="title desc">'
-        '<title id="title">Primary languages across public repositories</title>'
-        '<desc id="desc">Donut chart showing each repository counted once by its primary language label. This is not a code-volume or skill measure.</desc>'
+        '<title id="title">Public GitHub contributions by type over the last 12 months</title>'
+        '<desc id="desc">Donut chart showing public commits, pull requests, issues, pull request reviews, and repositories created over a rolling 12-month period. The center shows the current total public repository count.</desc>'
         '<rect width="440" height="260" rx="16" fill="#f7f6ff" stroke="#ded9ef"/>'
-        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Primary language mix</text>'
+        '<text x="22" y="31" font-size="15" font-weight="700" fill="#211b37">Public GitHub activity · 12 months</text>'
         '<circle cx="112" cy="126" r="69" fill="none" stroke="#e5e1ed" stroke-width="27"/>'
         f'{"".join(segments)}{center}{"".join(legend)}'
-        '<text x="22" y="241" font-size="10" fill="#625c75">One count per public repository · top five plus remainder</text>'
+        f'<text x="22" y="241" font-size="10" fill="#625c75">{total} public contributions · rolling 12-month window</text>'
         '</svg>'
     )
 
@@ -339,7 +406,7 @@ def render_language_mix(repositories: list[dict[str, object]]) -> str:
 def render_language_radar(repositories: list[dict[str, object]]) -> str:
     """Render named language counts normalized to the largest named category."""
     # "Other / none" combines unrelated data and can dwarf named languages, so
-    # keep that aggregate in the donut but omit it from the comparative radar.
+    # omit it from comparisons that imply each spoke is one named language.
     items = [item for item in language_distribution(repositories) if item[0] != "Other / none"]
     if len(items) < 3:
         items = items + [(f"Category {i + 1}", 0, CHART_COLORS[i % len(CHART_COLORS)]) for i in range(3 - len(items))]
@@ -424,9 +491,11 @@ def render_language_bars(repositories: list[dict[str, object]]) -> str:
     )
 
 
-def write_language_charts(repositories: list[dict[str, object]]) -> bool:
+def write_profile_charts(
+    repositories: list[dict[str, object]], contributions: dict[str, int]
+) -> bool:
     charts = (
-        render_language_mix(repositories),
+        render_activity_mix(contributions, len(repositories)),
         render_language_radar(repositories),
         render_language_bars(repositories),
     )
@@ -466,7 +535,8 @@ def update_readme() -> bool:
     followers = fetch_followers()
     repositories = fetch_public_repositories()
     sponsors = fetch_public_sponsors()
-    charts_changed = write_language_charts(repositories)
+    contributions = fetch_public_contributions()
+    charts_changed = write_profile_charts(repositories, contributions)
     generated = f"\n{render_followers(followers)}\n"
     updated = content[:start] + generated + content[end:]
     if updated.count(STATS_START) != 1 or updated.count(STATS_END) != 1:
@@ -507,7 +577,7 @@ def update_readme() -> bool:
         f"{len(repositories)} public repositories."
         f" Listed {sum(repository.get('fork') is False for repository in repositories)} public project repositories."
         f" Listed {len(sponsors)} public sponsors."
-        f" Language charts {'updated' if charts_changed else 'already current'}."
+        f" Profile charts {'updated' if charts_changed else 'already current'}."
     )
     return readme_changed or charts_changed
 

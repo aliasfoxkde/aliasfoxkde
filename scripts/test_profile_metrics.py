@@ -42,12 +42,27 @@ class LanguageChartTests(unittest.TestCase):
         self.assertEqual(pie.findall(".//{http://www.w3.org/2000/svg}script"), [])
         self.assertIn("repositories", "".join(radar.itertext()))
 
+    def test_radar_normalizes_named_languages_and_excludes_remainder(self) -> None:
+        repositories = (
+            [{"language": "TypeScript"}] * 4
+            + [{"language": "Python"}] * 2
+            + [{"language": None}] * 20
+        )
+
+        radar = ET.fromstring(profile.render_language_radar(repositories))
+        text = "".join(radar.itertext())
+
+        self.assertIn("TypeScript · 4 (100%)", text)
+        self.assertIn("Python · 2 (50%)", text)
+        self.assertNotIn("Other / none", text)
+        self.assertIn("100% = max", text)
+
     def test_empty_data_renders_without_division_errors(self) -> None:
         pie = ET.fromstring(profile.render_language_mix([]))
         radar = ET.fromstring(profile.render_language_radar([]))
 
         self.assertIn("No data", "".join(pie.itertext()))
-        self.assertIn("Shared scale: 0–1 repositories", "".join(radar.itertext()))
+        self.assertIn("Relative to largest named language", "".join(radar.itertext()))
 
     def test_chart_writer_updates_only_changed_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

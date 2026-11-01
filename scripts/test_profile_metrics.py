@@ -13,6 +13,18 @@ from unittest.mock import patch
 import update_profile_followers as profile
 
 
+class ProfileBadgeTests(unittest.TestCase):
+    def test_stats_renderer_uses_live_followers_and_no_static_snapshots(self) -> None:
+        rendered = profile.render_stats([], [])
+
+        self.assertIn("github/followers/aliasfoxkde", rendered)
+        self.assertIn("label=Followers", rendered)
+        self.assertNotIn("Public%20repos", rendered)
+        self.assertNotIn("Original%20repos", rendered)
+        self.assertNotIn("Project%20stars", rendered)
+        self.assertNotIn("Project%20forks", rendered)
+
+
 class LanguageChartTests(unittest.TestCase):
     def test_generated_chart_paths_match_readme_and_workflows(self) -> None:
         repository = profile.README.parent

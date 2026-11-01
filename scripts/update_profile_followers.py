@@ -281,19 +281,11 @@ def render_followers(followers: list[str]) -> str:
 
 
 def render_stats(followers: list[str], repositories: list[dict[str, object]]) -> str:
-    originals = [repository for repository in repositories if repository["fork"] is False]
-    stats = [
-        ("Followers", len(followers), "blue"),
-        ("Public%20repos", len(repositories), "informational"),
-        ("Original%20repos", len(originals), "success"),
-        ("Project%20stars", sum(int(repository["stargazers_count"]) for repository in originals), "yellow"),
-        ("Project%20forks", sum(int(repository["forks_count"]) for repository in originals), "lightgrey"),
-    ]
-    return "\n  ".join(
-        f'<a href="https://github.com/{OWNER}?tab={"followers" if label == "Followers" else "repositories"}">'
-        f'<img alt="{html.escape(label.replace("%20", " "))}" '
-        f'src="https://img.shields.io/badge/{label}-{value}-{color}?style=flat-square" /></a>'
-        for label, value, color in stats
+    """Render only the live follower badge; avoid regenerating stale numeric snapshots."""
+    return (
+        f'<a href="https://github.com/{OWNER}?tab=followers">'
+        f'<img alt="Followers" '
+        f'src="https://img.shields.io/github/followers/{OWNER}?style=flat-square&label=Followers" /></a>'
     )
 
 

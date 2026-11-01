@@ -31,10 +31,10 @@ class LanguageChartTests(unittest.TestCase):
 
     def test_public_projects_are_complete_sorted_and_escaped(self) -> None:
         repositories = [
-            {"name": "zeta", "fork": False, "archived": False, "language": "Rust", "description": "<script>"},
-            {"name": "forked", "fork": True, "archived": False, "language": "Python", "description": "Fork"},
-            {"name": "archived", "fork": False, "archived": True, "language": "Go", "description": "Old"},
-            {"name": "alpha", "fork": False, "archived": False, "language": None, "description": None},
+            {"name": "zeta", "fork": False, "archived": False, "size": 10, "language": "Rust", "description": "<script>"},
+            {"name": "forked", "fork": True, "archived": False, "size": 10, "language": "Python", "description": "Fork"},
+            {"name": "archived", "fork": False, "archived": True, "size": 10, "language": "Go", "description": "Old"},
+            {"name": "alpha", "fork": False, "archived": False, "size": 1, "language": None, "description": None},
         ]
 
         rendered = profile.render_public_projects(repositories)
@@ -46,7 +46,41 @@ class LanguageChartTests(unittest.TestCase):
         self.assertNotIn("/forked\"", rendered)
         self.assertIn("/archived\"", rendered)
         self.assertIn("<td>Archived</td>", rendered)
+        self.assertIn("<td>Needs review</td>", rendered)
         self.assertIn("Ask Copilot", rendered)
+        self.assertIn("curated maturity labels and summaries come from", rendered)
+
+    def test_catalog_overrides_stale_repository_descriptions(self) -> None:
+        rendered = profile.render_public_projects(
+            [{
+                "name": "aegis",
+                "fork": False,
+                "archived": False,
+                "size": 1024,
+                "language": "Rust",
+                "description": "670 detection patterns",
+            }]
+        )
+
+        self.assertIn("<td>Needs review</td>", rendered)
+        self.assertIn("Rust security scanning", rendered)
+        self.assertNotIn("670 detection patterns", rendered)
+
+    def test_empty_repositories_are_not_marked_active(self) -> None:
+        rendered = profile.render_public_projects(
+            [{
+                "name": "empty-placeholder",
+                "fork": False,
+                "archived": False,
+                "size": 0,
+                "language": None,
+                "description": None,
+            }],
+            catalog={},
+        )
+
+        self.assertIn("<td>Empty / placeholder</td>", rendered)
+        self.assertNotIn("<td>Active</td>", rendered)
 
     def test_distribution_counts_repositories_and_groups_remainder(self) -> None:
         repositories = [

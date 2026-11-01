@@ -12,7 +12,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 OWNER = "aliasfoxkde"
@@ -43,6 +43,17 @@ LANGUAGE_COLORS = {
     "Other / none": "#8b849c",
 }
 CHART_COLORS = ("#6748c7", "#287b68", "#d97645", "#377cc8", "#d3a81e", "#8b849c")
+PROJECT_CATALOG = Path(__file__).resolve().parents[1] / "projects.json"
+STATUS_LABELS = {
+    "maintained": "Maintained",
+    "active-development": "Active development",
+    "prototype": "Prototype",
+    "experimental": "Experimental",
+    "archived": "Archived",
+    "fork-or-mirror": "Fork / mirror",
+    "internal-support": "Internal / support",
+    "needs-review": "Needs review",
+}
 CHART_FILES = (
     Path(__file__).resolve().parents[1] / "assets" / "profile-activity-mix.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
@@ -114,6 +125,8 @@ def fetch_public_repositories() -> list[dict[str, object]]:
                 not isinstance(record, dict)
                 or not isinstance(record.get("fork"), bool)
                 or not isinstance(record.get("archived"), bool)
+                or not isinstance(record.get("size"), int)
+                or record.get("size", -1) < 0
             ):
                 raise RuntimeError(f"GitHub returned an invalid repository record on page {page}")
             if record.get("private") is True:
@@ -284,8 +297,57 @@ def render_stats(followers: list[str], repositories: list[dict[str, object]]) ->
     )
 
 
-def render_public_projects(repositories: list[dict[str, object]]) -> str:
-    """Render every public original repository, including archived projects."""
+def load_project_catalog() -> dict[str, dict[str, object]]:
+    """Load curated metadata overrides keyed by canonical GitHub repository name."""
+    try:
+        data = json.loads(PROJECT_CATALOG.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(f"Cannot read project catalog {PROJECT_CATALOG}: {error}") from error
+    if not isinstance(data, dict) or data.get("schema_version") != 1:
+        raise RuntimeError("Project catalog has an unsupported schema")
+    projects = data.get("projects")
+    if not isinstance(projects, list):
+        raise RuntimeError("Project catalog must contain a projects array")
+    catalog: dict[str, dict[str, object]] = {}
+    for project in projects:
+        if not isinstance(project, dict):
+            raise RuntimeError("Project catalog contains a non-object entry")
+        repository_url = project.get("repository")
+        if not isinstance(repository_url, str):
+            continue
+        parsed = urlparse(repository_url)
+        parts = parsed.path.strip("/").split("/")
+        if parsed.scheme != "https" or parsed.netloc != "github.com" or len(parts) != 2:
+            raise RuntimeError(f"Invalid repository URL in project catalog: {repository_url}")
+        owner, name = parts
+        if owner.casefold() != OWNER.casefold() or not REPOSITORY_NAME_RE.fullmatch(name):
+            raise RuntimeError(f"Repository URL is outside {OWNER}: {repository_url}")
+        if name.casefold() in catalog:
+            raise RuntimeError(f"Duplicate repository mapping in project catalog: {name}")
+        catalog[name.casefold()] = project
+    return catalog
+
+
+def repository_status(repository: dict[str, object], project: dict[str, object] | None) -> str:
+    """Prefer authoritative GitHub lifecycle metadata, then curated maturity."""
+    if repository.get("archived") is True:
+        return "Archived"
+    size = repository.get("size")
+    if isinstance(size, int) and size == 0:
+        return "Empty / placeholder"
+    if project is not None:
+        status = project.get("status")
+        if isinstance(status, str) and status in STATUS_LABELS:
+            return STATUS_LABELS[status]
+    return "Needs review"
+
+
+def render_public_projects(
+    repositories: list[dict[str, object]],
+    catalog: dict[str, dict[str, object]] | None = None,
+) -> str:
+    """Render original public repositories with evidence-based lifecycle labels."""
+    catalog = load_project_catalog() if catalog is None else catalog
     projects = sorted(
         (
             repository
@@ -306,6 +368,10 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
         language = repository.get("language")
         if language is not None and not isinstance(language, str):
             raise RuntimeError(f"GitHub returned an invalid language for {name}")
+        project = catalog.get(name.casefold())
+        curated_summary = project.get("summary") if project else None
+        if curated_summary is not None and not isinstance(curated_summary, str):
+            raise RuntimeError(f"Invalid catalog summary for {name}")
         copilot_open = (
             f"ghapp://session/new?repo={quote(f'{OWNER}/{name}', safe='')}"
             f"&mode=interactive&prompt={quote(prompt, safe='')}"
@@ -313,8 +379,8 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
         copilot_url = quote(copilot_open, safe="")
         safe_name = html.escape(name, quote=True)
         safe_language = html.escape(language or "—")
-        safe_description = html.escape(description or "No description provided.")
-        status = "Archived" if repository.get("archived") is True else "Active"
+        safe_description = html.escape(curated_summary or description or "No description provided.")
+        status = repository_status(repository, project)
         rows.append(
             "    <tr>"
             f'<td><a href="https://github.com/{OWNER}/{safe_name}">{safe_name}</a> · '
@@ -327,7 +393,7 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
     return (
         "<details>\n"
         f"  <summary>{summary}</summary>\n\n"
-        "<p>Refreshed daily from public GitHub data. Lists original repositories (not forks), including archived projects; licensing and maintenance status are defined per repository.</p>\n\n"
+        "<p>Refreshed daily from GitHub. Archived and empty repositories are identified from GitHub metadata; curated maturity labels and summaries come from <a href=\"projects.json\">projects.json</a>. Unclassified repositories are marked Needs review rather than assumed active. Forks are excluded.</p>\n\n"
         "<table>\n"
         "  <thead><tr><th>Project</th><th>Primary language</th><th>Status</th><th>About</th></tr></thead>\n"
         "  <tbody>\n"

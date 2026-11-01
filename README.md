@@ -27,19 +27,12 @@
 </p>
 
 <p align="center">
-  <img width="48%" src="assets/profile-activity-mix.svg" alt="Dynamic chart of public contribution counts over the last 12 months, with total public repositories in the center" />
+  <img width="32%" src="assets/profile-activity-mix.svg" alt="Dynamic chart of public contribution counts over the last 12 months, with total public repositories in the center" />
+  <img width="32%" src="assets/profile-language-radar.svg" alt="Radar chart comparing repository counts by primary language" />
+  <img width="32%" src="assets/profile-language-bars.svg" alt="Ranked bar chart of repository counts by primary language" />
 </p>
 
-<p align="center"><sub>Public GitHub activity and repository stats refresh daily. Activity counts are not a measure of code quality or project impact.</sub></p>
-
-<details>
-  <summary>Explore repository language charts</summary>
-  <p align="center">
-    <img width="48%" src="assets/profile-language-radar.svg" alt="Radar chart comparing repository counts by primary language" />
-    <img width="48%" src="assets/profile-language-bars.svg" alt="Ranked bar chart of repository counts by primary language" />
-  </p>
-  <p><sub>Each public repository counts once by its primary language; these charts do not represent code volume, skill, or time spent.</sub></p>
-</details>
+<p align="center"><sub>Public GitHub activity and repository stats refresh daily. Activity counts are not a measure of code quality or project impact. Each public repository counts once by its primary language; language charts do not represent code volume, skill, or time spent.</sub></p>
 
 ## Featured projects
 
@@ -270,8 +263,7 @@ I’m grateful to everyone who supports my open-source work. This list refreshes
 **0 public sponsors so far.** If you find my open-source work useful, [sponsor me on GitHub](https://github.com/sponsors/aliasfoxkde). Thank you for considering it.
 <!-- profile-sponsors:end -->
 
-<details>
-  <summary>Public followers</summary>
+## Followers
 
 These are public GitHub accounts that follow this profile. The list refreshes daily.
 
@@ -282,4 +274,3 @@ These are public GitHub accounts that follow this profile. The list refreshes da
 <a href="https://github.com/Murplugg"><code>@Murplugg</code></a>, <a href="https://github.com/OriNachum"><code>@OriNachum</code></a>, <a href="https://github.com/peytondsay"><code>@peytondsay</code></a>, <a href="https://github.com/poormikey80-create"><code>@poormikey80-create</code></a>, <a href="https://github.com/pwnedroot"><code>@pwnedroot</code></a>, <a href="https://github.com/RaduNG"><code>@RaduNG</code></a>, <a href="https://github.com/RemoteBrowser01"><code>@RemoteBrowser01</code></a>, <a href="https://github.com/ssoad"><code>@ssoad</code></a>,
 <a href="https://github.com/standardgalactic"><code>@standardgalactic</code></a>, <a href="https://github.com/takumi-sato0209"><code>@takumi-sato0209</code></a>, <a href="https://github.com/tysoncung"><code>@tysoncung</code></a>, <a href="https://github.com/UtkarshSaini2006"><code>@UtkarshSaini2006</code></a>, <a href="https://github.com/vatsalnaresh555"><code>@vatsalnaresh555</code></a>, <a href="https://github.com/vinodkumar99000"><code>@vinodkumar99000</code></a>, <a href="https://github.com/xiscoding"><code>@xiscoding</code></a>, <a href="https://github.com/zyadhajaji"><code>@zyadhajaji</code></a>
 <!-- profile-followers:end -->
-</details>

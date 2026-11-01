@@ -12,7 +12,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 OWNER = "aliasfoxkde"
@@ -25,6 +25,8 @@ STATS_START = "<!-- profile-stats:start -->"
 STATS_END = "<!-- profile-stats:end -->"
 PROJECTS_START = "<!-- profile-projects:start -->"
 PROJECTS_END = "<!-- profile-projects:end -->"
+FEATURED_START = "<!-- profile-featured:start -->"
+FEATURED_END = "<!-- profile-featured:end -->"
 PER_PAGE = 100
 LOGIN_RE = re.compile(r"^[A-Za-z0-9-]{1,39}$")
 REPOSITORY_NAME_RE = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
@@ -43,6 +45,17 @@ LANGUAGE_COLORS = {
     "Other / none": "#8b849c",
 }
 CHART_COLORS = ("#6748c7", "#287b68", "#d97645", "#377cc8", "#d3a81e", "#8b849c")
+PROJECT_CATALOG = Path(__file__).resolve().parents[1] / "projects.json"
+STATUS_LABELS = {
+    "maintained": "Maintained",
+    "active-development": "Active development",
+    "prototype": "Prototype",
+    "experimental": "Experimental",
+    "archived": "Archived",
+    "fork-or-mirror": "Fork / mirror",
+    "internal-support": "Internal / support",
+    "needs-review": "Needs review",
+}
 CHART_FILES = (
     Path(__file__).resolve().parents[1] / "assets" / "profile-activity-mix.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
@@ -114,6 +127,8 @@ def fetch_public_repositories() -> list[dict[str, object]]:
                 not isinstance(record, dict)
                 or not isinstance(record.get("fork"), bool)
                 or not isinstance(record.get("archived"), bool)
+                or not isinstance(record.get("size"), int)
+                or record.get("size", -1) < 0
             ):
                 raise RuntimeError(f"GitHub returned an invalid repository record on page {page}")
             if record.get("private") is True:
@@ -268,24 +283,107 @@ def render_followers(followers: list[str]) -> str:
 
 
 def render_stats(followers: list[str], repositories: list[dict[str, object]]) -> str:
-    originals = [repository for repository in repositories if repository["fork"] is False]
-    stats = [
-        ("Followers", len(followers), "blue"),
-        ("Public%20repos", len(repositories), "informational"),
-        ("Original%20repos", len(originals), "success"),
-        ("Project%20stars", sum(int(repository["stargazers_count"]) for repository in originals), "yellow"),
-        ("Project%20forks", sum(int(repository["forks_count"]) for repository in originals), "lightgrey"),
-    ]
-    return "\n  ".join(
-        f'<a href="https://github.com/{OWNER}?tab={"followers" if label == "Followers" else "repositories"}">'
-        f'<img alt="{html.escape(label.replace("%20", " "))}" '
-        f'src="https://img.shields.io/badge/{label}-{value}-{color}?style=flat-square" /></a>'
-        for label, value, color in stats
+    """Render only the live follower badge; avoid regenerating stale numeric snapshots."""
+    return (
+        f'<a href="https://github.com/{OWNER}?tab=followers">'
+        f'<img alt="Followers" '
+        f'src="https://img.shields.io/github/followers/{OWNER}?style=flat-square&label=Followers" /></a>'
     )
 
 
-def render_public_projects(repositories: list[dict[str, object]]) -> str:
-    """Render every public original repository, including archived projects."""
+def load_project_catalog() -> dict[str, dict[str, object]]:
+    """Load curated metadata overrides keyed by canonical GitHub repository name."""
+    try:
+        data = json.loads(PROJECT_CATALOG.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(f"Cannot read project catalog {PROJECT_CATALOG}: {error}") from error
+    if not isinstance(data, dict) or data.get("schema_version") != 1:
+        raise RuntimeError("Project catalog has an unsupported schema")
+    projects = data.get("projects")
+    if not isinstance(projects, list):
+        raise RuntimeError("Project catalog must contain a projects array")
+    catalog: dict[str, dict[str, object]] = {}
+    for project in projects:
+        if not isinstance(project, dict):
+            raise RuntimeError("Project catalog contains a non-object entry")
+        repository_url = project.get("repository")
+        if not isinstance(repository_url, str):
+            continue
+        parsed = urlparse(repository_url)
+        parts = parsed.path.strip("/").split("/")
+        if parsed.scheme != "https" or parsed.netloc != "github.com" or len(parts) != 2:
+            raise RuntimeError(f"Invalid repository URL in project catalog: {repository_url}")
+        owner, name = parts
+        if owner.casefold() != OWNER.casefold() or not REPOSITORY_NAME_RE.fullmatch(name):
+            raise RuntimeError(f"Repository URL is outside {OWNER}: {repository_url}")
+        if name.casefold() in catalog:
+            raise RuntimeError(f"Duplicate repository mapping in project catalog: {name}")
+        catalog[name.casefold()] = project
+    return catalog
+
+
+def render_featured_projects(catalog: dict[str, dict[str, object]]) -> str:
+    """Render the above-the-fold project table from curated manifest entries."""
+    category_labels = {
+        "ai-infrastructure": "AI infrastructure",
+        "developer-infrastructure": "Developer infrastructure",
+        "data-and-compute": "Data & compute",
+        "creative-and-browser-native": "Creative & browser-native",
+        "apps-and-platforms": "Apps & platforms",
+    }
+    rows: list[str] = []
+    for project in catalog.values():
+        if project.get("featured") is not True:
+            continue
+        name = project.get("name")
+        category = project.get("category")
+        summary = project.get("summary")
+        status = project.get("status")
+        repository = project.get("repository")
+        website = project.get("website")
+        if not all(isinstance(value, str) and value.strip() for value in (name, category, summary, status)):
+            raise RuntimeError("Featured catalog entries require name, category, status, and summary")
+        if not isinstance(repository, str) and not isinstance(website, str):
+            raise RuntimeError(f"Featured project {name} requires a repository or website link")
+        destination = repository if isinstance(repository, str) else website
+        link = f"[{name}]({destination})"
+        if isinstance(repository, str) and isinstance(website, str):
+            link += f" · [Live site]({website})"
+        category_label = category_labels.get(category, category.replace("-", " ").title())
+        status_label = STATUS_LABELS.get(status)
+        if status_label is None:
+            raise RuntimeError(f"Unknown featured project status for {name}: {status}")
+        safe_summary = re.sub(r"\s+", " ", html.escape(summary)).replace("|", "&#124;")
+        rows.append(f"| {link} | {category_label} | {status_label} | {safe_summary} |")
+    if not rows:
+        raise RuntimeError("Project catalog contains no featured projects")
+    return "\n".join([
+        "| Project | Category | Status | Summary |",
+        "| --- | --- | --- | --- |",
+        *rows,
+    ])
+
+
+def repository_status(repository: dict[str, object], project: dict[str, object] | None) -> str:
+    """Prefer authoritative GitHub lifecycle metadata, then curated maturity."""
+    if repository.get("archived") is True:
+        return "Archived"
+    size = repository.get("size")
+    if isinstance(size, int) and size == 0:
+        return "Empty / placeholder"
+    if project is not None:
+        status = project.get("status")
+        if isinstance(status, str) and status in STATUS_LABELS:
+            return STATUS_LABELS[status]
+    return "Needs review"
+
+
+def render_public_projects(
+    repositories: list[dict[str, object]],
+    catalog: dict[str, dict[str, object]] | None = None,
+) -> str:
+    """Render original public repositories with evidence-based lifecycle labels."""
+    catalog = load_project_catalog() if catalog is None else catalog
     projects = sorted(
         (
             repository
@@ -306,6 +404,10 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
         language = repository.get("language")
         if language is not None and not isinstance(language, str):
             raise RuntimeError(f"GitHub returned an invalid language for {name}")
+        project = catalog.get(name.casefold())
+        curated_summary = project.get("summary") if project else None
+        if curated_summary is not None and not isinstance(curated_summary, str):
+            raise RuntimeError(f"Invalid catalog summary for {name}")
         copilot_open = (
             f"ghapp://session/new?repo={quote(f'{OWNER}/{name}', safe='')}"
             f"&mode=interactive&prompt={quote(prompt, safe='')}"
@@ -313,8 +415,8 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
         copilot_url = quote(copilot_open, safe="")
         safe_name = html.escape(name, quote=True)
         safe_language = html.escape(language or "—")
-        safe_description = html.escape(description or "No description provided.")
-        status = "Archived" if repository.get("archived") is True else "Active"
+        safe_description = html.escape(curated_summary or description or "No description provided.")
+        status = repository_status(repository, project)
         rows.append(
             "    <tr>"
             f'<td><a href="https://github.com/{OWNER}/{safe_name}">{safe_name}</a> · '
@@ -327,7 +429,7 @@ def render_public_projects(repositories: list[dict[str, object]]) -> str:
     return (
         "<details>\n"
         f"  <summary>{summary}</summary>\n\n"
-        "<p>Refreshed daily from public GitHub data. Lists original repositories (not forks), including archived projects; licensing and maintenance status are defined per repository.</p>\n\n"
+        "<p>Refreshed daily from GitHub. Archived and empty repositories are identified from GitHub metadata; curated maturity labels and summaries come from <a href=\"projects.json\">projects.json</a>. Unclassified repositories are marked Needs review rather than assumed active. Forks are excluded.</p>\n\n"
         "<table>\n"
         "  <thead><tr><th>Project</th><th>Primary language</th><th>Status</th><th>About</th></tr></thead>\n"
         "  <tbody>\n"
@@ -561,8 +663,17 @@ def update_readme() -> bool:
     projects_end = updated.index(PROJECTS_END)
     if projects_start > projects_end:
         raise RuntimeError("README project markers are in the wrong order")
-    projects = f"\n{render_public_projects(repositories)}\n"
+    catalog = load_project_catalog()
+    projects = f"\n{render_public_projects(repositories, catalog)}\n"
     updated = updated[:projects_start] + projects + updated[projects_end:]
+    if updated.count(FEATURED_START) != 1 or updated.count(FEATURED_END) != 1:
+        raise RuntimeError("README must contain exactly one start and end featured-project marker")
+    featured_start = updated.index(FEATURED_START) + len(FEATURED_START)
+    featured_end = updated.index(FEATURED_END)
+    if featured_start > featured_end:
+        raise RuntimeError("README featured-project markers are in the wrong order")
+    featured = f"\n{render_featured_projects(catalog)}\n"
+    updated = updated[:featured_start] + featured + updated[featured_end:]
     readme_changed = updated != content
     if not readme_changed and not charts_changed:
         print(

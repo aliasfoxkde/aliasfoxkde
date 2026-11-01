@@ -36,15 +36,18 @@
 
 These are the main threads running through my work: AI infrastructure, deterministic tooling, and developer infrastructure.
 
-| Project | Focus | Why it matters |
-| --- | --- | --- |
-| **[Amortyx](https://github.com/aliasfoxkde/Amortyx)** · [Live site](https://amortyx.com/) | AI request optimization and model routing | Middleware for controlling and optimizing AI coding workflows, including routing and fallback across model providers. |
-| **[OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier)** · [Demo](https://opencodifier.pages.dev/) | Local-first code intelligence | Fast, deterministic classification and decision tooling designed to run locally without requiring an LLM for every decision. |
-| **[GitForge](https://github.com/aliasfoxkde/GitForge)** | Self-hosted developer infrastructure | Exploring a Rust-based Git and CI/CD backend that brings more execution and control onto your own hardware. |
-| **[Aegis](https://github.com/aliasfoxkde/aegis)** | Security scanning | Scanning workflows for DevOps, CI/CD, and AI-assisted development. |
-| **[AgentVerify](https://github.com/aliasfoxkde/AgentVerify)** | AI agent outcome verification | Verifies that consequential agent actions reached required states and preserves evidence of the result. |
+<!-- profile-featured:start -->
+| Project | Category | Status | Summary |
+| --- | --- | --- | --- |
+| [Amortyx](https://github.com/aliasfoxkde/Amortyx) · [Live site](https://amortyx.com/) | AI infrastructure | Active development | Local-first Rust router for coding-agent traffic, provider routing, prompt optimization, and usage observability. |
+| [OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier) · [Live site](https://opencodifier.pages.dev/) | AI infrastructure | Active development | Deterministic-first local decision runtime with CLI, HTTP, MCP, and WASM interfaces. |
+| [AgentVerify](https://github.com/aliasfoxkde/AgentVerify) | AI infrastructure | Needs review | Outcome verification for action-taking agents, with explicit uncertainty states and evidence receipts. |
+| [Aegis](https://github.com/aliasfoxkde/aegis) | Developer infrastructure | Needs review | Rust security scanning for repositories, CI/CD, and AI-assisted development. |
+| [GitForge](https://github.com/aliasfoxkde/GitForge) | Developer infrastructure | Active development | Self-hosted Git hosting and event-driven CI/CD platform. |
+| [Dark Factory](https://github.com/aliasfoxkde/dark-factory) | Developer infrastructure | Needs review | AI-first repository template and development workflow. |
+<!-- profile-featured:end -->
 
-Project maturity varies. Check each repository's README, releases, and issue tracker for current implementation status, setup instructions, and known limitations.
+Project status and summaries are generated from [projects.json](projects.json). The visual demo gallery below is curated separately so screenshots can be reviewed independently.
 
 ## Live projects & demos
 

@@ -33,6 +33,7 @@ jobs:
               "profile-followers",
               "profile-sponsors",
               "profile-projects",
+              "profile-featured",
           ):
               if readme.count(f"<!-- {marker}:start -->") != 1:
                   raise SystemExit(f"expected exactly one {marker} start marker")

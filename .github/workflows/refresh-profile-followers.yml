@@ -3,6 +3,11 @@ name: Refresh public profile metrics and contribution charts
 on:
   schedule:
     - cron: "17 13 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "projects.json"
+      - "scripts/update_profile_followers.py"
   workflow_dispatch:
 
 concurrency:

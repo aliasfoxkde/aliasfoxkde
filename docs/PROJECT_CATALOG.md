@@ -1,9 +1,10 @@
 # Project catalog
 
-[projects.json](../projects.json) is the canonical structured inventory for the
-GitHub profile and portfolio work. It deliberately separates repository links
-from live website links: some gallery entries do not yet have a verified
-source-repository mapping.
+[projects.json](../projects.json) is the curated metadata override catalog for
+featured projects and selected live-demo entries. It is not the complete
+repository inventory: the profile refresh workflow fetches all public original
+repositories directly from GitHub and uses this catalog to override summaries
+and maturity labels where an owner-reviewed entry exists.
 
 ## Status vocabulary
 
@@ -16,7 +17,13 @@ source-repository mapping.
 | `archived` | No longer actively developed |
 | `fork-or-mirror` | Primarily upstream code or a derivative mirror |
 | `internal-support` | Deployment, operations, or support repository rather than a product |
-| `needs-review` | Maturity or current operating state has not yet been verified |
+| `needs-review` | Maturity or current operating state has not been verified |
+
+The generated full repository table applies GitHub metadata first:
+archived repositories are labeled Archived and zero-size repositories are
+labeled Empty / placeholder. Catalog overrides then supply curated maturity
+labels and descriptions. Original repositories not yet represented in the
+catalog default to Needs review; they are not silently called Active.
 
 ## Editing rules
 
@@ -29,13 +36,15 @@ source-repository mapping.
   alone.
 - Keep summaries user-facing and concise. Put technical detail in each
   project's own documentation.
-- Update this file first; profile, inventory, and website generators should
-  consume it rather than maintaining duplicate project lists.
-- Run `python3 scripts/validate-projects.py` before submitting changes.
+- Keep the catalog limited to projects whose summary/status should override
+  GitHub's generic repository metadata; the full inventory is generated from
+  the GitHub API.
+- Run `python3 -m unittest discover -s scripts -p 'test_*.py'` before
+  submitting changes.
 
 ## Current validation boundary
 
-The manifest is an initial curated catalog, not proof that every deployment
-is live or every repository is maintained. Entries marked `needs-review`
-require owner verification. A missing repository mapping is intentional where
-the live gallery does not yet identify a canonical source repository.
+The catalog and generated inventory do not prove that every deployment is
+live or every repository is maintained. Website ownership, current behavior,
+and maturity remain evidence-based review tasks. A missing repository mapping
+is intentional where the canonical source repository has not been confirmed.

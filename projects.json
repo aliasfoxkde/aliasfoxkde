@@ -359,6 +359,33 @@
       "status": "internal-support",
       "summary": "Personal website and live-demo gallery; reconcile canonical project URLs and ownership with OpenPortfolio.",
       "featured": false
+    },
+    {
+      "id": "taskwizer-studio",
+      "name": "TaskWizer Studio",
+      "website": "https://studio-taskwizer.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "prototype",
+      "summary": "Companion studio demo. Its canonical source repository and deployment relationship to the TaskWizer landing page are not yet confirmed.",
+      "featured": false
+    },
+    {
+      "id": "onnx-chat",
+      "name": "ONNX Chat",
+      "website": "https://onnx-chat.pages.dev/",
+      "category": "ai-infrastructure",
+      "status": "needs-review",
+      "summary": "Browser-based ONNX inference/chat demo. The canonical source repository and current model/runtime coverage still need verification.",
+      "featured": false
+    },
+    {
+      "id": "prisai",
+      "name": "PRISAI",
+      "website": "https://prisai-cha.pages.dev/",
+      "category": "ai-infrastructure",
+      "status": "needs-review",
+      "summary": "Experimental AI chat demo. The canonical source repository, current capabilities, and deployment status still need verification.",
+      "featured": false
     }
   ]
 }

@@ -1,10 +1,11 @@
 # Project catalog
 
 [projects.json](../projects.json) is the curated metadata override catalog for
-featured projects and selected live-demo entries. It is not the complete
-repository inventory: the profile refresh workflow fetches all public original
-repositories directly from GitHub and uses this catalog to override summaries
-and maturity labels where an owner-reviewed entry exists.
+featured projects and selected secondary, legacy, and support repositories.
+It is not the complete repository inventory: the profile refresh workflow
+fetches all public original repositories directly from GitHub and uses this
+catalog to override summaries and maturity labels where an owner-reviewed
+entry exists.
 
 ## Status vocabulary
 

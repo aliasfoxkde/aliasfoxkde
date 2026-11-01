@@ -1,8 +1,16 @@
-<h1 align="center">AI, software &amp; developer infrastructure</h1>
+<h1 align="center">Building Local-First AI Infrastructure &amp; Developer Tools</h1>
 
 <p align="center">
-  Software developer and DevOps engineer exploring practical tools for better
-  development workflows, automation, and technical communication.
+  I build practical systems for making AI-assisted software development more efficient, reliable, and controllable.
+  My work spans model routing and request optimization, deterministic code intelligence, agent verification,
+  and self-hosted developer infrastructure.
+</p>
+
+<p align="center">
+  <a href="https://amortyx.com/"><strong>Explore Amortyx</strong></a> ·
+  <a href="https://github.com/aliasfoxkde/OpenCodifier"><strong>Explore OpenCodifier</strong></a> ·
+  <a href="https://github.com/aliasfoxkde/GitForge"><strong>Explore GitForge</strong></a> ·
+  <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
 </p>
 
 ## GitHub at a glance
@@ -19,19 +27,33 @@
 </p>
 
 <p align="center">
-  <img width="32%" src="assets/profile-activity-mix.svg" alt="Dynamic donut chart showing public contribution counts by commits, pull requests, issues, reviews, and repositories created, with total public repositories in the center" />
-  <img width="32%" src="assets/profile-language-radar.svg" alt="Dynamic radar chart comparing named language repository counts relative to the largest category" />
-  <img width="32%" src="assets/profile-language-bars.svg" alt="Dynamic ranked bar chart showing counts for the top named repository languages" />
+  <img width="48%" src="assets/profile-activity-mix.svg" alt="Dynamic chart of public contribution counts over the last 12 months, with total public repositories in the center" />
 </p>
 
-<p align="center"><sub>Stats and charts refresh daily from public GitHub data. The donut shows public contributions over the last 12 months and the current public repository total; the radar and bars count each public repository once by primary language, not code volume, skill, or time spent.</sub></p>
+<p align="center"><sub>Public GitHub activity and repository stats refresh daily. Activity counts are not a measure of code quality or project impact.</sub></p>
 
-## Highlights
+<details>
+  <summary>Explore repository language charts</summary>
+  <p align="center">
+    <img width="48%" src="assets/profile-language-radar.svg" alt="Radar chart comparing repository counts by primary language" />
+    <img width="48%" src="assets/profile-language-bars.svg" alt="Ranked bar chart of repository counts by primary language" />
+  </p>
+  <p><sub>Each public repository counts once by its primary language; these charts do not represent code volume, skill, or time spent.</sub></p>
+</details>
 
-- **AI infrastructure:** [Amortyx](https://github.com/aliasfoxkde/Amortyx) combines request optimization, enforcement, and model routing for AI coding workflows.
-- **Fast code intelligence:** [OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier) focuses on local-first classification and analysis.
-- **Self-hosted delivery:** [GitForge](https://github.com/aliasfoxkde/GitForge) brings Git hosting and CI/CD closer to the hardware.
-- **More experiments:** Browse the [interactive profile demos](https://aliasfoxkde.github.io/examples/) for charts, SVGs, games, and layout ideas.
+## Featured projects
+
+These are the main threads running through my work: AI infrastructure, deterministic tooling, and developer infrastructure.
+
+| Project | Focus | Why it matters |
+| --- | --- | --- |
+| **[Amortyx](https://github.com/aliasfoxkde/Amortyx)** · [Live site](https://amortyx.com/) | AI request optimization and model routing | Middleware for controlling and optimizing AI coding workflows, including routing and fallback across model providers. |
+| **[OpenCodifier](https://github.com/aliasfoxkde/OpenCodifier)** · [Demo](https://opencodifier.pages.dev/) | Local-first code intelligence | Fast, deterministic classification and decision tooling designed to run locally without requiring an LLM for every decision. |
+| **[GitForge](https://github.com/aliasfoxkde/GitForge)** | Self-hosted developer infrastructure | Exploring a Rust-based Git and CI/CD backend that brings more execution and control onto your own hardware. |
+| **[Aegis](https://github.com/aliasfoxkde/aegis)** | Security scanning | Scanning workflows for DevOps, CI/CD, and AI-assisted development. |
+| **[AgentVerify](https://github.com/aliasfoxkde/AgentVerify)** | AI agent outcome verification | Verifies that consequential agent actions reached required states and preserves evidence of the result. |
+
+Project maturity varies. Check each repository's README, releases, and issue tracker for current implementation status, setup instructions, and known limitations.
 
 ## Live projects & demos
 
@@ -143,14 +165,12 @@
 </table>
 
 <p align="center">
-  <a href="https://openportfolio.pages.dev/">Portfolio (work in progress)</a> ·
-  <a href="https://aliasfoxkde.github.io/">GitHub Pages site</a> ·
-  <a href="https://aliasfoxkde.github.io/examples/">Interactive profile widget demos</a> ·
-  <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">Cloneable examples source</a> ·
+  <a href="https://aliasfoxkde.github.io/">Website</a> ·
+  <a href="https://aliasfoxkde.github.io/examples/">Interactive demos</a> ·
+  <a href="https://github.com/aliasfoxkde/aliasfoxkde/tree/main/examples">Reusable examples</a> ·
   <a href="https://github.com/aliasfoxkde/aliasfoxkde/blob/main/AGENTS.md">Agent guidance</a> ·
-  <a href="https://aliasfoxkde.github.io/examples/projects.html">Project gallery demo</a> ·
-  <a href="https://github.com/sponsors/aliasfoxkde">Support open-source work</a> ·
-  <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a>
+  <a href="https://github.com/aliasfoxkde?tab=repositories">All repositories</a> ·
+  <a href="https://github.com/sponsors/aliasfoxkde">Sponsor open-source work</a>
 </p>
 
 The profile README source includes a cloneable [`examples/`](./examples/) gallery with local screenshots, interactive profile widgets, reusable SVG templates, and design notes. Clone the repository and follow its [local preview instructions](./examples/README.md); coding agents can use the repository guidance in [`AGENTS.md`](./AGENTS.md).
@@ -250,7 +270,8 @@ I’m grateful to everyone who supports my open-source work. This list refreshes
 **0 public sponsors so far.** If you find my open-source work useful, [sponsor me on GitHub](https://github.com/sponsors/aliasfoxkde). Thank you for considering it.
 <!-- profile-sponsors:end -->
 
-## Followers
+<details>
+  <summary>Public followers</summary>
 
 These are public GitHub accounts that follow this profile. The list refreshes daily.
 
@@ -261,3 +282,4 @@ These are public GitHub accounts that follow this profile. The list refreshes da
 <a href="https://github.com/Murplugg"><code>@Murplugg</code></a>, <a href="https://github.com/OriNachum"><code>@OriNachum</code></a>, <a href="https://github.com/peytondsay"><code>@peytondsay</code></a>, <a href="https://github.com/poormikey80-create"><code>@poormikey80-create</code></a>, <a href="https://github.com/pwnedroot"><code>@pwnedroot</code></a>, <a href="https://github.com/RaduNG"><code>@RaduNG</code></a>, <a href="https://github.com/RemoteBrowser01"><code>@RemoteBrowser01</code></a>, <a href="https://github.com/ssoad"><code>@ssoad</code></a>,
 <a href="https://github.com/standardgalactic"><code>@standardgalactic</code></a>, <a href="https://github.com/takumi-sato0209"><code>@takumi-sato0209</code></a>, <a href="https://github.com/tysoncung"><code>@tysoncung</code></a>, <a href="https://github.com/UtkarshSaini2006"><code>@UtkarshSaini2006</code></a>, <a href="https://github.com/vatsalnaresh555"><code>@vatsalnaresh555</code></a>, <a href="https://github.com/vinodkumar99000"><code>@vinodkumar99000</code></a>, <a href="https://github.com/xiscoding"><code>@xiscoding</code></a>, <a href="https://github.com/zyadhajaji"><code>@zyadhajaji</code></a>
 <!-- profile-followers:end -->
+</details>

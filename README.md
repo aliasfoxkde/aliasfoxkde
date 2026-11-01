@@ -18,11 +18,9 @@
 <p align="center">
   <a href="https://github.com/aliasfoxkde"><img alt="Profile views" src="https://komarev.com/ghpvc/?username=aliasfoxkde&style=flat-square&color=blue&label=Profile%20views" /></a>
   <!-- profile-stats:start -->
-  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/badge/Followers-40-blue?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Public repos" src="https://img.shields.io/badge/Public%20repos-135-informational?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Original repos" src="https://img.shields.io/badge/Original%20repos-33-success?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project stars" src="https://img.shields.io/badge/Project%20stars-35-yellow?style=flat-square" /></a>
-  <a href="https://github.com/aliasfoxkde?tab=repositories"><img alt="Project forks" src="https://img.shields.io/badge/Project%20forks-4-lightgrey?style=flat-square" /></a>
+  <a href="https://github.com/aliasfoxkde?tab=followers"><img alt="Followers" src="https://img.shields.io/github/followers/aliasfoxkde?style=flat-square&label=Followers" /></a>
+  <!-- Static repository, star, and fork snapshots were removed because they drift.
+       The generated activity and language charts below remain the maintained metrics. -->
   <!-- profile-stats:end -->
 </p>
 

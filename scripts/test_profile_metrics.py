@@ -25,6 +25,20 @@ class ProfileBadgeTests(unittest.TestCase):
         self.assertNotIn("Project%20forks", rendered)
 
 
+class FeaturedProjectTests(unittest.TestCase):
+    def test_featured_projects_are_generated_from_catalog(self) -> None:
+        catalog = profile.load_project_catalog()
+        rendered = profile.render_featured_projects(catalog)
+
+        self.assertIn("[Amortyx](https://github.com/aliasfoxkde/Amortyx)", rendered)
+        self.assertIn("[Live site](https://amortyx.com/)", rendered)
+        self.assertIn("[Dark Factory](https://github.com/aliasfoxkde/dark-factory)", rendered)
+        self.assertIn("Active development", rendered)
+        self.assertIn("Needs review", rendered)
+        self.assertNotIn("WebJS_OS", rendered)
+        self.assertEqual(sum(1 for p in catalog.values() if p.get("featured") is True), 6)
+
+
 class LanguageChartTests(unittest.TestCase):
     def test_generated_chart_paths_match_readme_and_workflows(self) -> None:
         repository = profile.README.parent

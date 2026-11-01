@@ -25,6 +25,8 @@ STATS_START = "<!-- profile-stats:start -->"
 STATS_END = "<!-- profile-stats:end -->"
 PROJECTS_START = "<!-- profile-projects:start -->"
 PROJECTS_END = "<!-- profile-projects:end -->"
+FEATURED_START = "<!-- profile-featured:start -->"
+FEATURED_END = "<!-- profile-featured:end -->"
 PER_PAGE = 100
 LOGIN_RE = re.compile(r"^[A-Za-z0-9-]{1,39}$")
 REPOSITORY_NAME_RE = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
@@ -318,6 +320,48 @@ def load_project_catalog() -> dict[str, dict[str, object]]:
             raise RuntimeError(f"Duplicate repository mapping in project catalog: {name}")
         catalog[name.casefold()] = project
     return catalog
+
+
+def render_featured_projects(catalog: dict[str, dict[str, object]]) -> str:
+    """Render the above-the-fold project table from curated manifest entries."""
+    category_labels = {
+        "ai-infrastructure": "AI infrastructure",
+        "developer-infrastructure": "Developer infrastructure",
+        "data-and-compute": "Data & compute",
+        "creative-and-browser-native": "Creative & browser-native",
+        "apps-and-platforms": "Apps & platforms",
+    }
+    rows: list[str] = []
+    for project in catalog.values():
+        if project.get("featured") is not True:
+            continue
+        name = project.get("name")
+        category = project.get("category")
+        summary = project.get("summary")
+        status = project.get("status")
+        repository = project.get("repository")
+        website = project.get("website")
+        if not all(isinstance(value, str) and value.strip() for value in (name, category, summary, status)):
+            raise RuntimeError("Featured catalog entries require name, category, status, and summary")
+        if not isinstance(repository, str) and not isinstance(website, str):
+            raise RuntimeError(f"Featured project {name} requires a repository or website link")
+        destination = repository if isinstance(repository, str) else website
+        link = f"[{name}]({destination})"
+        if isinstance(repository, str) and isinstance(website, str):
+            link += f" · [Live site]({website})"
+        category_label = category_labels.get(category, category.replace("-", " ").title())
+        status_label = STATUS_LABELS.get(status)
+        if status_label is None:
+            raise RuntimeError(f"Unknown featured project status for {name}: {status}")
+        safe_summary = html.escape(summary).replace("|", "&#124;").replace("\\n", " ")
+        rows.append(f"| {link} | {category_label} | {status_label} | {safe_summary} |")
+    if not rows:
+        raise RuntimeError("Project catalog contains no featured projects")
+    return "\n".join([
+        "| Project | Category | Status | Summary |",
+        "| --- | --- | --- | --- |",
+        *rows,
+    ])
 
 
 def repository_status(repository: dict[str, object], project: dict[str, object] | None) -> str:
@@ -619,8 +663,17 @@ def update_readme() -> bool:
     projects_end = updated.index(PROJECTS_END)
     if projects_start > projects_end:
         raise RuntimeError("README project markers are in the wrong order")
-    projects = f"\n{render_public_projects(repositories)}\n"
+    catalog = load_project_catalog()
+    projects = f"\n{render_public_projects(repositories, catalog)}\n"
     updated = updated[:projects_start] + projects + updated[projects_end:]
+    if updated.count(FEATURED_START) != 1 or updated.count(FEATURED_END) != 1:
+        raise RuntimeError("README must contain exactly one start and end featured-project marker")
+    featured_start = updated.index(FEATURED_START) + len(FEATURED_START)
+    featured_end = updated.index(FEATURED_END)
+    if featured_start > featured_end:
+        raise RuntimeError("README featured-project markers are in the wrong order")
+    featured = f"\n{render_featured_projects(catalog)}\n"
+    updated = updated[:featured_start] + featured + updated[featured_end:]
     readme_changed = updated != content
     if not readme_changed and not charts_changed:
         print(

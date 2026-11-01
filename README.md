@@ -271,7 +271,7 @@ I’m grateful to everyone who supports my open-source work. This list refreshes
 <!-- profile-sponsors:end -->
 
 <details>
-  <summary>## Followers — public accounts that follow this profile</summary>
+  <summary>Public followers</summary>
 
 These are public GitHub accounts that follow this profile. The list refreshes daily.
 

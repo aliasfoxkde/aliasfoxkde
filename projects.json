@@ -154,6 +154,210 @@
       "status": "needs-review",
       "summary": "Portfolio aggregation application; canonical relationship to the profile website requires review.",
       "featured": false
+    },
+    {
+      "id": "openpress",
+      "name": "OpenPress",
+      "repository": "https://github.com/aliasfoxkde/OpenPress",
+      "website": "https://openpress.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "Cloudflare-native CMS and web application platform; verify authentication, media, storefront, backup, and deployment limits before production claims.",
+      "featured": false
+    },
+    {
+      "id": "opencad",
+      "name": "OpenCAD",
+      "repository": "https://github.com/aliasfoxkde/OpenCAD",
+      "category": "creative-and-browser-native",
+      "status": "needs-review",
+      "summary": "Browser-native parametric CAD prototype using an OpenCASCADE WASM kernel; validate modeling, collaboration, and format coverage.",
+      "featured": false
+    },
+    {
+      "id": "firecraft",
+      "name": "FireCraft",
+      "repository": "https://github.com/aliasfoxkde/FireCraft",
+      "website": "https://firecraft-web.pages.dev/",
+      "category": "creative-and-browser-native",
+      "status": "active-development",
+      "summary": "Rust vector/bitmap graphics editor with a Fireworks PNG document model, deterministic CPU rendering, and WASM/native targets.",
+      "featured": false
+    },
+    {
+      "id": "buy-a-buddy",
+      "name": "Buy a Buddy",
+      "repository": "https://github.com/aliasfoxkde/Buy_A_Buddy",
+      "website": "https://buy-a-buddy.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "2D RPG with buddies, farming, turn-based battles, and mini-games; validate current gameplay, saves, and mobile compatibility.",
+      "featured": false
+    },
+    {
+      "id": "devops-rpg",
+      "name": "DevOpsRPG",
+      "repository": "https://github.com/aliasfoxkde/DevOpsRPG",
+      "website": "https://devopsquest.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "Gamified DevOps learning experience; verify the published test count, curriculum coverage, and current deployment.",
+      "featured": false
+    },
+    {
+      "id": "cinematic-template-composer",
+      "name": "Cinematic Template Composer",
+      "repository": "https://github.com/aliasfoxkde/cinematic-template-composer",
+      "website": "https://main.cinematic-template-composer.pages.dev/",
+      "category": "creative-and-browser-native",
+      "status": "needs-review",
+      "summary": "Cinematic prompt composer with themed templates and ComfyUI dispatch; verify API requirements, asset provenance, and offline behavior.",
+      "featured": false
+    },
+    {
+      "id": "ai-svg-creator",
+      "name": "AI SVG Creator",
+      "repository": "https://github.com/aliasfoxkde/AI-SVG-Creator",
+      "category": "creative-and-browser-native",
+      "status": "experimental",
+      "summary": "Early Hugging Face-backed SVG generation experiment; Python and legacy browser workflows are not yet integrated or verified runnable.",
+      "featured": false
+    },
+    {
+      "id": "artcraft-webos-deploy",
+      "name": "ArtCraft WebOS deployment",
+      "repository": "https://github.com/aliasfoxkde/webos-deploy",
+      "category": "creative-and-browser-native",
+      "status": "internal-support",
+      "summary": "Build/deployment support for the ArtCraft WebOS demo; source/runtime ownership and deployment behavior still require repository-level review.",
+      "featured": false
+    },
+    {
+      "id": "webjs-os",
+      "name": "WebJS OS base",
+      "repository": "https://github.com/aliasfoxkde/WebJS_OS",
+      "category": "creative-and-browser-native",
+      "status": "fork-or-mirror",
+      "summary": "OS.js-derived upstream base; not verified as the ArtCraft WebOS application source.",
+      "featured": false
+    },
+    {
+      "id": "hermes-workspace-deploy",
+      "name": "Hermes Workspace Deploy",
+      "repository": "https://github.com/aliasfoxkde/hermes-workspace-deploy",
+      "category": "developer-infrastructure",
+      "status": "internal-support",
+      "summary": "Deployment and operations support repository; keep operational identifiers and credential-adjacent details sanitized.",
+      "featured": false
+    },
+    {
+      "id": "py7zip",
+      "name": "py7zip",
+      "repository": "https://github.com/aliasfoxkde/py7zip",
+      "category": "developer-infrastructure",
+      "status": "needs-review",
+      "summary": "Python 7-Zip wrapper; verify published package version, supported platforms, binary provenance, and licensing.",
+      "featured": false
+    },
+    {
+      "id": "back4app-vscode-integration",
+      "name": "Back4App VS Code Integration",
+      "repository": "https://github.com/aliasfoxkde/back4app_vscode_integration",
+      "category": "developer-infrastructure",
+      "status": "prototype",
+      "summary": "Early VS Code integration prototype; confirm current compatibility and maintenance status before recommending.",
+      "featured": false
+    },
+    {
+      "id": "atheon-benchmark",
+      "name": "Atheon Benchmark",
+      "repository": "https://github.com/aliasfoxkde/Atheon-Benchmark",
+      "category": "ai-infrastructure",
+      "status": "archived",
+      "summary": "Archived benchmark project retained for historical reference.",
+      "featured": false
+    },
+    {
+      "id": "atheon-scanner",
+      "name": "Atheon Scanner",
+      "repository": "https://github.com/aliasfoxkde/Atheon-Scanner",
+      "category": "developer-infrastructure",
+      "status": "archived",
+      "summary": "Archived scanner project; historical dependencies and placeholder clone references should not be treated as current.",
+      "featured": false
+    },
+    {
+      "id": "codewars",
+      "name": "Codewars",
+      "repository": "https://github.com/aliasfoxkde/Codewars",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "Repository appeared empty in the portfolio audit; confirm whether it should remain public or be removed from the inventory.",
+      "featured": false
+    },
+    {
+      "id": "min3js",
+      "name": "min3js",
+      "repository": "https://github.com/aliasfoxkde/min3js",
+      "category": "creative-and-browser-native",
+      "status": "fork-or-mirror",
+      "summary": "Three.js-derived repository; verify upstream relationship, local changes, and attribution before presenting as an original project.",
+      "featured": false
+    },
+    {
+      "id": "minecraft",
+      "name": "minecraft",
+      "repository": "https://github.com/aliasfoxkde/minecraft",
+      "category": "apps-and-platforms",
+      "status": "fork-or-mirror",
+      "summary": "Eaglercraft-related repository; verify upstream relationship, license, and redistribution rights before presenting as an original project.",
+      "featured": false
+    },
+    {
+      "id": "random-challenges",
+      "name": "RandomChallenges",
+      "repository": "https://github.com/aliasfoxkde/RandomChallenges",
+      "category": "apps-and-platforms",
+      "status": "experimental",
+      "summary": "Collection of learning exercises and programming challenges.",
+      "featured": false
+    },
+    {
+      "id": "snippets",
+      "name": "snippets",
+      "repository": "https://github.com/aliasfoxkde/snippets",
+      "category": "developer-infrastructure",
+      "status": "experimental",
+      "summary": "Personal code snippets and learning examples; add an index and clarify licensing.",
+      "featured": false
+    },
+    {
+      "id": "legacy-template",
+      "name": "Legacy template",
+      "repository": "https://github.com/aliasfoxkde/template",
+      "category": "developer-infrastructure",
+      "status": "needs-review",
+      "summary": "Legacy project template with update scripts that may overwrite local data; compare with Dark Factory before recommending.",
+      "featured": false
+    },
+    {
+      "id": "kona",
+      "name": "kona",
+      "repository": "https://github.com/aliasfoxkde/kona",
+      "category": "apps-and-platforms",
+      "status": "experimental",
+      "summary": "Small CLI wrapper around a Sudoku demo API; document API availability and expected behavior.",
+      "featured": false
+    },
+    {
+      "id": "personal-site",
+      "name": "Personal site and demo gallery",
+      "repository": "https://github.com/aliasfoxkde/aliasfoxkde.github.io",
+      "website": "https://aliasfoxkde.github.io/",
+      "category": "apps-and-platforms",
+      "status": "internal-support",
+      "summary": "Personal website and live-demo gallery; reconcile canonical project URLs and ownership with OpenPortfolio.",
+      "featured": false
     }
   ]
 }

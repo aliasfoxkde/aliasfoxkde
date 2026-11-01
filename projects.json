@@ -1,0 +1,160 @@
+{
+  "$schema": "./schemas/projects.schema.json",
+  "schema_version": 1,
+  "owner": "aliasfoxkde",
+  "last_reviewed": "2026-11-01",
+  "status_vocabulary": [
+    "maintained",
+    "active-development",
+    "prototype",
+    "experimental",
+    "archived",
+    "fork-or-mirror",
+    "internal-support",
+    "needs-review"
+  ],
+  "projects": [
+    {
+      "id": "amortyx",
+      "name": "Amortyx",
+      "repository": "https://github.com/aliasfoxkde/Amortyx",
+      "website": "https://amortyx.com/",
+      "category": "ai-infrastructure",
+      "status": "active-development",
+      "summary": "Local-first Rust router for coding-agent traffic, provider routing, prompt optimization, and usage observability.",
+      "featured": true
+    },
+    {
+      "id": "opencodifier",
+      "name": "OpenCodifier",
+      "repository": "https://github.com/aliasfoxkde/OpenCodifier",
+      "website": "https://opencodifier.pages.dev/",
+      "category": "ai-infrastructure",
+      "status": "active-development",
+      "summary": "Deterministic-first local decision runtime with CLI, HTTP, MCP, and WASM interfaces.",
+      "featured": true
+    },
+    {
+      "id": "agentverify",
+      "name": "AgentVerify",
+      "repository": "https://github.com/aliasfoxkde/AgentVerify",
+      "category": "ai-infrastructure",
+      "status": "needs-review",
+      "summary": "Outcome verification for action-taking agents, with explicit uncertainty states and evidence receipts.",
+      "featured": true
+    },
+    {
+      "id": "aegis",
+      "name": "Aegis",
+      "repository": "https://github.com/aliasfoxkde/aegis",
+      "category": "developer-infrastructure",
+      "status": "needs-review",
+      "summary": "Rust security scanning for repositories, CI/CD, and AI-assisted development.",
+      "featured": true
+    },
+    {
+      "id": "gitforge",
+      "name": "GitForge",
+      "repository": "https://github.com/aliasfoxkde/GitForge",
+      "category": "developer-infrastructure",
+      "status": "active-development",
+      "summary": "Self-hosted Git hosting and event-driven CI/CD platform.",
+      "featured": true
+    },
+    {
+      "id": "dark-factory",
+      "name": "Dark Factory",
+      "repository": "https://github.com/aliasfoxkde/dark-factory",
+      "category": "developer-infrastructure",
+      "status": "needs-review",
+      "summary": "AI-first repository template and development workflow.",
+      "featured": true
+    },
+    {
+      "id": "openzenith",
+      "name": "OpenZenith",
+      "repository": "https://github.com/aliasfoxkde/OpenZenith",
+      "website": "https://openzenith.org/",
+      "category": "data-and-compute",
+      "status": "needs-review",
+      "summary": "Geospatial SDK and APIs for elevation and terrain data.",
+      "featured": false
+    },
+    {
+      "id": "artcraft-webos",
+      "name": "ArtCraft WebOS",
+      "repository": "https://github.com/aliasfoxkde/WebJS_OS",
+      "website": "https://artcraft-webos.pages.dev/",
+      "category": "creative-and-browser-native",
+      "status": "needs-review",
+      "summary": "Browser-based desktop environment and creative application platform.",
+      "featured": false
+    },
+    {
+      "id": "station-awareness",
+      "name": "Station Awareness",
+      "website": "https://stationawareness.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "Offline-first facility inspection and monitoring application.",
+      "featured": false
+    },
+    {
+      "id": "taskwizer",
+      "name": "TaskWizer",
+      "website": "https://taskwizer-landing.pages.dev/",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "AI development platform for planning and shipping software.",
+      "featured": false
+    },
+    {
+      "id": "scratch-optimizer",
+      "name": "Scratch Optimizer",
+      "repository": "https://github.com/aliasfoxkde/scratch-optimizer",
+      "website": "https://scratch-optimizer.pages.dev/",
+      "category": "creative-and-browser-native",
+      "status": "active-development",
+      "summary": "Browser-based tooling for inspecting and optimizing Scratch projects.",
+      "featured": false
+    },
+    {
+      "id": "siliconrank",
+      "name": "SiliconRank",
+      "repository": "https://github.com/aliasfoxkde/SiliconRank",
+      "website": "https://siliconrank.pages.dev/",
+      "category": "data-and-compute",
+      "status": "needs-review",
+      "summary": "Hardware intelligence and normalized benchmark comparison.",
+      "featured": false
+    },
+    {
+      "id": "bolt-terminal",
+      "name": "Bolt Terminal",
+      "repository": "https://github.com/aliasfoxkde/bolt-terminal",
+      "website": "https://bolt-main.pages.dev/",
+      "category": "creative-and-browser-native",
+      "status": "prototype",
+      "summary": "Browser terminal environment with a Pyodide-based Python runtime.",
+      "featured": false
+    },
+    {
+      "id": "blender-wasm",
+      "name": "Blender WASM",
+      "repository": "https://github.com/aliasfoxkde/blender-wasm",
+      "category": "creative-and-browser-native",
+      "status": "prototype",
+      "summary": "Browser desktop/PWA scaffold; Blender core integration is not yet complete.",
+      "featured": false
+    },
+    {
+      "id": "openportfolio",
+      "name": "OpenPortfolio",
+      "repository": "https://github.com/aliasfoxkde/OpenPortfolio",
+      "category": "apps-and-platforms",
+      "status": "needs-review",
+      "summary": "Portfolio aggregation application; canonical relationship to the profile website requires review.",
+      "featured": false
+    }
+  ]
+}

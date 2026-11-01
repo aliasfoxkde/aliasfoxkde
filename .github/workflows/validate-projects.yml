@@ -1,0 +1,26 @@
+name: Validate portfolio manifest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "projects.json"
+      - "scripts/validate-projects.py"
+      - ".github/workflows/validate-projects.yml"
+  pull_request:
+    paths:
+      - "projects.json"
+      - "scripts/validate-projects.py"
+      - ".github/workflows/validate-projects.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate project manifest
+        run: python3 scripts/validate-projects.py

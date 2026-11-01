@@ -37,6 +37,8 @@ def main() -> None:
         data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         fail(f"cannot read {MANIFEST}: {exc}")
+    if not isinstance(data, dict):
+        fail("top-level manifest must be an object")
     if data.get("schema_version") != 1:
         fail("schema_version must be 1")
     if data.get("owner") != "aliasfoxkde":

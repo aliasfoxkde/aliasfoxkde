@@ -353,7 +353,7 @@ def render_featured_projects(catalog: dict[str, dict[str, object]]) -> str:
         status_label = STATUS_LABELS.get(status)
         if status_label is None:
             raise RuntimeError(f"Unknown featured project status for {name}: {status}")
-        safe_summary = html.escape(summary).replace("|", "&#124;").replace("\\n", " ")
+        safe_summary = re.sub(r"\\s+", " ", html.escape(summary)).replace("|", "&#124;")
         rows.append(f"| {link} | {category_label} | {status_label} | {safe_summary} |")
     if not rows:
         raise RuntimeError("Project catalog contains no featured projects")

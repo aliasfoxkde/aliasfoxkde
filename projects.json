@@ -171,7 +171,7 @@
       "name": "OpenCAD",
       "repository": "https://github.com/aliasfoxkde/OpenCAD",
       "category": "creative-and-browser-native",
-      "status": "needs-review",
+      "status": "prototype",
       "summary": "Browser-native parametric CAD prototype using custom TypeScript triangle-mesh generators and CSG; no OpenCASCADE/B-rep kernel or STEP/IGES support is currently included.",
       "featured": false
     },

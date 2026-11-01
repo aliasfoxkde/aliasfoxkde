@@ -85,9 +85,10 @@
       "name": "ArtCraft WebOS",
       "website": "https://artcraft-webos.pages.dev/",
       "category": "creative-and-browser-native",
-      "status": "needs-review",
-      "summary": "Browser-based desktop environment and creative application platform.",
-      "featured": false
+      "status": "prototype",
+      "summary": "Browser-based desktop/WebOS prototype for launching WASM apps in a desktop-like workspace; AI-native expansion is planned, not yet complete.",
+      "featured": false,
+      "repository": "https://github.com/aliasfoxkde/ArtCraft-WebOS"
     },
     {
       "id": "station-awareness",
@@ -171,7 +172,7 @@
       "repository": "https://github.com/aliasfoxkde/OpenCAD",
       "category": "creative-and-browser-native",
       "status": "needs-review",
-      "summary": "Browser-native parametric CAD prototype using an OpenCASCADE WASM kernel; validate modeling, collaboration, and format coverage.",
+      "summary": "Browser-native parametric CAD prototype using custom TypeScript triangle-mesh generators and CSG; no OpenCASCADE/B-rep kernel or STEP/IGES support is currently included.",
       "featured": false
     },
     {

@@ -83,7 +83,6 @@
     {
       "id": "artcraft-webos",
       "name": "ArtCraft WebOS",
-      "repository": "https://github.com/aliasfoxkde/WebJS_OS",
       "website": "https://artcraft-webos.pages.dev/",
       "category": "creative-and-browser-native",
       "status": "needs-review",

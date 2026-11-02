@@ -14,15 +14,59 @@ import update_profile_followers as profile
 
 
 class ProfileBadgeTests(unittest.TestCase):
-    def test_stats_renderer_uses_live_followers_and_no_static_snapshots(self) -> None:
-        rendered = profile.render_stats([], [])
+    def test_stats_renderer_restores_all_six_dynamic_badges(self) -> None:
+        repositories = [
+            {"fork": False, "stargazers_count": 8, "forks_count": 3},
+            {"fork": True, "stargazers_count": 900, "forks_count": 120},
+        ]
 
+        rendered = profile.render_stats([], repositories)
+
+        for label in (
+            "Profile views",
+            "Followers",
+            "Public repos",
+            "Original repos",
+            "Project stars",
+            "Project forks",
+        ):
+            self.assertIn(f'alt="{label}"', rendered)
         self.assertIn("github/followers/aliasfoxkde", rendered)
-        self.assertIn("label=Followers", rendered)
-        self.assertNotIn("Public%20repos", rendered)
-        self.assertNotIn("Original%20repos", rendered)
-        self.assertNotIn("Project%20stars", rendered)
-        self.assertNotIn("Project%20forks", rendered)
+        self.assertIn("profile-metrics.json", rendered)
+        self.assertIn("%24.public_repositories", rendered)
+        self.assertIn("%24.original_repositories", rendered)
+        self.assertIn("%24.project_stars", rendered)
+        self.assertIn("%24.project_forks", rendered)
+
+    def test_project_totals_exclude_forked_repositories(self) -> None:
+        repositories = [
+            {"fork": False, "stargazers_count": 8, "forks_count": 3},
+            {"fork": True, "stargazers_count": 900, "forks_count": 120},
+            {"fork": False, "stargazers_count": 2, "forks_count": 1},
+        ]
+
+        self.assertEqual(
+            profile.public_repository_metrics(repositories),
+            {
+                "schema_version": 1,
+                "public_repositories": 3,
+                "original_repositories": 2,
+                "project_stars": 10,
+                "project_forks": 4,
+            },
+        )
+
+    def test_metrics_writer_is_stable_when_counts_do_not_change(self) -> None:
+        repositories = [{"fork": False, "stargazers_count": 8, "forks_count": 3}]
+        with tempfile.TemporaryDirectory() as directory:
+            metrics_path = Path(directory) / "profile-metrics.json"
+            with patch.object(profile, "PUBLIC_METRICS", metrics_path):
+                self.assertTrue(profile.write_public_repository_metrics(repositories))
+                self.assertFalse(profile.write_public_repository_metrics(repositories))
+                self.assertEqual(
+                    json.loads(metrics_path.read_text(encoding="utf-8")),
+                    profile.public_repository_metrics(repositories),
+                )
 
 
 class FeaturedProjectTests(unittest.TestCase):
@@ -54,6 +98,7 @@ class LanguageChartTests(unittest.TestCase):
                 self.assertIn(relative_path, refresh_workflow)
 
         self.assertNotIn("assets/profile-language-mix.svg", readme + validate_workflow + refresh_workflow)
+        self.assertIn("assets/profile-metrics.json", readme + validate_workflow + refresh_workflow)
 
     def test_public_projects_are_complete_sorted_and_escaped(self) -> None:
         repositories = [

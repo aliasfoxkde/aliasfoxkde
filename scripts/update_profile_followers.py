@@ -12,7 +12,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 OWNER = "aliasfoxkde"
@@ -61,6 +61,7 @@ CHART_FILES = (
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-radar.svg",
     Path(__file__).resolve().parents[1] / "assets" / "profile-language-bars.svg",
 )
+PUBLIC_METRICS = Path(__file__).resolve().parents[1] / "assets" / "profile-metrics.json"
 
 
 def fetch_followers() -> list[str]:
@@ -282,13 +283,68 @@ def render_followers(followers: list[str]) -> str:
     return ",\n".join(", ".join(tags[start : start + 8]) for start in range(0, len(tags), 8))
 
 
+def public_repository_metrics(repositories: list[dict[str, object]]) -> dict[str, int]:
+    """Aggregate public owner-repository counts; project totals exclude forks."""
+    originals = [repository for repository in repositories if repository.get("fork") is False]
+    for repository in repositories:
+        for key in ("stargazers_count", "forks_count"):
+            value = repository.get(key)
+            if not isinstance(value, int) or value < 0:
+                raise RuntimeError(f"Repository metric {key} is invalid")
+    return {
+        "schema_version": 1,
+        "public_repositories": len(repositories),
+        "original_repositories": len(originals),
+        "project_stars": sum(int(repository["stargazers_count"]) for repository in originals),
+        "project_forks": sum(int(repository["forks_count"]) for repository in originals),
+    }
+
+
+def write_public_repository_metrics(repositories: list[dict[str, object]]) -> bool:
+    """Write stable daily totals for Shields dynamic JSON badges."""
+    content = json.dumps(public_repository_metrics(repositories), indent=2, sort_keys=True) + "\n"
+    PUBLIC_METRICS.parent.mkdir(parents=True, exist_ok=True)
+    if PUBLIC_METRICS.exists() and PUBLIC_METRICS.read_text(encoding="utf-8") == content:
+        return False
+    PUBLIC_METRICS.write_text(content, encoding="utf-8")
+    return True
+
+
 def render_stats(followers: list[str], repositories: list[dict[str, object]]) -> str:
-    """Render only the live follower badge; avoid regenerating stale numeric snapshots."""
-    return (
-        f'<a href="https://github.com/{OWNER}?tab=followers">'
-        f'<img alt="Followers" '
-        f'src="https://img.shields.io/github/followers/{OWNER}?style=flat-square&label=Followers" /></a>'
-    )
+    """Render six live/daily-refreshed badges; numeric totals come from public API data."""
+    del followers  # Follower names render in their own generated section below.
+    public_repository_metrics(repositories)  # Validate the input used for the generated JSON.
+    raw_metrics = f"https://raw.githubusercontent.com/{OWNER}/{OWNER}/main/assets/profile-metrics.json"
+    badges = [
+        (
+            f'<a href="https://github.com/{OWNER}"><img alt="Profile views" '
+            f'src="https://komarev.com/ghpvc/?username={OWNER}&amp;style=flat-square&amp;color=blue&amp;label=Profile%20views" /></a>'
+        ),
+        (
+            f'<a href="https://github.com/{OWNER}?tab=followers"><img alt="Followers" '
+            f'src="https://img.shields.io/github/followers/{OWNER}?style=flat-square&amp;label=Followers" /></a>'
+        ),
+    ]
+    for key, label, color in (
+        ("public_repositories", "Public repos", "5b6b8a"),
+        ("original_repositories", "Original repos", "6a5acd"),
+        ("project_stars", "Project stars", "d4a72c"),
+        ("project_forks", "Project forks", "328a72"),
+    ):
+        badge_url = "https://img.shields.io/badge/dynamic/json?" + urlencode(
+            {
+                "url": raw_metrics,
+                "query": f"$.{key}",
+                "label": label,
+                "style": "flat-square",
+                "color": color,
+            }
+        )
+        badges.append(
+            f'<a href="https://github.com/{OWNER}?tab=repositories"><img alt="{label}" '
+            f'src="{html.escape(badge_url, quote=True)}" /></a>'
+        )
+    return "\n  ".join(badges)
 
 
 def load_project_catalog() -> dict[str, dict[str, object]]:
@@ -639,6 +695,7 @@ def update_readme() -> bool:
     sponsors = fetch_public_sponsors()
     contributions = fetch_public_contributions()
     charts_changed = write_profile_charts(repositories, contributions)
+    metrics_changed = write_public_repository_metrics(repositories)
     generated = f"\n{render_followers(followers)}\n"
     updated = content[:start] + generated + content[end:]
     if updated.count(STATS_START) != 1 or updated.count(STATS_END) != 1:
@@ -675,7 +732,7 @@ def update_readme() -> bool:
     featured = f"\n{render_featured_projects(catalog)}\n"
     updated = updated[:featured_start] + featured + updated[featured_end:]
     readme_changed = updated != content
-    if not readme_changed and not charts_changed:
+    if not readme_changed and not charts_changed and not metrics_changed:
         print(
         f"Profile data already current ({len(followers)} public followers, "
             f"{len(repositories)} public repositories, {len(sponsors)} public sponsors)."
@@ -689,8 +746,9 @@ def update_readme() -> bool:
         f" Listed {sum(repository.get('fork') is False for repository in repositories)} public project repositories."
         f" Listed {len(sponsors)} public sponsors."
         f" Profile charts {'updated' if charts_changed else 'already current'}."
+        f" Repository metrics {'updated' if metrics_changed else 'already current'}."
     )
-    return readme_changed or charts_changed
+    return readme_changed or charts_changed or metrics_changed
 
 
 if __name__ == "__main__":

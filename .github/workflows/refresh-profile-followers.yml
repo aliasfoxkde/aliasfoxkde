@@ -111,7 +111,7 @@ jobs:
             return 1
           }
 
-          if git diff --quiet -- README.md assets/profile-activity-mix.svg assets/profile-language-radar.svg assets/profile-language-bars.svg; then
+          if git diff --quiet -- README.md assets/profile-metrics.json assets/profile-activity-mix.svg assets/profile-language-radar.svg assets/profile-language-bars.svg; then
             if [[ -n "$pr_number" ]]; then
               pr_sha="$(gh pr view "$pr_number" --json headRefOid --jq .headRefOid)"
               run_required_workflow validate-profile.yml "$branch" "$pr_sha"
@@ -128,7 +128,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/profile-activity-mix.svg assets/profile-language-radar.svg assets/profile-language-bars.svg
+          git add README.md assets/profile-metrics.json assets/profile-activity-mix.svg assets/profile-language-radar.svg assets/profile-language-bars.svg
           git commit -m "chore(profile): refresh dynamic metrics"
 
           if [[ "$BRANCH_EXISTS" == "true" ]]; then

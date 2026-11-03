@@ -25,6 +25,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import json
           import xml.etree.ElementTree as ET
 
           readme = Path("README.md").read_text(encoding="utf-8")
@@ -49,5 +50,18 @@ jobs:
               if not root.tag.endswith("svg"):
                   raise SystemExit(f"{chart} does not contain an SVG root")
 
-          print("README markers and generated SVGs are valid")
+          metrics = json.loads(Path("assets/profile-metrics.json").read_text(encoding="utf-8"))
+          required_metrics = {
+              "schema_version",
+              "public_repositories",
+              "original_repositories",
+              "project_stars",
+              "project_forks",
+          }
+          if set(metrics) != required_metrics or metrics["schema_version"] != 1:
+              raise SystemExit("profile-metrics.json does not match the supported schema")
+          if any(not isinstance(metrics[key], int) or metrics[key] < 0 for key in required_metrics - {"schema_version"}):
+              raise SystemExit("profile metrics must contain non-negative integers")
+
+          print("README markers, generated SVGs, and public metrics are valid")
           PY
